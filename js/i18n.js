@@ -97,6 +97,51 @@ if (typeof window.I18nManager === 'undefined') {
     }
 
     /**
+     * Loads shelter data and initializes disaster dropdown filter
+     */
+    async function initShelterMap() {
+      try {
+        // 1. Fetch the 22.7 MB minified shelter GeoJSON
+        const response = await fetch('./locators/content/shelters.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        
+        const shelterData = await response.json();
+
+        // 2. Pass data to your EvacuationMap instance
+        if (window.evacuationMap) {
+          window.evacuationMap.setShelterData(shelterData);
+        }
+
+        // 3. Attach change listener to disaster dropdown
+        setupDisasterDropdownListener();
+      } catch (error) {
+        console.error('Failed to load shelters.json:', error);
+      }
+    }
+
+    /**
+     * Handles dropdown selection change to filter shelters on the map
+     */
+    function setupDisasterDropdownListener() {
+      const disasterSelect = document.getElementById('disasterSelect');
+      if (!disasterSelect) return;
+
+      disasterSelect.addEventListener('change', (event) => {
+        const selectedCategory = event.target.value;
+
+        // Trigger Leaflet map filter re-render in map.js
+        if (window.evacuationMap && typeof window.evacuationMap.filterByDisaster === 'function') {
+          window.evacuationMap.filterByDisaster(selectedCategory);
+        }
+      });
+    }
+
+    // Automatically initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      initShelterMap();
+    });
+
+    /**
      * Updates all HTML elements with a `data-i18n` attribute.
      */
     updateDOM() {
