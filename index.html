@@ -58,7 +58,19 @@
     </div>
 
     <!-- Tab 2: Evacuation Map Container -->
-    <div id="mapSection" class="tab-content" style="display: none;">      
+    <div id="mapSection" class="tab-content" style="display: none;">  
+      <!-- Disaster Filter Bar -->
+      <div id="disaster-filter-bar" class="filter-container">
+        <button class="filter-btn active" data-category="all">All Shelters</button>
+        <button class="filter-btn" data-category="quake">地震 (Earthquake)</button>
+        <button class="filter-btn" data-category="tsunami">津波 (Tsunami)</button>
+        <button class="filter-btn" data-category="flood">洪水 (Flood)</button>
+        <button class="filter-btn" data-category="landslide">土砂災害 (Landslide)</button>
+        <button class="filter-btn" data-category="fire">火災 (Fire)</button>
+        <button class="filter-btn" data-category="surge">高潮 (Storm Surge)</button>
+        <button class="filter-btn" data-category="inland_flood">内水氾濫 (Inland Flood)</button>
+        <button class="filter-btn" data-category="volcano">火山 (Volcano)</button>
+      </div>
       <div id="mapArea" style="height: 500px; width: 100%; border-radius: 8px;"></div>
     </div>
   </main>
