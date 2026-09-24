@@ -41,7 +41,7 @@
       "title": "Town Broadcast (防災行政無線)",
       "icon": "📢",
       "alarm": {
-        "sound_id": "bousai_speaker",
+        "sound_id": "town_broadcast",
         "title": "Disaster Wireless Speaker",
         "jp_phrase": "「緊急放送。避難指示が発令されました。」",
         "meaning": "Emergency Broadcast: Evacuation Instruction (Level 4) has been issued."
