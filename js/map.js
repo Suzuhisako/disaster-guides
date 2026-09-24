@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Evacuation Map Application Logic (Canvas Mode)
+   Evacuation Map Application Logic (Canvas Mode with Disaster Filtering)
    ========================================================================== */
 if (typeof window.EvacuationMap === 'undefined') {
   class EvacuationMap {
@@ -8,6 +8,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.shelterLayer = null;
       this.userLocationLayer = null;
       this.shelterData = null;
+      this.selectedCategory = 'all'; // Default: show all shelters
     }
 
     /**
@@ -45,6 +46,14 @@ if (typeof window.EvacuationMap === 'undefined') {
       }
     }
 
+    /**
+     * Set active disaster category filter ('all', 'quake', 'tsunami', 'flood', etc.)
+     */
+    filterByDisaster(category) {
+      this.selectedCategory = category || 'all';
+      this.renderShelters();
+    }
+
     renderShelters() {
       const data = this.shelterData || (window.i18n ? window.i18n.shelterData : null);
       if (!data || !this.map) return;
@@ -58,6 +67,13 @@ if (typeof window.EvacuationMap === 'undefined') {
 
       this.shelterLayer = L.geoJSON(data, {
         renderer: canvasRenderer,
+
+        // --- Filter features dynamically by selected disaster ---
+        filter: (feature) => {
+          if (this.selectedCategory === 'all') return true;
+          const disasters = feature.properties ? feature.properties.disasters : [];
+          return Array.isArray(disasters) && disasters.includes(this.selectedCategory);
+        },
 
         pointToLayer: (feature, latlng) => {
           return L.circleMarker(latlng, {
@@ -79,7 +95,7 @@ if (typeof window.EvacuationMap === 'undefined') {
           if (props.name && typeof props.name === 'object') {
             shelterName = props.name[currentLang] || props.name['en'] || props.jp_name || props.name['jp'];
           } else {
-            shelterName = props.jp_name || props.name || '避難所';
+            shelterName = props.name || props.jp_name || '避難所';
           }
 
           // --- 2. Multilingual Address Resolution ---
@@ -90,30 +106,17 @@ if (typeof window.EvacuationMap === 'undefined') {
             shelterAddress = props.address || '';
           }
 
-          // --- 3. Facility Type Label Resolution ---
-          let shelterType = '';
-          if (props.type && typeof props.type === 'object') {
-            shelterType = props.type[currentLang] || props.type['en'] || props.type['jp'] || '';
-          } else if (typeof props.type === 'string') {
-            shelterType = props.type;
-          }
-
-          // Multilingual Default Label
-          if (!shelterType) {
-            if (currentLang === 'zh') {
-              shelterType = '指定紧急避难场所 (即刻避难)';
-            } else if (currentLang === 'en') {
-              shelterType = 'Emergency Evacuation Site (Immediate)';
-            } else {
-              shelterType = '指定緊急避難場所';
-            }
-          }
+          // --- 3. Format Disaster Category Badges ---
+          const disasters = props.disasters || [];
+          const disasterBadges = disasters.map(d => 
+            `<span style="display:inline-block; background:#e2e8f0; color:#334155; font-size:0.68rem; padding:2px 5px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${d}</span>`
+          ).join('');
 
           const popupContent = `
             <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
               <h4 style="margin: 0 0 6px 0; color: #d9534f; font-size: 0.95rem; font-weight: bold;">📍 ${shelterName}</h4>
               ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #555; line-height: 1.3;">${shelterAddress}</p>` : ''}
-              <span style="display: inline-block; background: #eef2f5; color: #475569; font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 500;">${shelterType}</span>
+              ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
             </div>
           `;
 
