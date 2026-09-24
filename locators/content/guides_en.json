@@ -5,7 +5,7 @@
       "title": "Earthquake (地震)",
       "icon": "🌋",
       "alarm": {
-        "sound_id": "j_alert",
+        "sound_id": "earthquake_j_alert",
         "title": "J-Alert Early Warning",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
         "meaning": "Emergency Earthquake Early Warning: Strong shaking expected imminent."
