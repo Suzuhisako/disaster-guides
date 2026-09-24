@@ -148,44 +148,93 @@ class GuideRenderer {
 
   /**
    * Synthesizes distinct emergency warning alarms using Web Audio API (~6-second duration)
-   * @param {string} soundId - 'earthquake_j_alert', 'tsunami_siren', or 'town_broadcast'
+   * @param {string} soundId - 'earthquake_j_alert', 'tsunami_siren', 'town_broadcast', or 'evacuation_chime'
    */
   playSynthesizedAlarm(soundId) {
     if (!this.audioCtx) return;
 
     const now = this.audioCtx.currentTime;
 
-    if (soundId === 'earthquake_j_alert') {
-      // 1. Earthquake Early Warning: Repeating 3-Tone Chime Pattern ("Ponyon")
-      const triad = [440, 554.37, 659.25];
-      const repeatCount = 8; // ~6 seconds
+    if (soundId === 'earthquake_j_alert' || soundId === 'earthquake') {
+      // -------------------------------------------------------------
+      // 1. Japanese EEW (緊急地震速報): Authentic 3-Chord Alternating Triad
+      // Alternates between C5-E5-G5 and A4-C#5-E5 with crisp square/sine overlay
+      // -------------------------------------------------------------
+      const chord1 = [523.25, 659.25, 783.99]; // C5, E5, G5
+      const chord2 = [440.00, 554.37, 659.25]; // A4, C#5, E5
+      const totalRounds = 6; // ~6 seconds
 
-      for (let i = 0; i < repeatCount; i++) {
-        const cycleStart = now + (i * 0.75);
-
-        triad.forEach((freq, index) => {
+      for (let r = 0; r < totalRounds; r++) {
+        const roundStart = now + (r * 0.95);
+        
+        // Play Chord 1
+        chord1.forEach(freq => {
           const osc = this.audioCtx.createOscillator();
           const gain = this.audioCtx.createGain();
-          const noteStart = cycleStart + (index * 0.18);
-
           osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, roundStart);
+          gain.gain.setValueAtTime(0.2, roundStart);
+          gain.gain.exponentialRampToValueAtTime(0.001, roundStart + 0.4);
+          osc.connect(gain);
+          gain.connect(this.audioCtx.destination);
+          osc.start(roundStart);
+          osc.stop(roundStart + 0.4);
+          this.activeOscillators.push(osc);
+        });
+
+        // Play Chord 2
+        chord2.forEach(freq => {
+          const osc = this.audioCtx.createOscillator();
+          const gain = this.audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, roundStart + 0.45);
+          gain.gain.setValueAtTime(0.2, roundStart + 0.45);
+          gain.gain.exponentialRampToValueAtTime(0.001, roundStart + 0.85);
+          osc.connect(gain);
+          gain.connect(this.audioCtx.destination);
+          osc.start(roundStart + 0.45);
+          osc.stop(roundStart + 0.85);
+          this.activeOscillators.push(osc);
+        });
+      }
+
+    } else if (soundId === 'town_broadcast' || soundId === 'evacuation_chime') {
+      // -------------------------------------------------------------
+      // 2. Municipal Outdoor Broadcast (防災行政無線): 4-Note Loudspeaker Chime
+      // High-pitched, warm Westminster-style bell sequence (A4 -> C#5 -> E5 -> A5)
+      // -------------------------------------------------------------
+      const bellNotes = [440.00, 554.37, 659.25, 880.00]; // Do - Mi - Sol - Do
+      const repeatCount = 3;
+
+      for (let i = 0; i < repeatCount; i++) {
+        const sequenceStart = now + (i * 2.0);
+
+        bellNotes.forEach((freq, index) => {
+          const osc = this.audioCtx.createOscillator();
+          const gain = this.audioCtx.createGain();
+          const noteStart = sequenceStart + (index * 0.42);
+
+          osc.type = 'sine'; // Pure bell tone
           osc.frequency.setValueAtTime(freq, noteStart);
 
+          // Smooth bell decay envelope
           gain.gain.setValueAtTime(0.01, noteStart);
-          gain.gain.exponentialRampToValueAtTime(0.35, noteStart + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.16);
+          gain.gain.linearRampToValueAtTime(0.35, noteStart + 0.04);
+          gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.8);
 
           osc.connect(gain);
           gain.connect(this.audioCtx.destination);
 
           osc.start(noteStart);
-          osc.stop(noteStart + 0.17);
+          osc.stop(noteStart + 0.82);
           this.activeOscillators.push(osc);
         });
       }
 
     } else if (soundId === 'tsunami_siren') {
-      // 2. Tsunami Warning: Coastal Undulating Pitch Siren
+      // -------------------------------------------------------------
+      // 3. Tsunami Coastal Siren: Undulating Long Pitch Wave
+      // -------------------------------------------------------------
       const osc = this.audioCtx.createOscillator();
       const gain = this.audioCtx.createGain();
 
@@ -211,34 +260,20 @@ class GuideRenderer {
       this.activeOscillators.push(osc);
 
     } else {
-      // 3. Town Broadcast / Evacuation Radio: Municipal Outdoor Speaker Chime
-      // Classic 4-tone bell chime sequence: C5 -> E5 -> G5 -> C6
-      const chimeNotes = [523.25, 659.25, 783.99, 1046.50];
-      const repeatCount = 3;
-
-      for (let i = 0; i < repeatCount; i++) {
-        const sequenceStart = now + (i * 2.0);
-
-        chimeNotes.forEach((freq, index) => {
-          const osc = this.audioCtx.createOscillator();
-          const gain = this.audioCtx.createGain();
-          const noteStart = sequenceStart + (index * 0.4);
-
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(freq, noteStart);
-
-          gain.gain.setValueAtTime(0.01, noteStart);
-          gain.gain.exponentialRampToValueAtTime(0.3, noteStart + 0.05);
-          gain.gain.exponentialRampToValueAtTime(0.001, noteStart + 0.38);
-
-          osc.connect(gain);
-          gain.connect(this.audioCtx.destination);
-
-          osc.start(noteStart);
-          osc.stop(noteStart + 0.39);
-          this.activeOscillators.push(osc);
-        });
-      }
+      // -------------------------------------------------------------
+      // 4. Default Emergency Beep (Fallback)
+      // -------------------------------------------------------------
+      const osc = this.audioCtx.createOscillator();
+      const gain = this.audioCtx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(880, now);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 2.0);
+      osc.connect(gain);
+      gain.connect(this.audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 2.0);
+      this.activeOscillators.push(osc);
     }
 
     // Auto-reset button state after playback
