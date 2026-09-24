@@ -1,0 +1,16 @@
+{
+  "app": {
+    "title": "防灾微指南",
+    "subtitle": "离线应急指南与警报解析"
+  },
+  "nav": {
+    "guides": "避难指南",
+    "decoders": "警报解析",
+    "map": "避难所地图"
+  },
+  "labels": {
+    "key_action": "关键行动",
+    "listen_sound": "播放警报音"
+  }
+}
+

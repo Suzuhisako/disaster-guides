@@ -1,0 +1,68 @@
+{
+  "events": [
+    {
+      "id": "earthquake",
+      "title": "Earthquake (地震)",
+      "icon": "🌋",
+      "alarm": {
+        "sound_id": "j_alert",
+        "title": "J-Alert Early Warning",
+        "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
+        "meaning": "Emergency Earthquake Early Warning: Strong shaking expected imminent."
+      },
+      "immediate_action": "Drop, Cover, and Hold On. Protect your head immediately.",
+      "steps": [
+        "Take shelter under a sturdy table or cover your head with a bag/pillow.",
+        "Stay away from glass windows, unanchored bookcases, and tall furniture.",
+        "Do not rush outside while shaking is active; falling tiles and glass are dangerous.",
+        "When shaking stops, extinguish open flames and open doors to secure an exit route."
+      ]
+    },
+    {
+      "id": "tsunami",
+      "title": "Tsunami Warning (津波警報)",
+      "icon": "🌊",
+      "alarm": {
+        "sound_id": "tsunami_siren",
+        "title": "Tsunami Coastal Siren",
+        "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
+        "meaning": "Tsunami Warning: Continuous long siren tones indicate immediate evacuation to high ground."
+      },
+      "immediate_action": "Evacuate immediately to high ground or a Tsunami Evacuation Building.",
+      "steps": [
+        "If you feel strong or long shaking near the coast, evacuate before official orders.",
+        "Move on foot to higher ground (3rd floor or higher of a reinforced concrete building).",
+        "Avoid using cars, as traffic gridlock can prevent evacuation.",
+        "Stay on high ground; tsunamis arrive in multiple waves over several hours."
+      ]
+    },
+    {
+      "id": "bousai_broadcast",
+      "title": "Town Broadcast (防災行政無線)",
+      "icon": "📢",
+      "alarm": {
+        "sound_id": "bousai_speaker",
+        "title": "Disaster Wireless Speaker",
+        "jp_phrase": "「緊急放送。避難指示が発令されました。」",
+        "meaning": "Emergency Broadcast: Evacuation Instruction (Level 4) has been issued."
+      },
+      "immediate_action": "Listen carefully to community speakers and follow local instructions.",
+      "steps": [
+        "Look for local officials or shelter guidance if audio is muffled by wind or rain.",
+        "Prepare emergency grab-bag and head to the nearest evacuation shelter."
+      ]
+    },
+    {
+      "id": "heatwave",
+      "title": "Extreme Heat & Stroke (熱中症)",
+      "icon": "☀️",
+      "alarm": null,
+      "immediate_action": "Move to an air-conditioned room and hydrate with water and electrolytes.",
+      "steps": [
+        "Use air conditioning continuously during Heat Stroke Alerts (熱中症警戒アラート).",
+        "Drink fluids frequently even before feeling thirsty.",
+        "If someone is dizzy or confused, loosen their clothing and apply ice to their neck and armpits."
+      ]
+    }
+  ]
+}

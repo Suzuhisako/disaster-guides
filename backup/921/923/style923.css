@@ -1,0 +1,275 @@
+/* ==========================================================================
+   Base Styles & Variables
+   ========================================================================== */
+:root {
+  --primary-color: #d9534f;
+  --primary-dark: #c9302c;
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --text-main: #212529;
+  --text-muted: #6c757d;
+  --border-color: #e9ecef;
+  
+  --alarm-bg: #fff5f5;
+  --alarm-border: #f5c6cb;
+  --alarm-text: #721c24;
+
+  --action-bg: #fff3cd;
+  --action-border: #ffeba2;
+  --action-text: #856404;
+
+  --border-radius: 8px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.5;
+  padding-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Header & Language Selector
+   ========================================================================== */
+.app-header {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.lang-picker select {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+  background-color: #ffffff;
+  color: var(--text-main);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   2-Tab Navigation Bar
+   ========================================================================== */
+.tab-nav {
+  display: flex;
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--border-color);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 0.85rem 1rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+  color: var(--primary-color);
+}
+
+.tab-btn.active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background-color: #fafafa;
+}
+
+/* ==========================================================================
+   Main Container
+   ========================================================================== */
+.main-container {
+  max-width: 800px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+.tab-content {
+  display: block;
+}
+
+/* ==========================================================================
+   Disaster Guide Cards
+   ========================================================================== */
+.guide-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.guide-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  box-shadow: var(--box-shadow);
+}
+
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.guide-icon {
+  font-size: 1.75rem;
+}
+
+.guide-header h2 {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Alarm Banner (Embedded Audio Player)
+   ========================================================================== */
+.alarm-banner {
+  background-color: var(--alarm-bg);
+  border: 1px solid var(--alarm-border);
+  border-radius: 6px;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.alarm-info {
+  flex: 1;
+}
+
+.alarm-title {
+  font-weight: 700;
+  color: var(--alarm-text);
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.jp-phrase {
+  font-size: 0.85rem;
+  color: var(--alarm-text);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.alarm-meaning {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.btn-play-alarm {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 0.85rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+.btn-play-alarm:hover {
+  background-color: var(--primary-dark);
+}
+
+/* ==========================================================================
+   Immediate Action Callout Box
+   ========================================================================== */
+.immediate-box {
+  background-color: var(--action-bg);
+  border-left: 4px solid var(--action-text);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.immediate-box strong {
+  color: var(--action-text);
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.immediate-box p {
+  font-size: 0.95rem;
+  color: #495057;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Action Steps List
+   ========================================================================== */
+.steps-list {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.steps-list li {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Utilities & Error Messages
+   ========================================================================== */
+.error-msg {
+  color: var(--primary-color);
+  text-align: center;
+  padding: 2rem;
+  font-weight: 600;
+}
+
+#mapArea {
+  width: 100%;
+  height: calc(100vh - 60px); /* Adjust based on your header height */
+  position: relative;
+  z-index: 1;
+}
+
+/* Force interactive clicks on dynamically created Leaflet canvas layers */
+.leaflet-container canvas {
+  pointer-events: auto !important;
+}
+
+.leaflet-interactive {
+  cursor: pointer;
+}

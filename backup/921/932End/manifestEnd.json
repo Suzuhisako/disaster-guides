@@ -1,0 +1,29 @@
+{
+  "short_name": "DisasterGuide",
+  "name": "Japan Emergency & Disaster Guide",
+  "description": "Offline-first emergency guides, disaster alarms, and evacuation map wayfinder for visitors in Japan.",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": ".icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "./index.html",
+  "background_color": "#ffffff",
+  "theme_color": "#d9534f",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": [
+    "utilities",
+    "travel",
+    "navigation"
+  ]
+}
