@@ -73,9 +73,29 @@ if (typeof window.I18nManager === 'undefined') {
           window.evacuationMap.initMap('mapArea');
           window.evacuationMap.setShelterData(this.shelterData);
         }
+
+        // Attach disaster category listener after shelter setup
+        this.setupDisasterDropdownListener();
+
       } catch (err) {
         console.error('Error fetching shelter dataset:', err);
       }
+    }
+
+    /**
+     * Listens for disaster hazard selection changes in the UI dropdown.
+     */
+    setupDisasterDropdownListener() {
+      const disasterSelect = document.getElementById('disasterSelect');
+      if (!disasterSelect) return;
+
+      disasterSelect.addEventListener('change', (event) => {
+        const selectedCategory = event.target.value;
+
+        if (window.evacuationMap && typeof window.evacuationMap.filterByDisaster === 'function') {
+          window.evacuationMap.filterByDisaster(selectedCategory);
+        }
+      });
     }
 
     /**
@@ -95,51 +115,6 @@ if (typeof window.I18nManager === 'undefined') {
       }
       return val;
     }
-
-    /**
-     * Loads shelter data and initializes disaster dropdown filter
-     */
-    async function initShelterMap() {
-      try {
-        // 1. Fetch the 22.7 MB minified shelter GeoJSON
-        const response = await fetch('./locators/content/shelters.json');
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        
-        const shelterData = await response.json();
-
-        // 2. Pass data to your EvacuationMap instance
-        if (window.evacuationMap) {
-          window.evacuationMap.setShelterData(shelterData);
-        }
-
-        // 3. Attach change listener to disaster dropdown
-        setupDisasterDropdownListener();
-      } catch (error) {
-        console.error('Failed to load shelters.json:', error);
-      }
-    }
-
-    /**
-     * Handles dropdown selection change to filter shelters on the map
-     */
-    function setupDisasterDropdownListener() {
-      const disasterSelect = document.getElementById('disasterSelect');
-      if (!disasterSelect) return;
-
-      disasterSelect.addEventListener('change', (event) => {
-        const selectedCategory = event.target.value;
-
-        // Trigger Leaflet map filter re-render in map.js
-        if (window.evacuationMap && typeof window.evacuationMap.filterByDisaster === 'function') {
-          window.evacuationMap.filterByDisaster(selectedCategory);
-        }
-      });
-    }
-
-    // Automatically initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', () => {
-      initShelterMap();
-    });
 
     /**
      * Updates all HTML elements with a `data-i18n` attribute.
@@ -163,12 +138,22 @@ if (typeof window.I18nManager === 'undefined') {
   window.I18nManager = I18nManager;
   window.i18n = new I18nManager();
 
-  // Auto-initialize default language and shelter data on DOM load
+  // Auto-initialize default language, shelter data, and tab listeners on DOM load
   document.addEventListener('DOMContentLoaded', () => {
     if (window.i18n) {
       const savedLang = localStorage.getItem('app_lang') || 'en';
       window.i18n.setLanguage(savedLang);
       window.i18n.loadShelterData();
+    }
+
+    // Tab switch listener: Force Leaflet map resize when map tab becomes active
+    const mapTabBtn = document.querySelector('[data-tab="mapSection"]') || document.getElementById('mapTabBtn');
+    if (mapTabBtn) {
+      mapTabBtn.addEventListener('click', () => {
+        if (window.evacuationMap) {
+          window.evacuationMap.refreshMapSize();
+        }
+      });
     }
   });
 }
