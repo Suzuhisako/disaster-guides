@@ -77,13 +77,30 @@ self.addEventListener('fetch', (event) => {
   // 1. Navigation Requests (Page reloads / offline entry)
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      caches.match(event.request).then((cachedResponse) => {
-        return cachedResponse || 
-               caches.match('./index.html') || 
-               caches.match('index.html') || 
-               caches.match('./') || 
-               fetch(event.request);
-      })
+      (async () => {
+        // Try exact request match first
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
+
+        // Fallback checks for GitHub Pages subfolder routing
+        const cache = await caches.open(CACHE_NAME);
+        
+        // Try stored relative paths
+        const fallback = 
+          (await cache.match('./index.html')) ||
+          (await cache.match('index.html')) ||
+          (await cache.match('./'));
+
+        if (fallback) return fallback;
+
+        // If network is available, fetch from network
+        try {
+          return await fetch(event.request);
+        } catch (err) {
+          // Final safety fallback
+          return (await cache.match('./index.html'));
+        }
+      })()
     );
     return;
   }
