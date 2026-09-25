@@ -1,11 +1,10 @@
-const CACHE_NAME = 'disaster-guide-v5'; // Bumped version!
+const CACHE_NAME = 'disaster-guide-v6'; // Bumped version!
 
-// Core assets to cache
 const PRECACHE_ASSETS = [
   './',
   './index.html',
   'index.html',
-  './css/style.css',
+  './css/style.css', // Confirm exact filename
   './js/i18n.js',
   './js/guides.js',
   './js/map.js',
@@ -28,20 +27,19 @@ const PRECACHE_ASSETS = [
 
 /**
  * Service Worker Installation
- * Uses individual cache.add() so a single missing file won't cancel the entire cache.
+ * Individual cache.add() promises so a single 404 does NOT break the entire cache.
  */
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async (cache) => {
-      console.log('[SW] Resiliently pre-caching emergency guide assets...');
+      console.log('[SW] Resilient pre-caching started...');
       
-      // Individual cache promises with error handling
       const cachePromises = PRECACHE_ASSETS.map(async (url) => {
         try {
           await cache.add(url);
-          console.log(`[SW] Cached: ${url}`);
+          console.log(`[SW] Successfully cached: ${url}`);
         } catch (err) {
-          console.warn(`[SW] WARNING: Could not cache asset "${url}". Check file path or URL.`, err);
+          console.error(`[SW] MISSING FILE ALERT: Failed to cache "${url}". Check if this file exists or if path is correct!`, err);
         }
       });
 
@@ -52,7 +50,6 @@ self.addEventListener('install', (event) => {
 
 /**
  * Service Worker Activation
- * Cleans up old cache versions to keep storage efficient.
  */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
@@ -77,7 +74,7 @@ self.addEventListener('fetch', (event) => {
 
   const requestUrl = new URL(event.request.url);
 
-  // 1. Navigation Requests (Page reloads / initial load offline)
+  // 1. Navigation Requests (Page reloads / offline entry)
   if (event.request.mode === 'navigate') {
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
@@ -91,7 +88,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2. Stale-While-Revalidate for JSON content (Guides, Shelters, UI)
+  // 2. Stale-While-Revalidate for JSON files
   if (requestUrl.pathname.endsWith('.json')) {
     event.respondWith(
       caches.open(CACHE_NAME).then(async (cache) => {
@@ -111,7 +108,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Cache-First for static assets (CSS, JS, CDNs, Images)
+  // 3. Cache-First for standard assets
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) return cachedResponse;
