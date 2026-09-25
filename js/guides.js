@@ -13,14 +13,21 @@ class EmergencyGuides {
    * Initializes the module by fetching JSON guide content and rendering to DOM
    */
   async init() {
-    if (!this.container) return;
-
+    if (!this.container) {
+      console.warn('EmergencyGuides: Container element not found in DOM.');
+      return;
+    }
+  
     try {
       const response = await fetch(this.contentPath);
       if (!response.ok) {
         throw new Error(`Failed to load guide data: ${response.status}`);
       }
-      this.guidesData = await response.json();
+      const data = await response.json();
+      
+      // Extract the array whether it's wrapped in { events: [...] } or top-level [...]
+      this.guidesData = Array.isArray(data) ? data : (data.events || []);
+      
       this.render();
     } catch (error) {
       console.error('Error initializing Emergency Guides:', error);
