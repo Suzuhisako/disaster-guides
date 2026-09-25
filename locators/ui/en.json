@@ -1,14 +1,59 @@
-{
-  "app": {
-    "title": "Disaster Micro-Guide",
-    "subtitle": "Offline Emergency Guides & Siren Decoders"
+[
+  {
+    "id": "earthquake_event",
+    "title": "Earthquake Early Warning",
+    "alarm": {
+      "title": "Emergency Earthquake Early Warning (EEW)",
+      "jp_phrase": "緊急地震速報 (Kinkyū Jishin Sokuhō)",
+      "sound_description": "A rapid, repeating 3-chord chime ('Ponyon, Ponyon') on TVs and phones, followed by spoken Japanese: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai' (Emergency earthquake warning. Prepare for strong shaking)."
+    },
+    "steps": [
+      "Drop, Cover, and Hold On immediately under a sturdy table or desk.",
+      "Protect your head and neck from falling objects.",
+      "If outdoors, move away from glass windows, brick walls, and power lines.",
+      "Do not rush outside; stay put until shaking stops."
+    ]
   },
-  "nav": {
-    "guides": "Emergency Guides",
-    "map": "Evacuation Map"
+  {
+    "id": "civil_protection_event",
+    "title": "Civil Protection Warning (J-Alert)",
+    "alarm": {
+      "title": "Armed Attack / Missile Launch Alert",
+      "jp_phrase": "国民保護情報 (Kokumin Hogo Jōhō)",
+      "sound_description": "An intense, high-pitched wailing siren or repeating 2-tone buzzer, followed by spoken Japanese announcements: 'Missairu hassha' (Missile launch) or 'Kainai ni taikiken kōkū' (Air space entry)."
+    },
+    "steps": [
+      "If outdoors, take shelter immediately inside a concrete building or underground subway/basement.",
+      "If indoors, stay away from windows, close curtains, and lie down in a room without windows.",
+      "Listen to local authorities for follow-up instructions."
+    ]
   },
-  "labels": {
-    "key_action": "Key Action",
-    "listen_sound": "Play Sound"
-  } 
-}
+  {
+    "id": "tsunami_event",
+    "title": "Tsunami Warning",
+    "alarm": {
+      "title": "Major Tsunami / Tsunami Warning",
+      "jp_phrase": "大津波警報 (Ōtsunami Keihō) / 津波警報 (Tsunami Keihō)",
+      "sound_description": "Continuous long undulating sirens (5-second tone, 6-second break, repeating) emitted from coastal loudspeakers, accompanied by loud voice announcements."
+    },
+    "steps": [
+      "Evacuate immediately to high ground or a designated Tsunami Evacuation Building.",
+      "Do not wait to see the water—tsunamis travel faster than a person can run.",
+      "Stay away from coastal areas and rivers until all warnings are officially lifted."
+    ]
+  },
+  {
+    "id": "town_broadcast_event",
+    "title": "Municipal / Town Radio",
+    "alarm": {
+      "title": "Disaster Administration Radio",
+      "jp_phrase": "防災行政無線 (Bōsai Gyōsei Musen)",
+      "sound_description": "A pleasant 4-note chime ('Do-Mi-Sol-Do') broadcast over neighborhood outdoor loudspeakers, followed by municipal announcements regarding weather warnings, evacuation advisories, or local safety updates."
+    },
+    "steps": [
+      "Listen closely for key Japanese keywords like 'Pinan' (Evacuation) or 'Keihō' (Warning).",
+      "If sound is muffled by weather or distance, check your municipal website or emergency app for the text transcript.",
+      "Follow local instructions regarding community shelter openings."
+    ]
+  }
+]
