@@ -1,10 +1,10 @@
-const CACHE_NAME = 'disaster-guide-v7'; // Bumped version!
+const CACHE_NAME = 'disaster-guide-v8'; // Bumped version
 
 const PRECACHE_ASSETS = [
   './',
   './index.html',
   'index.html',
-  './css/style.css', // Confirm exact filename
+  './css/style.css',
   './js/i18n.js',
   './js/guides.js',
   './js/map.js',
@@ -17,7 +17,7 @@ const PRECACHE_ASSETS = [
   './icon-192.png',
   './icon-512.png',
 
-  // External Leaflet & MarkerCluster CDNs
+  // External Leaflet CDNs
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css',
@@ -27,22 +27,18 @@ const PRECACHE_ASSETS = [
 
 /**
  * Service Worker Installation
- * Individual cache.add() promises so a single 404 does NOT break the entire cache.
  */
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async (cache) => {
       console.log('[SW] Resilient pre-caching started...');
-      
       const cachePromises = PRECACHE_ASSETS.map(async (url) => {
         try {
           await cache.add(url);
-          console.log(`[SW] Successfully cached: ${url}`);
         } catch (err) {
-          console.error(`[SW] MISSING FILE ALERT: Failed to cache "${url}". Check if this file exists or if path is correct!`, err);
+          console.warn(`[SW] Could not precache: ${url}`, err);
         }
       });
-
       await Promise.all(cachePromises);
     }).then(() => self.skipWaiting())
   );
@@ -53,12 +49,12 @@ self.addEventListener('install', (event) => {
  */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
+    caches.keys().then((keys) => {
       return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log('[SW] Deleting obsolete cache:', cache);
-            return caches.delete(cache);
+        keys.map((key) => {
+          if (key !== CACHE_NAME) {
+            console.log('[SW] Clearing old cache:', key);
+            return caches.delete(key);
           }
         })
       );
@@ -72,40 +68,32 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
 
-  const requestUrl = new URL(event.request.url);
-
-  // 1. Navigation Requests (Page reloads / offline entry)
+  // 1. Navigation Requests (Page reloads / initial site visits)
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      (async () => {
+      caches.open(CACHE_NAME).then(async (cache) => {
         // Try exact request match first
-        const cachedResponse = await caches.match(event.request);
-        if (cachedResponse) return cachedResponse;
+        const matched = await cache.match(event.request);
+        if (matched) return matched;
 
-        // Fallback checks for GitHub Pages subfolder routing
-        const cache = await caches.open(CACHE_NAME);
-        
-        // Try stored relative paths
-        const fallback = 
-          (await cache.match('./index.html')) ||
-          (await cache.match('index.html')) ||
-          (await cache.match('./'));
-
-        if (fallback) return fallback;
-
-        // If network is available, fetch from network
-        try {
-          return await fetch(event.request);
-        } catch (err) {
-          // Final safety fallback
-          return (await cache.match('./index.html'));
+        // Fallback search through keys for index.html regardless of full URL prefix
+        const keys = await cache.keys();
+        const htmlKey = keys.find(k => k.url.endsWith('index.html') || k.url.endsWith('/disaster-guides/'));
+        if (htmlKey) {
+          return await cache.match(htmlKey);
         }
-      })()
+
+        // Try direct relative fallbacks
+        return (await cache.match('./index.html')) || 
+               (await cache.match('index.html')) || 
+               (await cache.match('./'));
+      }).catch(() => caches.match('./index.html'))
     );
     return;
   }
 
   // 2. Stale-While-Revalidate for JSON files
+  const requestUrl = new URL(event.request.url);
   if (requestUrl.pathname.endsWith('.json')) {
     event.respondWith(
       caches.open(CACHE_NAME).then(async (cache) => {
@@ -125,7 +113,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3. Cache-First for standard assets
+  // 3. Cache-First for static assets (CSS, JS, CDNs, Images)
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) return cachedResponse;
