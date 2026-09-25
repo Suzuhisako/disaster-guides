@@ -113,7 +113,22 @@
       const mapSection = document.getElementById('mapSection');
       const langSelect = document.getElementById('langSelect');
 
-      // Expose switchTab globally on window so HTML elements can call it
+      // Set initial language from storage or dropdown
+      const initialLang = localStorage.getItem('appLang') || (langSelect ? langSelect.value : 'en');
+      if (langSelect) langSelect.value = initialLang;
+
+      // 1. Initialize EmergencyGuides and expose as window.guideRenderer
+      if (typeof EmergencyGuides !== 'undefined') {
+        window.guideRenderer = new EmergencyGuides('contentArea', `locators/content/guides_${initialLang}.json`);
+        await window.guideRenderer.init();
+      }
+
+      // 2. Load i18n bundle if available
+      if (window.i18n) {
+        await window.i18n.setLanguage(initialLang);
+      }
+
+      // 3. Expose switchTab globally on window so HTML elements can call it
       window.switchTab = async (tabName) => {
         currentTab = tabName;
 
@@ -153,19 +168,10 @@
         }
       };
 
-      // Set initial language from storage or dropdown
-      const initialLang = localStorage.getItem('appLang') || (langSelect ? langSelect.value : 'en');
-      if (langSelect) langSelect.value = initialLang;
-
-      // Load language JSON bundle
-      if (window.i18n) {
-        await window.i18n.setLanguage(initialLang);
-      }
-
       // Initial tab render
       window.switchTab('guides');
 
-      // Dropdown Language Change Handler
+      // 4. Dropdown Language Change Handler
       if (langSelect) {
         langSelect.addEventListener('change', async (e) => {
           const selectedLang = e.target.value;
@@ -173,6 +179,12 @@
 
           if (window.i18n) {
             await window.i18n.setLanguage(selectedLang);
+          }
+
+          // Reload guides data for selected language
+          if (window.guideRenderer) {
+            window.guideRenderer.contentPath = `locators/content/guides_${selectedLang}.json`;
+            await window.guideRenderer.init();
           }
 
           // Re-render active view in new language
