@@ -1,10 +1,10 @@
-const CACHE_NAME = 'disaster-guide-v2';
+const CACHE_NAME = 'disaster-guide-v3'; // Bump version!
 
-// Core assets to pre-cache for 100% offline functionality
 const PRECACHE_ASSETS = [
   './',
   './index.html',
-  './css/style.css',
+  'index.html',
+  './css/guides.css', // Verify this exact CSS file name
   './js/i18n.js',
   './js/guides.js',
   './js/map.js',
@@ -16,8 +16,6 @@ const PRECACHE_ASSETS = [
   './locators/content/shelters.json',
   './icon-192.png',
   './icon-512.png',
-
-  // External Leaflet & MarkerCluster CDNs for offline caching
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css',
