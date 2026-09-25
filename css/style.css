@@ -10,10 +10,15 @@
   --text-muted: #6c757d;
   --border-color: #e9ecef;
   
-  --alarm-bg: #fff5f5;
-  --alarm-border: #f5c6cb;
-  --alarm-text: #721c24;
+  /* Alarm & Alert Highlight Colors */
+  --alarm-bg: #fef2f2;
+  --alarm-border: #ef4444;
+  --alarm-text-dark: #991b1b;
+  --alarm-badge-bg: #ffffff;
+  --alarm-badge-border: #fecaca;
+  --alarm-badge-text: #b91c1c;
 
+  /* Action Callout Colors */
   --action-bg: #fff3cd;
   --action-border: #ffeba2;
   --action-text: #856404;
@@ -119,8 +124,9 @@ body {
 }
 
 /* ==========================================================================
-   Disaster Guide Cards
+   Disaster Guide Cards Layout
    ========================================================================== */
+.guides-grid,
 .guide-list {
   display: flex;
   flex-direction: column;
@@ -133,79 +139,89 @@ body {
   border-radius: var(--border-radius);
   padding: 1.25rem;
   box-shadow: var(--box-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .guide-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
 }
 
 .guide-icon {
   font-size: 1.75rem;
 }
 
+.guide-title,
 .guide-header h2 {
   font-size: 1.25rem;
   color: var(--text-main);
   font-weight: 700;
+  margin: 0;
 }
 
 /* ==========================================================================
-   Alarm Banner (Embedded Audio Player)
+   Alarm & Warning Identifier Box (Phonetic Description Layout)
    ========================================================================== */
-.alarm-banner {
+.guide-alarm-box {
   background-color: var(--alarm-bg);
-  border: 1px solid var(--alarm-border);
+  border-left: 4px solid var(--alarm-border);
   border-radius: 6px;
   padding: 0.85rem 1rem;
-  margin-bottom: 1rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.alarm-info {
-  flex: 1;
-}
-
+.alarm-header strong,
 .alarm-title {
-  font-weight: 700;
-  color: var(--alarm-text);
-  display: block;
+  color: var(--alarm-text-dark);
   font-size: 0.95rem;
-  margin-bottom: 0.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: block;
 }
 
-.jp-phrase {
-  font-size: 0.85rem;
-  color: var(--alarm-text);
+.alarm-jp-phrase {
+  font-size: 0.875rem;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.alarm-jp-phrase span {
   font-weight: 600;
-  margin-bottom: 0.2rem;
+  color: #334155;
 }
 
-.alarm-meaning {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-.btn-play-alarm {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border: none;
-  padding: 0.5rem 0.85rem;
+.alarm-jp-phrase code {
+  background-color: var(--alarm-badge-bg);
+  border: 1px solid var(--alarm-badge-border);
+  color: var(--alarm-badge-text);
+  padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  font-size: 0.85rem;
+  font-family: inherit;
   font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.2s ease;
+  font-size: 0.85rem;
 }
 
-.btn-play-alarm:hover {
-  background-color: var(--primary-dark);
+.alarm-description {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: #334155;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+.alarm-description strong {
+  color: var(--text-main);
 }
 
 /* ==========================================================================
@@ -216,7 +232,6 @@ body {
   border-left: 4px solid var(--action-text);
   padding: 0.75rem 1rem;
   border-radius: 4px;
-  margin-bottom: 1rem;
 }
 
 .immediate-box strong {
@@ -235,32 +250,44 @@ body {
 /* ==========================================================================
    Action Steps List
    ========================================================================== */
-.steps-list {
+.guide-steps h4 {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  margin-bottom: 0.5rem;
+}
+
+.steps-list,
+.guide-steps ol {
   padding-left: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.steps-list li {
+.steps-list li,
+.guide-steps li {
   font-size: 0.95rem;
   color: var(--text-main);
   line-height: 1.4;
 }
 
 /* ==========================================================================
-   Utilities & Error Messages
+   Utilities, Map & Error Messages
    ========================================================================== */
-.error-msg {
+.error-msg,
+.guides-error {
   color: var(--primary-color);
   text-align: center;
   padding: 2rem;
   font-weight: 600;
+  background-color: #ffffff;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
 }
 
 #mapArea {
   width: 100%;
-  height: calc(100vh - 60px); /* Adjust based on your header height */
+  height: calc(100vh - 60px);
   position: relative;
   z-index: 1;
 }
@@ -273,4 +300,3 @@ body {
 .leaflet-interactive {
   cursor: pointer;
 }
-
