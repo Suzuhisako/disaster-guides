@@ -1,4 +1,4 @@
-const CACHE_NAME = 'disaster-guide-v6'; // Bumped version!
+const CACHE_NAME = 'disaster-guide-v7'; // Bumped version!
 
 const PRECACHE_ASSETS = [
   './',
