@@ -62,14 +62,28 @@ self.addEventListener('activate', (event) => {
  * Strategy 1: Stale-While-Revalidate for JSON files (JSON guides, shelters, UI translations)
  * Strategy 2: Cache-First, fallback to Network for CSS, JS, HTML, CDNs
  */
+/**
+ * Fetch Event Handler
+ * Strategy 1: Explicit Navigation Fallback for index.html
+ * Strategy 2: Stale-While-Revalidate for JSON files
+ * Strategy 3: Cache-First for static assets (CSS, JS, CDNs)
+ */
 self.addEventListener('fetch', (event) => {
-  // Ignore non-GET requests
   if (event.request.method !== 'GET') return;
 
   const requestUrl = new URL(event.request.url);
 
-  // --- Strategy 1: Stale-While-Revalidate for JSON content ---
-  // Loads instantly from cache offline, but updates cache in background if online
+  // 1. Navigation Requests (Page reloads / URL entries while offline)
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        return cachedResponse || caches.match('./index.html') || caches.match('index.html') || fetch(event.request);
+      }).catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+
+  // 2. Stale-While-Revalidate for JSON content (Guides, Shelters, i18n UI)
   if (requestUrl.pathname.endsWith('.json')) {
     event.respondWith(
       caches.open(CACHE_NAME).then(async (cache) => {
@@ -81,7 +95,7 @@ self.addEventListener('fetch', (event) => {
             }
             return networkResponse;
           })
-          .catch(() => cachedResponse); // Default to cached JSON if network fails
+          .catch(() => cachedResponse); // Serve cached JSON if network fails
 
         return cachedResponse || fetchPromise;
       })
@@ -89,38 +103,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // --- Strategy 2: Cache-First for standard static assets (HTML, CSS, JS, CDNs) ---
+  // 3. Cache-First for standard static assets (CSS, JS, CDNs, Images)
   event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) return cachedResponse;
 
-        return fetch(event.request).then((networkResponse) => {
-          // Allow basic (same-origin) and cors (external CDNs like unpkg.com)
-          const validTypes = ['basic', 'cors'];
-          if (
-            !networkResponse || 
-            networkResponse.status !== 200 || 
-            !validTypes.includes(networkResponse.type)
-          ) {
-            return networkResponse;
-          }
-
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-
+      return fetch(event.request).then((networkResponse) => {
+        const validTypes = ['basic', 'cors'];
+        if (!networkResponse || networkResponse.status !== 200 || !validTypes.includes(networkResponse.type)) {
           return networkResponse;
-        });
-      })
-      .catch(() => {
-        // Navigation fallback for SPA routing / page reloads while offline
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
         }
-      })
+
+        const responseToCache = networkResponse.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
+        return networkResponse;
+      });
+    })
   );
 });
