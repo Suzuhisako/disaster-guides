@@ -13,11 +13,11 @@ const PRECACHE_ASSETS = [
   './locators/ui/zh.json',
   './locators/content/guides_en.json',
   './locators/content/guides_zh.json',
-  './locators/content/shelters.json', 
+  './locators/content/shelters.json',
   './icon-192.png',
   './icon-512.png',
-  
-    // External Leaflet & MarkerCluster CDNs for offline caching
+
+  // External Leaflet & MarkerCluster CDNs for offline caching
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css',
@@ -60,13 +60,38 @@ self.addEventListener('activate', (event) => {
 });
 
 /**
- * Fetch Strategy: Cache-First, falling back to Network
- * Serves cached assets immediately for instant offline loading.
+ * Fetch Event Handler
+ * Strategy 1: Stale-While-Revalidate for JSON files (JSON guides, shelters, UI translations)
+ * Strategy 2: Cache-First, fallback to Network for CSS, JS, HTML, CDNs
  */
 self.addEventListener('fetch', (event) => {
-  // Ignore non-GET requests or external extensions
+  // Ignore non-GET requests
   if (event.request.method !== 'GET') return;
 
+  const requestUrl = new URL(event.request.url);
+
+  // --- Strategy 1: Stale-While-Revalidate for JSON content ---
+  // Loads instantly from cache offline, but updates cache in background if online
+  if (requestUrl.pathname.endsWith('.json')) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cachedResponse = await cache.match(event.request);
+        const fetchPromise = fetch(event.request)
+          .then((networkResponse) => {
+            if (networkResponse.status === 200) {
+              cache.put(event.request, networkResponse.clone());
+            }
+            return networkResponse;
+          })
+          .catch(() => cachedResponse); // Default to cached JSON if network fails
+
+        return cachedResponse || fetchPromise;
+      })
+    );
+    return;
+  }
+
+  // --- Strategy 2: Cache-First for standard static assets (HTML, CSS, JS, CDNs) ---
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
@@ -74,10 +99,14 @@ self.addEventListener('fetch', (event) => {
           return cachedResponse;
         }
 
-        // If resource is not in cache, fetch from network and dynamically cache it
         return fetch(event.request).then((networkResponse) => {
-          // Check for valid response
-          if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+          // Allow basic (same-origin) and cors (external CDNs like unpkg.com)
+          const validTypes = ['basic', 'cors'];
+          if (
+            !networkResponse || 
+            networkResponse.status !== 200 || 
+            !validTypes.includes(networkResponse.type)
+          ) {
             return networkResponse;
           }
 
@@ -90,7 +119,7 @@ self.addEventListener('fetch', (event) => {
         });
       })
       .catch(() => {
-        // Fallback for navigation requests when completely offline and uncached
+        // Navigation fallback for SPA routing / page reloads while offline
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
