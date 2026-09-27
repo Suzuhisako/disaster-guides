@@ -19,11 +19,9 @@ const STATIC_ASSETS = [
   './js/guides.js',
   './js/map.js',
   './locators/ui/en.json',
-  './locators/ui/zh.json',
-  './locators/ui/jp.json',
+  './locators/ui/zh.json', 
   './locators/content/guides_en.json',
-  './locators/content/guides_zh.json',
-  './locators/content/guides_jp.json',
+  './locators/content/guides_zh.json',  
   './locators/content/shelters.json'
 ];
 
