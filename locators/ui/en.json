@@ -25,5 +25,17 @@
       "zh": "避难指示（紧急）",
       "description": "Level 4 Alert. Everyone in designated hazard zones must evacuate to a shelter immediately."
     }
+  },
+  "map": {
+    "filter_label": "Filter by Hazard:",
+    "filter_all": "All Categories",
+    "filter_quake": "Earthquake",
+    "filter_tsunami": "Tsunami",
+    "filter_flood": "Flood",
+    "filter_landslide": "Landslide",
+    "filter_fire": "Fire",
+    "filter_surge": "Storm Surge",
+    "filter_inland_flood": "Inland Flood",
+    "filter_volcano": "Volcano"
   }
 }
