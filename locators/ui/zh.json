@@ -57,4 +57,26 @@
     ]
   }
 ]
+{
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "紧急地震速报",
+      "description": "请立即保护好自己，防范剧烈摇晃。"
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "海啸警报",
+      "description": "请立即撤离至高地或指定的海啸避难大楼。"
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "避难指示（紧急）",
+      "description": "危险区域内的所有人员请立即撤离。"
+    }
+  }
+}
 
