@@ -36,6 +36,7 @@
     "filter_fire": "Fire",
     "filter_surge": "Storm Surge",
     "filter_inland_flood": "Inland Flood",
-    "filter_volcano": "Volcano"
+    "filter_volcano": "Volcano",
+    "locate_me": "Locate Me"
   }
 }
