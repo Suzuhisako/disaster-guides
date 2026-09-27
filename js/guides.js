@@ -36,6 +36,15 @@ class EmergencyGuides {
   }
 
   /**
+   * Updates content path and re-initializes view (for language switching)
+   */
+  async setLanguage(newContentPath) {
+    if (this.contentPath === newContentPath) return;
+    this.contentPath = newContentPath;
+    await this.init();
+  }
+
+  /**
    * Renders the emergency guides into the container
    */
   render() {
@@ -52,21 +61,34 @@ class EmergencyGuides {
    * Creates markup for an individual disaster guide card
    */
   createGuideCard(guide) {
+    const iconSpan = guide.icon ? `<span class="guide-icon">${guide.icon}</span> ` : '';
+    
+    // Support both sound_description and meaning fields
+    const alarmDesc = guide.alarm 
+      ? (guide.alarm.sound_description || guide.alarm.meaning || '')
+      : '';
+
     const alarmSection = guide.alarm ? `
       <div class="guide-alarm-box">
         <div class="alarm-header">
-          <strong>${this.escapeHtml(guide.alarm.title || 'Alert Identifier')}</strong>
+          <strong>📢 ${this.escapeHtml(guide.alarm.title || 'Alert Identifier')}</strong>
         </div>
         ${guide.alarm.jp_phrase ? `
           <div class="alarm-jp-phrase">
             <span>Japanese Phrase:</span> <code>${this.escapeHtml(guide.alarm.jp_phrase)}</code>
           </div>
         ` : ''}
-        ${guide.alarm.sound_description ? `
+        ${alarmDesc ? `
           <p class="alarm-description">
-            📢 <strong>Sound Profile:</strong> ${this.escapeHtml(guide.alarm.sound_description)}
+            <strong>Detail:</strong> ${this.escapeHtml(alarmDesc)}
           </p>
         ` : ''}
+      </div>
+    ` : '';
+
+    const immediateAction = guide.immediate_action ? `
+      <div class="guide-immediate-action">
+        <strong>⚡ Immediate Action:</strong> ${this.escapeHtml(guide.immediate_action)}
       </div>
     ` : '';
 
@@ -76,7 +98,8 @@ class EmergencyGuides {
 
     return `
       <article class="guide-card" id="guide-${this.escapeHtml(guide.id)}">
-        <h3 class="guide-title">${this.escapeHtml(guide.title)}</h3>
+        <h3 class="guide-title">${iconSpan}${this.escapeHtml(guide.title)}</h3>
+        ${immediateAction}
         ${alarmSection}
         ${stepsList ? `
           <div class="guide-steps">
