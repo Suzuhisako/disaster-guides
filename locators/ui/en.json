@@ -1,18 +1,29 @@
 {
   "app": {
-    "title": "Disaster Evacuation Guide"
+    "title": "Disaster Micro-Guide"
   },
   "nav": {
     "guides": "Emergency Guides",
-    "map": "Shelter Map"
+    "map": "Evacuation Map"
   },
-  "search": {
-    "placeholder": "Search shelters..."
-  },
-  "filter": {
-    "all": "All Shelters",
-    "quake": "Earthquake",
-    "tsunami": "Tsunami",
-    "flood": "Flood"
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "紧急地震速报",
+      "description": "Phones and TV issue rapid repeating tones (\"Ponyon, Ponyon\") followed by: \"Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai\". Protect your head immediately."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "海啸警报",
+      "description": "Coastal sirens sound (3s blast, 2s pause). Evacuate immediately to high ground or a Tsunami Evacuation Building."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "避难指示（紧急）",
+      "description": "Level 4 Alert. Everyone in designated hazard zones must evacuate to a shelter immediately."
+    }
   }
 }
