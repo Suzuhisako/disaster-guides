@@ -59,21 +59,37 @@
   
     <!-- Tab 2: Evacuation Map Container -->
     <div id="mapSection" class="tab-content" style="display: none;"> 
-      <!-- Disaster Category Dropdown Filter -->
-      <div class="filter-container" style="margin: 8px 0;">
-        <label for="disasterSelect" data-i18n="map.filter_label" style="font-weight: bold; font-size: 0.9rem; margin-right: 6px;">Filter by Hazard:</label>
-        <select id="disasterSelect" style="padding: 6px 12px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; background-color: #fff;">
-          <option value="all" data-i18n="map.filter_all">All Categories / 全ての避難所</option>
-          <option value="quake" data-i18n="map.filter_quake">地震 (Earthquake)</option>
-          <option value="tsunami" data-i18n="map.filter_tsunami">津波 / 海啸 (Tsunami)</option>
-          <option value="flood" data-i18n="map.filter_flood">洪水 (Flood)</option>
-          <option value="landslide" data-i18n="map.filter_landslide">土砂灾害 (Landslide)</option>
-          <option value="fire" data-i18n="map.filter_fire">火灾 (Fire)</option>
-          <option value="surge" data-i18n="map.filter_surge">高潮 (Storm Surge)</option>
-          <option value="inland_flood" data-i18n="map.filter_inland_flood">内水泛滥 (Inland Flood)</option>
-          <option value="volcano" data-i18n="map.filter_volcano">火山 (Volcano)</option>
-        </select>
+      <!-- Filter & Location Control Bar -->
+      <div class="filter-container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 8px 0;">
+        <div style="display: flex; align-items: center; gap: 6px; flex-grow: 1;">
+          <label for="disasterSelect" data-i18n="map.filter_label" style="font-weight: bold; font-size: 0.9rem; white-space: nowrap;">Filter by Hazard:</label>
+          <select id="disasterSelect" style="padding: 6px 10px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; background-color: #fff; flex-grow: 1; max-width: 260px;">
+            <option value="all" data-i18n="map.filter_all">All Categories</option>
+            <option value="quake" data-i18n="map.filter_quake">Earthquake</option>
+            <option value="tsunami" data-i18n="map.filter_tsunami">Tsunami</option>
+            <option value="flood" data-i18n="map.filter_flood">Flood</option>
+            <option value="landslide" data-i18n="map.filter_landslide">Landslide</option>
+            <option value="fire" data-i18n="map.filter_fire">Fire</option>
+            <option value="surge" data-i18n="map.filter_surge">Storm Surge</option>
+            <option value="inland_flood" data-i18n="map.filter_inland_flood">Inland Flood</option>
+            <option value="volcano" data-i18n="map.filter_volcano">Volcano</option>
+          </select>
+        </div>
+    
+        <!-- Locate Me Button -->
+        <button id="btnLocateMe" type="button" style="display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; color: #fff; background-color: #007bff; border: none; border-radius: 6px; cursor: pointer; white-space: nowrap;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <crosshair x1="12" y1="2" x2="12" y2="6"></crosshair>
+            <circle cx="12" cy="12" r="7"></circle>
+            <line x1="12" y1="2" x2="12" y2="6"></line>
+            <line x1="12" y1="18" x2="12" y2="22"></line>
+            <line x1="2" y1="12" x2="6" y2="12"></line>
+            <line x1="18" y1="12" x2="22" y2="12"></line>
+          </svg>
+          <span data-i18n="map.locate_me">Locate Me</span>
+        </button>
       </div>
+    
       <!-- Map Container -->
       <div id="mapArea" style="height: 500px; width: 100%;"></div>          
     </div>
@@ -200,6 +216,18 @@
           const selectedCategory = e.target.value;
           if (window.evacuationMap && typeof window.evacuationMap.filterByDisaster === 'function') {
             window.evacuationMap.filterByDisaster(selectedCategory);
+          }
+        });
+      }
+
+      // Locate Me Button Click Handler
+      const btnLocateMe = document.getElementById('btnLocateMe');
+      if (btnLocateMe) {
+        btnLocateMe.addEventListener('click', () => {
+          if (window.evacuationMap && typeof window.evacuationMap.locateUser === 'function') {
+            window.evacuationMap.locateUser();
+          } else {
+            console.warn('locateUser() is not defined on window.evacuationMap');
           }
         });
       }
