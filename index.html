@@ -106,42 +106,42 @@
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       let currentTab = 'guides';
-
+    
       const tabGuides = document.getElementById('tabGuides');
       const tabMap = document.getElementById('tabMap');
       const contentArea = document.getElementById('contentArea');
       const mapSection = document.getElementById('mapSection');
       const langSelect = document.getElementById('langSelect');
-
+      const disasterSelect = document.getElementById('disasterSelect'); // <-- 1. Grab dropdown reference
+    
       // Set initial language from storage or dropdown
       const initialLang = localStorage.getItem('appLang') || (langSelect ? langSelect.value : 'en');
       if (langSelect) langSelect.value = initialLang;
-
-      // 1. Initialize EmergencyGuides and expose as window.guideRenderer
+    
+      // 1. Initialize EmergencyGuides
       if (typeof EmergencyGuides !== 'undefined') {
         window.guideRenderer = new EmergencyGuides('contentArea', `locators/content/guides_${initialLang}.json`);
         await window.guideRenderer.init();
       }
-
+    
       // 2. Load i18n bundle if available
       if (window.i18n) {
         await window.i18n.setLanguage(initialLang);
       }
-
-      // 3. Expose switchTab globally on window so HTML elements can call it
+    
+      // 3. Expose switchTab globally
       window.switchTab = async (tabName) => {
         currentTab = tabName;
-
-        // Update active tab button styles
+    
         [tabGuides, tabMap].forEach(btn => {
           if (btn) btn.classList.remove('active');
         });
-
+    
         if (tabName === 'guides') {
           if (tabGuides) tabGuides.classList.add('active');
           if (contentArea) contentArea.style.display = 'block';
           if (mapSection) mapSection.style.display = 'none';
-
+    
           if (window.guideRenderer) {
             window.guideRenderer.render();
           }
@@ -149,14 +149,12 @@
           if (tabMap) tabMap.classList.add('active');
           if (contentArea) contentArea.style.display = 'none';
           if (mapSection) mapSection.style.display = 'block';
-
+    
           if (window.evacuationMap) {
-            // Initialize map if not initialized yet
             if (typeof window.evacuationMap.initMap === 'function') {
               await window.evacuationMap.initMap();
             }
-
-            // Delay invalidateSize slightly until CSS display:block takes effect
+    
             setTimeout(() => {
               if (window.evacuationMap.map) {
                 window.evacuationMap.map.invalidateSize();
@@ -167,27 +165,25 @@
           }
         }
       };
-
+    
       // Initial tab render
       window.switchTab('guides');
-
+    
       // 4. Dropdown Language Change Handler
       if (langSelect) {
         langSelect.addEventListener('change', async (e) => {
           const selectedLang = e.target.value;
           localStorage.setItem('appLang', selectedLang);
-
+    
           if (window.i18n) {
             await window.i18n.setLanguage(selectedLang);
           }
-
-          // Reload guides data for selected language
+    
           if (window.guideRenderer) {
             window.guideRenderer.contentPath = `locators/content/guides_${selectedLang}.json`;
             await window.guideRenderer.init();
           }
-
-          // Re-render active view in new language
+    
           if (currentTab === 'map' && window.evacuationMap) {
             if (typeof window.evacuationMap.refreshLanguage === 'function') {
               window.evacuationMap.refreshLanguage();
@@ -197,7 +193,17 @@
           }
         });
       }
-
+    
+      // 5. Disaster Filter Dropdown Listener (Replaces filterContainer)
+      if (disasterSelect) {
+        disasterSelect.addEventListener('change', (e) => {
+          const selectedCategory = e.target.value;
+          if (window.evacuationMap && typeof window.evacuationMap.filterByDisaster === 'function') {
+            window.evacuationMap.filterByDisaster(selectedCategory);
+          }
+        });
+      }
+    
       // Tab Switch Event Listeners
       if (tabGuides) tabGuides.addEventListener('click', () => window.switchTab('guides'));
       if (tabMap) tabMap.addEventListener('click', () => window.switchTab('map'));
