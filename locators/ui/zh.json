@@ -1,31 +1,18 @@
 {
-  "appTitle": "防灾避难指南",
-  "mapTitle": "避難所地图",
-  "guidesTitle": "防灾指南与警报",
-  "filterAll": "全部避难所",
-  "filterQuake": "地震避难所",
-  "filterTsunami": "海啸避难所",
-  "filterFlood": "洪水避难所",
-  "searchPlaceholder": "搜索避难所或地址...",
-  "locateMe": "定位当前位置",
-  "alarms": {
-    "earthquake_early": {
-      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
-      "english": "Emergency Earthquake Early Warning",
-      "zh": "紧急地震速报",
-      "description": "电视和手机发出急促提示音（“Ponyon, Ponyon”），随后播放语音：“Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai”（紧急地震速报。请警惕剧烈摇晃）。请立即伏地、掩护并保护头部。"
-    },
-    "tsunami_warning": {
-      "japanese_phrase": "津波警報 (Tsunami Keihou)",
-      "english": "Tsunami Warning",
-      "zh": "海啸警报",
-      "description": "沿海警报器鸣响（长鸣3秒、休止2秒）。请直ちに撤离至高地或海啸避难大楼。"
-    },
-    "evacuation_order": {
-      "japanese_phrase": "避難指示 (Hinan Shiji)",
-      "english": "Evacuation Instruction (Emergency)",
-      "zh": "避难指示（紧急）",
-      "description": "4级警戒。危险区域内的所有人员请立即撤离至最近的避难所。"
-    }
+  "app": {
+    "title": "防灾避难指南"
+  },
+  "nav": {
+    "guides": "防灾指南",
+    "map": "避难所地图"
+  },
+  "search": {
+    "placeholder": "搜索避难所..."
+  },
+  "filter": {
+    "all": "全部避难所",
+    "quake": "地震避难所",
+    "tsunami": "海啸避难所",
+    "flood": "洪水避难所"
   }
 }
