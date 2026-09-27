@@ -1,4 +1,11 @@
+// Keep your existing static cache name
 const CACHE_NAME = 'disaster-guide-v9';
+
+// Add the dedicated tile cache name below it
+const TILE_CACHE_NAME = 'leaflet-tiles-v1';
+
+// Limit max cached tiles to prevent filling device storage (approx. 50MB)
+const MAX_TILE_CACHE_ITEMS = 1500;
 
 // Explicit paths including GitHub Pages subfolder repo name
 const PRECACHE_ASSETS = [
@@ -86,3 +93,88 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME && cache !== TILE_CACHE_NAME) {
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Identify Leaflet tile requests (e.g., *.tile.openstreetmap.org or cyberjapandata.gsi.go.jp)
+  const isTileRequest = url.host.includes('tile.openstreetmap.org') || 
+                        url.host.includes('cyberjapandata.gsi.go.jp') ||
+                        url.pathname.match(/\/\d+\/\d+\/\d+\.png$/);
+
+  if (isTileRequest) {
+    event.respondWith(handleTileFetch(event.request));
+  }
+});
+
+/**
+ * Cache-First Strategy for Map Tiles with Automatic Pruning
+ */
+async function handleTileFetch(request) {
+  const tileCache = await caches.open(TILE_CACHE_NAME);
+  
+  // 1. Return cached tile immediately if available
+  const cachedResponse = await tileCache.match(request);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+
+  // 2. Fetch from network, cache copy, and return
+  try {
+    const networkResponse = await fetch(request);
+    
+    // Opaque responses (cross-origin) have status 0, check if ok or status 0
+    if (networkResponse.status === 200 || networkResponse.status === 0) {
+      // Clone response before consuming it
+      tileCache.put(request, networkResponse.clone());
+      
+      // Asynchronously prune cache if it exceeds max size limit
+      pruneTileCache(tileCache);
+    }
+    
+    return networkResponse;
+  } catch (error) {
+    console.warn('SW: Fetching map tile failed (offline mode):', request.url);
+    
+    // Optional: Return a local fallback SVG/PNG placeholder tile
+    return new Response(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+        <rect width="256" height="256" fill="#f8f9fa"/>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#adb5bd" font-size="12" font-family="sans-serif">Tile Offline</text>
+       </svg>`,
+      { headers: { 'Content-Type': 'image/svg+xml' } }
+    );
+  }
+}
+
+/**
+ * Prune oldest tiles if cache exceeds MAX_TILE_CACHE_ITEMS
+ */
+async function pruneTileCache(cache) {
+  const keys = await cache.keys();
+  if (keys.length > MAX_TILE_CACHE_ITEMS) {
+    // Delete the oldest 50 items
+    for (let i = 0; i < 50; i++) {
+      await cache.delete(keys[i]);
+    }
+  }
+}
