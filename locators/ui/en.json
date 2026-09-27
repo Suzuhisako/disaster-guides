@@ -38,7 +38,7 @@
     "filter_inland_flood": "Inland Flood",
     "filter_volcano": "Volcano",
     "locate_me": "Locate Me",
-    "search_placeholder": "Search name or address..e.g. Samukawa, School, 宮山..",
+    "search_placeholder": "Search name/address.e.g. Samukawa, School, 宮山..",
     "locate_me": "Locate Me"
   }
 }
