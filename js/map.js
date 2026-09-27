@@ -79,10 +79,12 @@ if (typeof window.EvacuationMap === 'undefined') {
 
         // --- Filter features dynamically by BOTH disaster category and search query ---
         // --- Filter features dynamically by BOTH disaster category and search query ---
+        // Inside renderShelters() in map.js:
+
         filter: (feature) => {
           const props = feature.properties || {};
 
-          // 1. Category Check
+          // 1. Category Filter Check
           let matchesCategory = true;
           if (this.selectedCategory !== 'all') {
             const disasters = props.disasters || [];
@@ -91,57 +93,33 @@ if (typeof window.EvacuationMap === 'undefined') {
 
           if (!matchesCategory) return false;
 
-          // 2. Text Search Check
+          // 2. Search Text Check
           if (!this.searchQuery) return true;
 
           const q = this.searchQuery.toLowerCase();
 
-          // Simple Romaji-to-Kanji helper map for common regional terms
-          const romajiMap = {
-            'kanagawaken': '神奈川',
-            'kanagawa': '神奈川',
-            'yokohama': '横浜',
-            'yokohamashi': '横浜',
-            'samukawa': '寒川',
-            'samukawamachi': '寒川'
-          };
+          // Dynamically compile ALL names and addresses present in the feature
+          let searchableParts = [];
 
-          // Expand query terms if user typed Romaji
-          const targetTerms = [q];
-          Object.keys(romajiMap).forEach(key => {
-            if (q.includes(key)) {
-              targetTerms.push(romajiMap[key]);
-            }
-          });
-
-          // Extract all property values into a single searchable string
-          let fullSearchableText = '';
-
-          // Collect Names
+          // Names (object or string)
           if (props.name && typeof props.name === 'object') {
-            fullSearchableText += ' ' + Object.values(props.name).join(' ');
+            searchableParts.push(...Object.values(props.name));
           } else if (props.name) {
-            fullSearchableText += ' ' + props.name;
+            searchableParts.push(props.name);
           }
+          if (props.jp_name) searchableParts.push(props.jp_name);
 
-          if (props.jp_name) fullSearchableText += ' ' + props.jp_name;
-
-          // Collect Addresses
+          // Addresses (object or string)
           if (props.address && typeof props.address === 'object') {
-            fullSearchableText += ' ' + Object.values(props.address).join(' ');
+            searchableParts.push(...Object.values(props.address));
           } else if (props.address) {
-            fullSearchableText += ' ' + props.address;
+            searchableParts.push(props.address);
           }
 
-          // Collect additional administrative fields if present in GeoJSON
-          if (props.prefecture) fullSearchableText += ' ' + props.prefecture;
-          if (props.city) fullSearchableText += ' ' + props.city;
-          if (props.town) fullSearchableText += ' ' + props.town;
+          // Combine into a single searchable lowercase string
+          const fullSearchText = searchableParts.join(' ').toLowerCase();
 
-          const textToSearch = fullSearchableText.toLowerCase();
-
-          // Return true if any search term matches
-          return targetTerms.some(term => textToSearch.includes(term));
+          return fullSearchText.includes(q);
         },
 
         pointToLayer: (feature, latlng) => {
