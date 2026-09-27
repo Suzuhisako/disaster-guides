@@ -1,82 +1,31 @@
-[
-  {
-    "id": "earthquake_event",
-    "title": "紧急地震速报",
-    "alarm": {
-      "title": "紧急地震速报 (EEW)",
-      "jp_phrase": "緊急地震速報 (Kinkyū Jishin Sokuhō)",
-      "sound_description": "电视和手机发出急促、重复的三连音提示音（“Ponyon, Ponyon”），随后播放日语语音提示：“Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai”（紧急地震速報。请警惕剧烈摇晃）。"
-    },
-    "steps": [
-      "立即躲在坚固的桌子或课桌下，做到“趴下、掩护、稳住”。",
-      "保护好头部和颈部，防止被掉落物砸伤。",
-      "如果在室外，请远离玻璃窗、砖墙和电线杆。",
-      "切勿慌张跑出室外；保持原地不动，直到摇晃停止。"
-    ]
-  },
-  {
-    "id": "civil_protection_event",
-    "title": "国民保护警报 (J-Alert)",
-    "alarm": {
-      "title": "武装袭击 / 导弹发射警报",
-      "jp_phrase": "国民保護情報 (Kokumin Hogo Jōhō)",
-      "sound_description": "刺耳的高音警报声或重复的双音蜂鸣声，随后播放日语广播：“Missairu hassha”（导弹发射）或“Kainai ni taikiken kōkū”（进入领空）。"
-    },
-    "steps": [
-      "如果在室外，请立即进入水泥建筑物或地下铁/地下室避难。",
-      "如果在室内，请远离窗户、拉上窗帘，并在没有窗户的房间内卧倒。",
-      "密切关注当地官方发布的后续指示。"
-    ]
-  },
-  {
-    "id": "tsunami_event",
-    "title": "海啸警报",
-    "alarm": {
-      "title": "大海啸警报 / 海啸警报",
-      "jp_phrase": "大津波警報 (Ōtsunami Keihō) / 津波警報 (Tsunami Keihō)",
-      "sound_description": "沿海扬声器发出持续的长鸣警报声（鸣响5秒、停顿6秒，不断重复），并伴随高音量的语音广播。"
-    },
-    "steps": [
-      "立即向高地或指定的“海啸避难大楼”撤离。",
-      "切勿等待看到海浪才行动——海啸移动速度比人奔跑的速度快得多。",
-      "在警报完全解除之前，请勿靠近沿海地区和河流。"
-    ]
-  },
-  {
-    "id": "town_broadcast_event",
-    "title": "防灾行政无线广播",
-    "alarm": {
-      "title": "防灾行政无线广播",
-      "jp_phrase": "防災行政無線 (Bōsai Gyōsei Musen)",
-      "sound_description": "社区室外扬声器播放柔和的四音符钟声（“Do-Mi-Sol-Do”），随后播放有关天气预警、避难建议或本地安全动态的市政广播。"
-    },
-    "steps": [
-      "仔细听取关键词，如“Hinan”（避难）或“Keihō”（警报）。",
-      "如果声音因天气或距离较远而模糊不清，请查看当地政府网站或应急应用上的文字通知。",
-      "遵循当地政府关于开放社区避难所的指示。"
-    ]
-  }
-]
 {
+  "appTitle": "防灾避难指南",
+  "mapTitle": "避難所地图",
+  "guidesTitle": "防灾指南与警报",
+  "filterAll": "全部避难所",
+  "filterQuake": "地震避难所",
+  "filterTsunami": "海啸避难所",
+  "filterFlood": "洪水避难所",
+  "searchPlaceholder": "搜索避难所或地址...",
+  "locateMe": "定位当前位置",
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
       "english": "Emergency Earthquake Early Warning",
       "zh": "紧急地震速报",
-      "description": "请立即保护好自己，防范剧烈摇晃。"
+      "description": "电视和手机发出急促提示音（“Ponyon, Ponyon”），随后播放语音：“Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai”（紧急地震速报。请警惕剧烈摇晃）。请立即伏地、掩护并保护头部。"
     },
     "tsunami_warning": {
       "japanese_phrase": "津波警報 (Tsunami Keihou)",
       "english": "Tsunami Warning",
       "zh": "海啸警报",
-      "description": "请立即撤离至高地或指定的海啸避难大楼。"
+      "description": "沿海警报器鸣响（长鸣3秒、休止2秒）。请直ちに撤离至高地或海啸避难大楼。"
     },
     "evacuation_order": {
       "japanese_phrase": "避難指示 (Hinan Shiji)",
       "english": "Evacuation Instruction (Emergency)",
       "zh": "避难指示（紧急）",
-      "description": "危险区域内的所有人员请立即撤离。"
+      "description": "4级警戒。危险区域内的所有人员请立即撤离至最近的避难所。"
     }
   }
 }
-
