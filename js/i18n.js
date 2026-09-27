@@ -35,9 +35,16 @@ if (typeof window.I18nManager === 'undefined') {
 
         if (contentRes.ok) {
           this.contentData = await contentRes.json();
-          // Instantly trigger guide rendering with fetched content
+
+          // Safely update and trigger guide rendering
           if (window.guideRenderer) {
-            window.guideRenderer.render(this.contentData);
+            // Extract array whether wrapped in { events: [...] } or direct [...]
+            const guidesList = Array.isArray(this.contentData) 
+              ? this.contentData 
+              : (this.contentData.events || []);
+
+            window.guideRenderer.guidesData = guidesList;
+            window.guideRenderer.render();
           }
         } else {
           console.warn(`Failed to load Content JSON for [${this.currentLang}]: Status ${contentRes.status}`);
@@ -48,7 +55,9 @@ if (typeof window.I18nManager === 'undefined') {
 
         // 3. Re-render map shelter popups in new language if map exists
         if (window.evacuationMap && this.shelterData) {
-          window.evacuationMap.renderShelters();
+          if (typeof window.evacuationMap.renderShelters === 'function') {
+            window.evacuationMap.renderShelters();
+          }
         }
 
       } catch (err) {
@@ -70,8 +79,13 @@ if (typeof window.I18nManager === 'undefined') {
         this.shelterData = await res.json();
 
         if (window.evacuationMap) {
-          window.evacuationMap.initMap('mapArea');
-          window.evacuationMap.setShelterData(this.shelterData);
+          // Initialize map if not already initialized
+          if (typeof window.evacuationMap.initMap === 'function' && !window.evacuationMap.map) {
+            window.evacuationMap.initMap('mapArea');
+          }
+          if (typeof window.evacuationMap.setShelterData === 'function') {
+            window.evacuationMap.setShelterData(this.shelterData);
+          }
         }
 
         // Attach disaster category listener after shelter setup
@@ -89,7 +103,11 @@ if (typeof window.I18nManager === 'undefined') {
       const disasterSelect = document.getElementById('disasterSelect');
       if (!disasterSelect) return;
 
-      disasterSelect.addEventListener('change', (event) => {
+      // Remove prior listener by replacing node if re-run
+      const newSelect = disasterSelect.cloneNode(true);
+      disasterSelect.parentNode.replaceChild(newSelect, disasterSelect);
+
+      newSelect.addEventListener('change', (event) => {
         const selectedCategory = event.target.value;
 
         if (window.evacuationMap && typeof window.evacuationMap.filterByDisaster === 'function') {
@@ -150,7 +168,7 @@ if (typeof window.I18nManager === 'undefined') {
     const mapTabBtn = document.querySelector('[data-tab="mapSection"]') || document.getElementById('mapTabBtn');
     if (mapTabBtn) {
       mapTabBtn.addEventListener('click', () => {
-        if (window.evacuationMap) {
+        if (window.evacuationMap && typeof window.evacuationMap.refreshMapSize === 'function') {
           window.evacuationMap.refreshMapSize();
         }
       });
