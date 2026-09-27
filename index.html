@@ -59,27 +59,41 @@
   
     <!-- Tab 2: Evacuation Map Container -->
     <div id="mapSection" class="tab-content" style="display: none;"> 
-      <!-- Filter & Location Control Bar -->
-      <div class="filter-container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 8px 0;">
-        <div style="display: flex; align-items: center; gap: 6px; flex-grow: 1;">
-          <label for="disasterSelect" data-i18n="map.filter_label" style="font-weight: bold; font-size: 0.9rem; white-space: nowrap;">Filter by Hazard:</label>
-          <select id="disasterSelect" style="padding: 6px 10px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; background-color: #fff; flex-grow: 1; max-width: 260px;">
-            <option value="all" data-i18n="map.filter_all">All Categories</option>
-            <option value="quake" data-i18n="map.filter_quake">Earthquake</option>
-            <option value="tsunami" data-i18n="map.filter_tsunami">Tsunami</option>
-            <option value="flood" data-i18n="map.filter_flood">Flood</option>
-            <option value="landslide" data-i18n="map.filter_landslide">Landslide</option>
-            <option value="fire" data-i18n="map.filter_fire">Fire</option>
-            <option value="surge" data-i18n="map.filter_surge">Storm Surge</option>
-            <option value="inland_flood" data-i18n="map.filter_inland_flood">Inland Flood</option>
-            <option value="volcano" data-i18n="map.filter_volcano">Volcano</option>
-          </select>
+      <!-- Filter & Search Controls Bar -->
+      <div class="filter-container" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin: 8px 0;">
+        
+        <!-- Left group: Hazard selector + Text Search -->
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex-grow: 1;">
+          
+          <!-- Hazard Category Selector -->
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <label for="disasterSelect" data-i18n="map.filter_label" style="font-weight: bold; font-size: 0.9rem; white-space: nowrap;">Filter by Hazard:</label>
+            <select id="disasterSelect" style="padding: 6px 10px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; background-color: #fff;">
+              <option value="all" data-i18n="map.filter_all">All Categories</option>
+              <option value="quake" data-i18n="map.filter_quake">Earthquake</option>
+              <option value="tsunami" data-i18n="map.filter_tsunami">Tsunami</option>
+              <option value="flood" data-i18n="map.filter_flood">Flood</option>
+              <option value="landslide" data-i18n="map.filter_landslide">Landslide</option>
+              <option value="fire" data-i18n="map.filter_fire">Fire</option>
+              <option value="surge" data-i18n="map.filter_surge">Storm Surge</option>
+              <option value="inland_flood" data-i18n="map.filter_inland_flood">Inland Flood</option>
+              <option value="volcano" data-i18n="map.filter_volcano">Volcano</option>
+            </select>
+          </div>
+    
+          <!-- Real-Time Text Search Box -->
+          <input 
+            type="search" 
+            id="shelterSearchInput" 
+            data-i18n-placeholder="map.search_placeholder" 
+            placeholder="Search name or address..." 
+            style="padding: 6px 10px; font-size: 0.9rem; border-radius: 6px; border: 1px solid #ccc; flex-grow: 1; min-width: 180px; max-width: 280px;"
+          />
         </div>
     
-        <!-- Locate Me Button -->
+        <!-- Right group: Locate Me Button -->
         <button id="btnLocateMe" type="button" style="display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; font-size: 0.9rem; font-weight: 600; color: #fff; background-color: #007bff; border: none; border-radius: 6px; cursor: pointer; white-space: nowrap;">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <crosshair x1="12" y1="2" x2="12" y2="6"></crosshair>
             <circle cx="12" cy="12" r="7"></circle>
             <line x1="12" y1="2" x2="12" y2="6"></line>
             <line x1="12" y1="18" x2="12" y2="22"></line>
@@ -228,6 +242,17 @@
             window.evacuationMap.locateUser();
           } else {
             console.warn('locateUser() is not defined on window.evacuationMap');
+          }
+        });
+      }
+
+      // Search Input Real-Time Filter Listener
+      const shelterSearchInput = document.getElementById('shelterSearchInput');
+      if (shelterSearchInput) {
+        shelterSearchInput.addEventListener('input', (e) => {
+          const query = e.target.value.trim().toLowerCase();
+          if (window.evacuationMap && typeof window.evacuationMap.filterBySearch === 'function') {
+            window.evacuationMap.filterBySearch(query);
           }
         });
       }
