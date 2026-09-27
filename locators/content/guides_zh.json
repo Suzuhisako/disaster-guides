@@ -2,15 +2,15 @@
   "events": [
     {
       "id": "earthquake",
-      "title": "Earthquake (地震)",
+      "title": "地震 (Earthquake / 地震)",
       "icon": "🌋",
       "alarm": {
         "sound_id": "j_alert",
-        "title": "J-Alert Early Warning (Jアラート / 地震早期警報)",
+        "title": "J-Alert 紧急地震速报 (Jアラート / 地震早期警報)",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
         "meaning": "紧急地震速报：预计即将发生强烈摇晃。请立即保护头部。"
       },
-      "immediate_action": "趴下、掩护、握紧。立即保护头部。",
+      "immediate_action": "趴下、掩护、稳住。立即保护头部。",
       "steps": [
         "躲在坚固的桌子下，或用包、枕头等物品保护头部。",
         "远离玻璃窗、未固定的书架以及高大家具。",
@@ -20,29 +20,29 @@
     },
     {
       "id": "tsunami",
-      "title": "Tsunami Warning (津波警報)",
+      "title": "海啸警报 (Tsunami Warning / 津波警報)",
       "icon": "🌊",
       "alarm": {
         "sound_id": "tsunami_siren",
-        "title": "Tsunami Coastal Siren (津波サイレン)",
+        "title": "沿海海啸警报声 (津波サイレン)",
         "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
         "meaning": "津波警報：连续的长鸣警报声表示需立即向高处撤离。"
       },
-      "immediate_action": "立即向高处或“津波避难大楼”撤离。",
+      "immediate_action": "立即向高处或“海啸避难大楼”撤离。",
       "steps": [
         "如果在海岸附近感受到强烈或长时摇晃，无需等待官方命令，请立即撤离。",
         "徒步前往高处（例如钢筋混凝土建筑的3层或更高位置）。",
         "避免开车的行为；交通拥堵可能会阻碍顺利撤离。",
-        "请持续留在高处；津波通常会以多波形式持续数小时袭击。"
+        "请持续留在高处；海啸通常会以多波形式持续数小时袭击。"
       ]
     },
     {
       "id": "bousai_broadcast",
-      "title": "Town Broadcast (防災行政無線)",
+      "title": "防灾行政无线广播 (Town Broadcast / 防災行政無線)",
       "icon": "📢",
       "alarm": {
         "sound_id": "bousai_speaker",
-        "title": "Disaster Wireless Speaker (防災行政無線)",
+        "title": "防灾无线广播扬声器 (防災行政無線)",
         "jp_phrase": "「緊急放送。避難指示が発令されました。」",
         "meaning": "紧急广播：已发布避难指示（警戒等级4）。请立即离开高风险区域。"
       },
@@ -54,7 +54,7 @@
     },
     {
       "id": "heatwave",
-      "title": "Extreme Heat & Stroke (熱中症)",
+      "title": "高温与中暑 (Extreme Heat & Stroke / 熱中症)",
       "icon": "☀️",
       "alarm": null,
       "immediate_action": "移动至有空调的房间，并及时补充水分与盐分/电解质。",
