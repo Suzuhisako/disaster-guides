@@ -16,52 +16,45 @@ if (typeof window.I18nManager === 'undefined') {
      * @param {string} lang - Language code (e.g. 'en', 'zh', 'jp')
      */
     async setLanguage(lang) {
-      this.currentLang = lang || this.currentLang;
-      localStorage.setItem('app_lang', this.currentLang);
-      window.currentLang = this.currentLang; // Expose globally for map popups
-
       try {
-        // 1. Load UI labels and Content guides simultaneously
-        const [uiRes, contentRes] = await Promise.all([
-          fetch(`./locators/ui/${this.currentLang}.json`),
-          fetch(`./locators/content/guides_${this.currentLang}.json`)
+        const uiUrl = `./locators/ui/${lang}.json`;
+        const guideUrl = `./locators/content/guides_${lang}.json`;
+    
+        // Fetch as raw text first to inspect before parsing
+        const [uiRes, guideRes] = await Promise.all([
+          fetch(uiUrl),
+          fetch(guideUrl)
         ]);
-
-        if (uiRes.ok) {
-          this.translations = await uiRes.json();
-        } else {
-          console.warn(`Failed to load UI JSON for [${this.currentLang}]: Status ${uiRes.status}`);
+    
+        if (!uiRes.ok) throw new Error(`HTTP ${uiRes.status} loading ${uiUrl}`);
+        if (!guideRes.ok) throw new Error(`HTTP ${guideRes.status} loading ${guideUrl}`);
+    
+        const uiText = await uiRes.text();
+        const guideText = await guideRes.text();
+    
+        try {
+          this.translations = JSON.parse(uiText);
+        } catch (e) {
+          console.error(`[i18n Error] Failed parsing ${uiUrl}. Content received:`, uiText);
+          throw e;
         }
-
-        if (contentRes.ok) {
-          this.contentData = await contentRes.json();
-
-          // Safely update and trigger guide rendering
-          if (window.guideRenderer) {
-            // Extract array whether wrapped in { events: [...] } or direct [...]
-            const guidesList = Array.isArray(this.contentData) 
-              ? this.contentData 
-              : (this.contentData.events || []);
-
-            window.guideRenderer.guidesData = guidesList;
-            window.guideRenderer.render();
-          }
-        } else {
-          console.warn(`Failed to load Content JSON for [${this.currentLang}]: Status ${contentRes.status}`);
+    
+        try {
+          this.guideData = JSON.parse(guideText);
+        } catch (e) {
+          console.error(`[i18n Error] Failed parsing ${guideUrl}. Content received:`, guideText);
+          throw e;
         }
-
-        // 2. Update static HTML elements with data-i18n attributes
-        this.updateDOM();
-
-        // 3. Re-render map shelter popups in new language if map exists
-        if (window.evacuationMap && this.shelterData) {
-          if (typeof window.evacuationMap.renderShelters === 'function') {
-            window.evacuationMap.renderShelters();
-          }
+    
+        this.currentLang = lang;
+        window.currentLang = lang;
+        this.updateUI();
+        
+        if (window.evacuationMap) {
+          window.evacuationMap.renderShelters();
         }
-
-      } catch (err) {
-        console.error(`Error switching language to [${this.currentLang}]:`, err);
+      } catch (error) {
+        console.error(`Error switching language to [${lang}]:`, error);
       }
     }
 
