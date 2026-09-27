@@ -14,7 +14,7 @@ const MAX_TILE_CACHE_ITEMS = 1500;
 const STATIC_ASSETS = [
   './',
   './index.html',
-  './css/styles.css',
+  './css/style.css',
   './js/i18n.js',
   './js/guides.js',
   './js/map.js',
