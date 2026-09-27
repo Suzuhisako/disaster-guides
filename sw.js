@@ -1,178 +1,152 @@
-// Keep your existing static cache name
-const CACHE_NAME = 'disaster-guide-v9';
+/* ==========================================================================
+   Disaster Emergency Guide Service Worker
+   - Static Asset Caching (App Shell)
+   - Dynamic Tile Caching (Leaflet Map Tiles)
+   ========================================================================== */
 
-// Add the dedicated tile cache name below it
+const CACHE_NAME = 'disaster-guide-v9';
 const TILE_CACHE_NAME = 'leaflet-tiles-v1';
 
-// Limit max cached tiles to prevent filling device storage (approx. 50MB)
+// Maximum map tiles to store (~50MB) to protect device storage
 const MAX_TILE_CACHE_ITEMS = 1500;
 
-// Explicit paths including GitHub Pages subfolder repo name
-const PRECACHE_ASSETS = [
-  '/disaster-guides/',
-  '/disaster-guides/index.html',
+// Core static assets to pre-cache on installation
+const STATIC_ASSETS = [
   './',
   './index.html',
-  './css/style.css',
+  './css/styles.css',
   './js/i18n.js',
   './js/guides.js',
   './js/map.js',
-  './manifest.json',
   './locators/ui/en.json',
   './locators/ui/zh.json',
+  './locators/ui/jp.json',
   './locators/content/guides_en.json',
   './locators/content/guides_zh.json',
-  './locators/content/shelters.json',
-  './icon-192.png',
-  './icon-512.png',
-
-  // Leaflet CDNs
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
-  'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css',
-  'https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css',
-  'https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js'
+  './locators/content/guides_jp.json',
+  './locators/content/shelters.json'
 ];
 
+/* --------------------------------------------------------------------------
+   1. INSTALL EVENT - Pre-cache App Shell
+   -------------------------------------------------------------------------- */
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      console.log('[SW] Pre-caching starting...');
-      for (const url of PRECACHE_ASSETS) {
-        try {
-          await cache.add(url);
-        } catch (e) {
-          console.warn('[SW] Precache failed for:', url);
-        }
-      }
-    }).then(() => self.skipWaiting())
-  );
-});
+  self.skipWaiting(); // Force active status immediately
 
-self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map(key => key !== CACHE_NAME ? caches.delete(key) : null)
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('[SW] Pre-caching static app shell...');
+      // Use addAll with error handling so missing individual assets don't fail installation
+      return Promise.allSettled(
+        STATIC_ASSETS.map(url => cache.add(url).catch(err => console.warn(`[SW] Failed to cache asset: ${url}`, err)))
       );
-    }).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-
-  // Catch ALL navigation requests (HTML page loads)
-  if (event.request.mode === 'navigate') {
-    event.respondWith(
-      caches.match(event.request).then(response => {
-        if (response) return response;
-        
-        // Return cached index.html or fallback root
-        return caches.match('/disaster-guides/index.html') || 
-               caches.match('./index.html') || 
-               caches.match('/disaster-guides/') ||
-               caches.match('./');
-      })
-    );
-    return;
-  }
-
-  // Handle all other static assets & JSON files
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) return cachedResponse;
-
-      return fetch(event.request).then((networkResponse) => {
-        if (networkResponse && networkResponse.status === 200) {
-          const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
-        }
-        return networkResponse;
-      });
     })
   );
 });
 
-self.addEventListener('install', (event) => {
-  self.skipWaiting();
-});
-
+/* --------------------------------------------------------------------------
+   2. ACTIVATE EVENT - Clean up Old Static Caches
+   -------------------------------------------------------------------------- */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cache) => {
+          // Keep BOTH current app cache and tile cache; delete older versions
           if (cache !== CACHE_NAME && cache !== TILE_CACHE_NAME) {
+            console.log(`[SW] Deleting legacy cache: ${cache}`);
             return caches.delete(cache);
           }
         })
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+/* --------------------------------------------------------------------------
+   3. FETCH EVENT - Route and Handle Network/Cache Requests
+   -------------------------------------------------------------------------- */
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Identify Leaflet tile requests (e.g., *.tile.openstreetmap.org or cyberjapandata.gsi.go.jp)
+  // Identify Leaflet tile requests (OpenStreetMap or GSI Japan Maps)
   const isTileRequest = url.host.includes('tile.openstreetmap.org') || 
                         url.host.includes('cyberjapandata.gsi.go.jp') ||
                         url.pathname.match(/\/\d+\/\d+\/\d+\.png$/);
 
   if (isTileRequest) {
     event.respondWith(handleTileFetch(event.request));
+  } else {
+    event.respondWith(handleStaticFetch(event.request));
   }
 });
 
-/**
- * Cache-First Strategy for Map Tiles with Automatic Pruning
- */
+/* --------------------------------------------------------------------------
+   4. TILE FETCH STRATEGY - Cache First with Auto-Pruning
+   -------------------------------------------------------------------------- */
 async function handleTileFetch(request) {
   const tileCache = await caches.open(TILE_CACHE_NAME);
-  
-  // 1. Return cached tile immediately if available
+
+  // 1. Try returning cached tile immediately
   const cachedResponse = await tileCache.match(request);
   if (cachedResponse) {
     return cachedResponse;
   }
 
-  // 2. Fetch from network, cache copy, and return
+  // 2. Fetch from network if not cached
   try {
     const networkResponse = await fetch(request);
-    
-    // Opaque responses (cross-origin) have status 0, check if ok or status 0
+
+    // Opaque responses (cross-origin) have status 0
     if (networkResponse.status === 200 || networkResponse.status === 0) {
-      // Clone response before consuming it
       tileCache.put(request, networkResponse.clone());
-      
-      // Asynchronously prune cache if it exceeds max size limit
-      pruneTileCache(tileCache);
+      pruneTileCache(tileCache); // Non-blocking cache pruning
     }
-    
+
     return networkResponse;
   } catch (error) {
-    console.warn('SW: Fetching map tile failed (offline mode):', request.url);
-    
-    // Optional: Return a local fallback SVG/PNG placeholder tile
+    console.warn('[SW] Offline map tile unavailable:', request.url);
+
+    // SVG placeholder fallback when tile is missing offline
     return new Response(
       `<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
         <rect width="256" height="256" fill="#f8f9fa"/>
-        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#adb5bd" font-size="12" font-family="sans-serif">Tile Offline</text>
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="#adb5bd" font-size="12" font-family="sans-serif">Offline</text>
        </svg>`,
       { headers: { 'Content-Type': 'image/svg+xml' } }
     );
   }
 }
 
-/**
- * Prune oldest tiles if cache exceeds MAX_TILE_CACHE_ITEMS
- */
+/* --------------------------------------------------------------------------
+   5. STATIC ASSETS STRATEGY - Stale-While-Revalidate
+   -------------------------------------------------------------------------- */
+async function handleStaticFetch(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cachedResponse = await cache.match(request);
+
+  const fetchPromise = fetch(request).then((networkResponse) => {
+    if (networkResponse.status === 200) {
+      cache.put(request, networkResponse.clone());
+    }
+    return networkResponse;
+  }).catch(() => {
+    // Return offline fallback if network fails and item is not in cache
+    if (request.mode === 'navigate') {
+      return cache.match('./index.html');
+    }
+  });
+
+  return cachedResponse || fetchPromise;
+}
+
+/* --------------------------------------------------------------------------
+   6. CACHE MANAGEMENT - Prune Oldest Map Tiles
+   -------------------------------------------------------------------------- */
 async function pruneTileCache(cache) {
   const keys = await cache.keys();
   if (keys.length > MAX_TILE_CACHE_ITEMS) {
-    // Delete the oldest 50 items
+    // Remove oldest 50 tile entries to free up space
     for (let i = 0; i < 50; i++) {
       await cache.delete(keys[i]);
     }
