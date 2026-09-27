@@ -37,6 +37,8 @@
     "filter_surge": "Storm Surge",
     "filter_inland_flood": "Inland Flood",
     "filter_volcano": "Volcano",
+    "locate_me": "Locate Me",
+    "search_placeholder": "Search name or address...",
     "locate_me": "Locate Me"
   }
 }
