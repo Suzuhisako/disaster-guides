@@ -203,6 +203,32 @@
       if (tabMap) tabMap.addEventListener('click', () => window.switchTab('map'));
     });
 
+    /**
+     * Renders an alarm announcement card showing Japanese, English, and Chinese
+     */
+    function renderAlarmCard(alarmKey) {
+      if (!window.i18n || !window.i18n.translations) return '';
+    
+      const alarm = window.i18n.t(`alarms.${alarmKey}`);
+      if (!alarm || typeof alarm === 'string') return '';
+    
+      return `
+        <div class="alarm-card" style="border-left: 4px solid #d9534f; background: #fff5f5; padding: 12px; margin-bottom: 12px; border-radius: 4px;">
+          <div style="font-weight: bold; font-size: 1.05rem; color: #c92a2a; margin-bottom: 4px;">
+            📢 ${alarm.japanese_phrase}
+          </div>
+          <div style="font-size: 0.85rem; color: #495057; margin-bottom: 6px; display: flex; gap: 8px;">
+            <span><strong>EN:</strong> ${alarm.english}</span>
+            <span>•</span>
+            <span><strong>ZH:</strong> ${alarm.zh}</span>
+          </div>
+          <div style="font-size: 0.9rem; color: #212529; line-height: 1.4;">
+            ${alarm.description}
+          </div>
+        </div>
+      `;
+    }
+
     // Register Service Worker for 100% Offline PWA functionality
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
