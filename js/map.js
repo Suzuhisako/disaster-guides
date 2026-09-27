@@ -9,6 +9,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.userLocationLayer = null;
       this.shelterData = null;
       this.selectedCategory = 'all'; // Default: show all shelters
+      this.searchQuery = '';          // Add: Store active search text
     }
 
     /**
@@ -54,6 +55,14 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.renderShelters();
     }
 
+    /**
+     * Add: Set active search text query and trigger map re-render
+     */
+    filterBySearch(query) {
+      this.searchQuery = (query || '').trim().toLowerCase();
+      this.renderShelters();
+    }
+
     renderShelters() {
       const data = this.shelterData || (window.i18n ? window.i18n.shelterData : null);
       if (!data || !this.map) return;
@@ -68,11 +77,44 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.shelterLayer = L.geoJSON(data, {
         renderer: canvasRenderer,
 
-        // --- Filter features dynamically by selected disaster ---
+        // --- Filter features dynamically by BOTH disaster category and search query ---
         filter: (feature) => {
-          if (this.selectedCategory === 'all') return true;
-          const disasters = feature.properties ? feature.properties.disasters : [];
-          return Array.isArray(disasters) && disasters.includes(this.selectedCategory);
+          const props = feature.properties || {};
+
+          // 1. Category Check
+          let matchesCategory = true;
+          if (this.selectedCategory !== 'all') {
+            const disasters = props.disasters || [];
+            matchesCategory = Array.isArray(disasters) && disasters.includes(this.selectedCategory);
+          }
+
+          // Return early if category doesn't match
+          if (!matchesCategory) return false;
+
+          // 2. Text Search Check (Name & Address across languages)
+          if (!this.searchQuery) return true;
+
+          const q = this.searchQuery;
+
+          // Extract all possible multilingual names into a searchable string
+          let nameStr = '';
+          if (props.name && typeof props.name === 'object') {
+            nameStr = Object.values(props.name).join(' ');
+          } else {
+            nameStr = props.name || props.jp_name || '';
+          }
+          if (props.jp_name) nameStr += ' ' + props.jp_name;
+
+          // Extract all possible multilingual addresses into a searchable string
+          let addrStr = '';
+          if (props.address && typeof props.address === 'object') {
+            addrStr = Object.values(props.address).join(' ');
+          } else {
+            addrStr = props.address || '';
+          }
+
+          const fullSearchableText = (nameStr + ' ' + addrStr).toLowerCase();
+          return fullSearchableText.includes(q);
         },
 
         pointToLayer: (feature, latlng) => {
