@@ -89,6 +89,17 @@ if (typeof window.I18nManager === 'undefined') {
       }
     }
 
+    async fetchJson(url) {
+      const response = await fetch(url);
+      const text = await response.text();
+      try {
+        return JSON.parse(text);
+      } catch (err) {
+        console.error(`[i18n] JSON Syntax Error in file: ${url}`, err);
+        throw err;
+      }
+    }
+
     /**
      * Listens for disaster hazard selection changes in the UI dropdown.
      */
