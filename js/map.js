@@ -36,7 +36,16 @@ if (typeof window.EvacuationMap === 'undefined') {
 
       // Load local Kanagawa data (~0.87MB) for fast initial rendering
       this.loadShelterData('kanagawa');
+
+      const selectEl = document.getElementById('prefectureSelect');
+      if (selectEl) {
+        selectEl.addEventListener('change', (e) => {
+          const selectedPref = e.target.value;
+          this.loadShelterData(selectedPref); // Use 'this' directly!
+        });
+      }
     }
+    
 
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
@@ -58,6 +67,14 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.shelterData = data;
       if (this.map) {
         this.renderShelters();
+
+        // Auto-fit map boundaries to selected prefecture features
+        if (this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
+          const bounds = this.shelterLayer.getBounds();
+          if (bounds.isValid()) {
+            this.map.fitBounds(bounds, { padding: [30, 30] });
+          }
+        }
       }
     }
 
