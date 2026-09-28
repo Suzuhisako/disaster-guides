@@ -22,11 +22,6 @@
   <!-- Leaflet Core (CSS & JS) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-
-  <!-- Application Scripts -->
-  <script src="js/i18n.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/guides.js"></script>  
 </head>
 <body>
 
@@ -35,7 +30,7 @@
     <div class="header-container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;">
       <h1 data-i18n="app.title" style="margin: 0; font-size: 1.25rem;">Disaster Micro-Guide</h1>
       
-      <!-- Language Buttons (EN / 中文 / 日本語) -->
+      <!-- Language Selector -->
       <div class="lang-switch-group" role="group" aria-label="Language selector">
         <button type="button" class="lang-btn" data-lang="en">EN</button>
         <button type="button" class="lang-btn" data-lang="zh">中文</button>
@@ -178,7 +173,6 @@
       <span lang="ja">本アプリは緊急時の情報支援を目的としています。実際の災害時は、自治体や警察・消防等の指示に優先して従ってください。</span>
     </p>
   </footer>
-
   
   <!-- Main App Controller & Navigation Script -->
   <script>
