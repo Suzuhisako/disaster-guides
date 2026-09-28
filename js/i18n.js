@@ -1,7 +1,7 @@
 /* ==========================================================================
    i18n Manager Class
    - Handles multilingual UI & disaster guide switching (en, zh, jp)
-   - Dynamic DOM updates for data-i18n attributes
+   - Dynamic DOM updates for data-i18n attributes & prefecture dropdown
    ========================================================================== */
 
 class I18nManager {
@@ -30,50 +30,50 @@ class I18nManager {
   /**
    * Switches active language and re-renders UI + shelters map
    */
-   async setLanguage(lang) {
-     const targetLang = ['en', 'zh', 'jp'].includes(lang) ? lang : 'en';
-   
-     try {
-       const uiUrl = `./locators/ui/${targetLang}.json`;
-       const guideUrl = `./locators/content/guides_${targetLang}.json`;
-       const shelterUrl = `./locators/content/shelters.json`;
-   
-       // Fetch all 3 files concurrently
-       const [uiRes, guideRes, shelterRes] = await Promise.all([
-         fetch(uiUrl),
-         fetch(guideUrl),
-         fetch(shelterUrl)
-       ]);
-   
-       if (!uiRes.ok) throw new Error(`HTTP ${uiRes.status} loading ${uiUrl}`);
-       if (!guideRes.ok) throw new Error(`HTTP ${guideRes.status} loading ${guideUrl}`);
-       if (!shelterRes.ok) throw new Error(`HTTP ${shelterRes.status} loading ${shelterUrl}`);
-   
-       this.translations = await uiRes.json();
-       this.guideData = await guideRes.json();
-       this.shelterData = await shelterRes.json(); // <-- Populates window.i18n.shelterData
-   
-       this.currentLang = targetLang;
-       window.currentLang = targetLang;
-       localStorage.setItem('app_lang', targetLang);
-   
-       // 1. Update text elements across the page
-       this.updateUI();
-   
-       // 2. Pass shelter data to map instance and render
-       if (window.evacuationMap) {
-         window.evacuationMap.setShelterData(this.shelterData);
-       }
-   
-       // 3. Render guides if guide manager exists
-       if (window.guideManager && typeof window.guideManager.renderGuides === 'function') {
-         window.guideManager.renderGuides(this.guideData);
-       }
-   
-     } catch (error) {
-       console.error(`Error switching language to [${targetLang}]:`, error);
-     }
-   }
+  async setLanguage(lang) {
+    const targetLang = ['en', 'zh', 'jp'].includes(lang) ? lang : 'en';
+
+    try {
+      const uiUrl = `./locators/ui/${targetLang}.json`;
+      const guideUrl = `./locators/content/guides_${targetLang}.json`;
+      const shelterUrl = `./locators/content/shelters.json`;
+
+      // Fetch all 3 files concurrently
+      const [uiRes, guideRes, shelterRes] = await Promise.all([
+        fetch(uiUrl),
+        fetch(guideUrl),
+        fetch(shelterUrl)
+      ]);
+
+      if (!uiRes.ok) throw new Error(`HTTP ${uiRes.status} loading ${uiUrl}`);
+      if (!guideRes.ok) throw new Error(`HTTP ${guideRes.status} loading ${guideUrl}`);
+      if (!shelterRes.ok) throw new Error(`HTTP ${shelterRes.status} loading ${shelterUrl}`);
+
+      this.translations = await uiRes.json();
+      this.guideData = await guideRes.json();
+      this.shelterData = await shelterRes.json(); // <-- Populates window.i18n.shelterData
+
+      this.currentLang = targetLang;
+      window.currentLang = targetLang;
+      localStorage.setItem('app_lang', targetLang);
+
+      // 1. Update text elements & dropdowns across the page
+      this.updateUI();
+
+      // 2. Pass shelter data to map instance and render
+      if (window.evacuationMap) {
+        window.evacuationMap.setShelterData(this.shelterData);
+      }
+
+      // 3. Render guides if guide manager exists
+      if (window.guideManager && typeof window.guideManager.renderGuides === 'function') {
+        window.guideManager.renderGuides(this.guideData);
+      }
+
+    } catch (error) {
+      console.error(`Error switching language to [${targetLang}]:`, error);
+    }
+  }
 
   /**
    * Resolves nested translation keys (e.g., "alarms.earthquake_early.title")
@@ -91,6 +91,25 @@ class I18nManager {
       }
     }
     return value;
+  }
+
+  /**
+   * Dynamically updates the prefecture select dropdown option labels
+   */
+  updatePrefectureDropdown() {
+    const select = document.getElementById('prefectureSelect');
+    if (!select) return;
+
+    const prefDict = this.t('prefectures');
+    if (!prefDict || typeof prefDict !== 'object') return;
+
+    // Loop over each option element and swap its text content
+    Array.from(select.options).forEach((option) => {
+      const slug = option.value; // e.g., "kanagawa", "tokyo"
+      if (prefDict[slug]) {
+        option.textContent = prefDict[slug];
+      }
+    });
   }
 
   /**
@@ -116,6 +135,9 @@ class I18nManager {
         el.placeholder = translatedValue;
       }
     });
+
+    // Translate prefecture dropdown option labels
+    this.updatePrefectureDropdown();
 
     // Highlight active language button in UI
     const langBtns = document.querySelectorAll('.lang-btn, [data-lang]');
