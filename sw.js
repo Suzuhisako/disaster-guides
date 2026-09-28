@@ -14,7 +14,7 @@ const MAX_TILE_CACHE_ITEMS = 1500;
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './js/app.js',
+  './js/guides.js',
   './js/map.js',
   './js/i18n.js',
   './locators/ui/en.json',
