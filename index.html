@@ -32,14 +32,14 @@
 
   <!-- Header & Language Selector -->
   <header class="app-header">
-    <div class="header-container">
-      <h1 data-i18n="app.title">Disaster Micro-Guide</h1>
+    <div class="header-container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 16px;">
+      <h1 data-i18n="app.title" style="margin: 0; font-size: 1.25rem;">Disaster Micro-Guide</h1>
       
-      <div class="lang-picker">
-        <select id="langSelect" aria-label="Select Language">
-          <option value="en">English</option>
-          <option value="zh">中文 (Chinese)</option>
-        </select>
+      <!-- Language Buttons (EN / 中文 / 日本語) -->
+      <div class="lang-switch-group" role="group" aria-label="Language selector">
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-lang="zh">中文</button>
+        <button type="button" class="lang-btn" data-lang="jp">日本語</button>
       </div>
     </div>
   </header>
@@ -62,7 +62,7 @@
       <!-- Filter & Search Controls Bar -->
       <div class="filter-container" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; margin: 8px 0;">
         
-        <!-- Left group: Hazard selector + Text Search -->
+        <!-- Left group: Hazard selector + Prefecture Selector -->
         <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; flex-grow: 1;">
           
           <!-- Hazard Category Selector -->
@@ -164,7 +164,7 @@
 
   <!-- Footer Disclaimer & Data Attribution -->  
   <footer class="app-footer" style="padding: 16px; margin-top: 24px; border-top: 1px solid #e9ecef; text-align: center; font-size: 0.75rem; color: #6c757d; line-height: 1.5;">
-    <!-- Data Attribution & Advisory -->
+    <!-- Data Source Attribution / 出典・留意事項 -->
     <p style="margin-bottom: 8px;">
       <strong>Data Source Attribution / 出典・留意事項</strong><br>
       Shelter location data is derived from official open data published by the Geospatial Information Authority of Japan (GSI) and processed for dual-language access. As official datasets are updated periodically by authorities, local designations may change.<br>
@@ -179,12 +179,7 @@
     </p>
   </footer>
 
-  <!-- Leaflet Library JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
-          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
-          crossorigin=""></script>
-
- 
+  
   <!-- Main App Controller & Navigation Script -->
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
