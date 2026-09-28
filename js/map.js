@@ -37,7 +37,7 @@ if (typeof window.EvacuationMap === 'undefined') {
        // Load local Kanagawa data (~0.87MB) for fast initial rendering
         this.loadShelterData('kanagawa');
       }
-    }
+    },
 
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
