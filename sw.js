@@ -4,25 +4,25 @@
    - Dynamic Tile Caching (Leaflet Map Tiles)
    ========================================================================== */
 
-const CACHE_NAME = 'disaster-guide-v9';
+const CACHE_NAME = 'disaster-guide-v10';
 const TILE_CACHE_NAME = 'leaflet-tiles-v1';
 
 // Maximum map tiles to store (~50MB) to protect device storage
 const MAX_TILE_CACHE_ITEMS = 1500;
 
 // Core static assets to pre-cache on installation
-const STATIC_ASSETS = [
+// Inside sw.js
+const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './css/style.css',
-  './js/i18n.js',
-  './js/guides.js',
+  './js/app.js',
   './js/map.js',
+  './js/i18n.js',
   './locators/ui/en.json',
-  './locators/ui/zh.json', 
+  './locators/ui/zh.json',
   './locators/content/guides_en.json',
-  './locators/content/guides_zh.json',  
-  './locators/content/shelters.json'
+  './locators/content/guides_zh.json',
+  './locators/content/prefectures/kanagawa.json'
 ];
 
 /* --------------------------------------------------------------------------
