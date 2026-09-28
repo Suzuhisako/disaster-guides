@@ -34,10 +34,7 @@ if (typeof window.EvacuationMap === 'undefined') {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
 
-      // Load regional shelter data (defaults to Kanagawa)
-      if (window.i18n && window.i18n.shelterData) {
-        this.setShelterData(window.i18n.shelterData);
-      } else {
+       // Load local Kanagawa data (~0.87MB) for fast initial rendering
         this.loadShelterData('kanagawa');
       }
     }
