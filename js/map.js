@@ -9,7 +9,6 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.userLocationLayer = null;
       this.shelterData = null;
       this.selectedCategory = 'all'; // Default: show all shelters
-      this.searchQuery = '';          // Add: Store active search text
     }
 
     /**
@@ -35,8 +34,27 @@ if (typeof window.EvacuationMap === 'undefined') {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
 
+      // Load regional shelter data (defaults to Kanagawa)
       if (window.i18n && window.i18n.shelterData) {
         this.setShelterData(window.i18n.shelterData);
+      } else {
+        this.loadShelterData('kanagawa');
+      }
+    }
+
+    /**
+     * Dynamically fetches regional JSON data (e.g. kanagawa.json)
+     */
+    async loadShelterData(prefecture = 'kanagawa') {
+      try {
+        const response = await fetch(`./locators/content/prefectures/${prefecture}.json`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        this.setShelterData(data);
+      } catch (error) {
+        console.error(`Failed to load shelter data for ${prefecture}:`, error);
       }
     }
 
@@ -55,14 +73,6 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.renderShelters();
     }
 
-    /**
-     * Add: Set active search text query and trigger map re-render
-     */
-    filterBySearch(query) {
-      this.searchQuery = (query || '').trim().toLowerCase();
-      this.renderShelters();
-    }
-
     renderShelters() {
       const data = this.shelterData || (window.i18n ? window.i18n.shelterData : null);
       if (!data || !this.map) return;
@@ -77,49 +87,16 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.shelterLayer = L.geoJSON(data, {
         renderer: canvasRenderer,
 
-        // --- Filter features dynamically by BOTH disaster category and search query ---
-        // --- Filter features dynamically by BOTH disaster category and search query ---
-        // Inside renderShelters() in map.js:
-
+        // --- Filter features dynamically by disaster category ---
         filter: (feature) => {
           const props = feature.properties || {};
 
-          // 1. Category Filter Check
-          let matchesCategory = true;
           if (this.selectedCategory !== 'all') {
             const disasters = props.disasters || [];
-            matchesCategory = Array.isArray(disasters) && disasters.includes(this.selectedCategory);
+            return Array.isArray(disasters) && disasters.includes(this.selectedCategory);
           }
 
-          if (!matchesCategory) return false;
-
-          // 2. Search Text Check
-          if (!this.searchQuery) return true;
-
-          const q = this.searchQuery.toLowerCase();
-
-          // Dynamically compile ALL names and addresses present in the feature
-          let searchableParts = [];
-
-          // Names (object or string)
-          if (props.name && typeof props.name === 'object') {
-            searchableParts.push(...Object.values(props.name));
-          } else if (props.name) {
-            searchableParts.push(props.name);
-          }
-          if (props.jp_name) searchableParts.push(props.jp_name);
-
-          // Addresses (object or string)
-          if (props.address && typeof props.address === 'object') {
-            searchableParts.push(...Object.values(props.address));
-          } else if (props.address) {
-            searchableParts.push(props.address);
-          }
-
-          // Combine into a single searchable lowercase string
-          const fullSearchText = searchableParts.join(' ').toLowerCase();
-
-          return fullSearchText.includes(q);
+          return true;
         },
 
         pointToLayer: (feature, latlng) => {
