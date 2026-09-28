@@ -34,10 +34,9 @@ if (typeof window.EvacuationMap === 'undefined') {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
 
-       // Load local Kanagawa data (~0.87MB) for fast initial rendering
-        this.loadShelterData('kanagawa');
-      }
-    },
+      // Load local Kanagawa data (~0.87MB) for fast initial rendering
+      this.loadShelterData('kanagawa');
+    }
 
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
