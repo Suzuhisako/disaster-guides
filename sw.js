@@ -4,14 +4,13 @@
    - Dynamic Tile Caching (Leaflet Map Tiles)
    ========================================================================== */
 
-const CACHE_NAME = 'disaster-guide-v10';
+const CACHE_NAME = 'disaster-guide-v11';
 const TILE_CACHE_NAME = 'leaflet-tiles-v1';
 
 // Maximum map tiles to store (~50MB) to protect device storage
 const MAX_TILE_CACHE_ITEMS = 1500;
 
 // Core static assets to pre-cache on installation
-// Inside sw.js
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -36,7 +35,7 @@ self.addEventListener('install', (event) => {
       console.log('[SW] Pre-caching static app shell...');
       // Use addAll with error handling so missing individual assets don't fail installation
       return Promise.allSettled(
-        STATIC_ASSETS.map(url => cache.add(url).catch(err => console.warn(`[SW] Failed to cache asset: ${url}`, err)))
+        ASSETS_TO_CACHE.map(url => cache.add(url).catch(err => console.warn(`[SW] Failed to cache asset: ${url}`, err)))
       );
     })
   );
