@@ -1,5 +1,6 @@
-const CACHE_NAME = 'disaster-guide-v2'; // Incremented to force SW update!
+const CACHE_NAME = 'disaster-guide-v3';
 
+// Ensure these paths match your actual repository file structure exactly
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -10,26 +11,30 @@ const PRECACHE_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  
   // CDN dependencies
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
-  
   // Prefecture shelter data
   './locators/content/prefectures/kanagawa.json',
-  './locators/content/prefectures/tokyo.json',
-  
-  // === ADD YOUR CHINESE & TRANSLATION ASSETS HERE ===
-  './locators/content/guides/zh.json',       // Adjust path if your Chinese JSON lives elsewhere
-  './locators/content/guides/en.json',
-  './locators/content/guides/jp.json'
+  './locators/content/prefectures/tokyo.json'
+  // Note: Add your exact guide/translation JSON paths here once verified!
 ];
 
+// Install Event: Safely cache assets individually so one missing file won't break the worker
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[SW] Precaching essential offline assets...');
-      return cache.addAll(PRECACHE_ASSETS);
+      console.log('[SW] Precaching offline assets...');
+      return Promise.allSettled(
+        PRECACHE_ASSETS.map(async (url) => {
+          try {
+            await cache.add(url);
+            console.log('[SW] Successfully cached:', url);
+          } catch (err) {
+            console.warn('[SW] Failed to cache asset (check path or 404):', url, err);
+          }
+        })
+      );
     }).then(() => self.skipWaiting())
   );
 });
@@ -62,7 +67,7 @@ self.addEventListener('fetch', (event) => {
           return networkResponse;
         })
         .catch(() => {
-          // Quietly fail offline fetch requests
+          // Fail silently offline
         });
 
       return cachedResponse || fetchPromise;
