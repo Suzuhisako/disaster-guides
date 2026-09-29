@@ -48,56 +48,47 @@ class I18nManager {
   /**
    * Switches active language and re-renders UI + shelters map + disaster guides
    */
-  async setLanguage(lang) {
-    const targetLang = ['en', 'zh', 'jp'].includes(lang) ? lang : 'en';
-
-    try {
-      const uiUrl = `./locators/ui/${targetLang}.json`;
-      const guideUrl = `./locators/content/guides_${targetLang}.json`;
-
-      // Fetch UI and Guide resources
-      const [uiRes, guideRes] = await Promise.all([
-        fetch(uiUrl).catch(err => null),
-        fetch(guideUrl).catch(err => null)
-      ]);
-
-      if (uiRes && uiRes.ok) {
-        this.translations = await uiRes.json();
-      } else {
-        console.warn(`UI translation file missing for [${targetLang}] at ${uiUrl}`);
-      }
-
-      if (guideRes && guideRes.ok) {
-        this.guideData = await guideRes.json();
-      } else {
-        console.warn(`Guide data file missing for [${targetLang}] at ${guideUrl}`);
-      }
-
-      this.currentLang = targetLang;
-      window.currentLang = targetLang;
-      localStorage.setItem('app_lang', targetLang);
-
-      // 1. Update text elements & dropdowns across the page
-      this.updateUI();
-
-      // 2. Refresh active map markers/popups with new language
-      if (window.evacuationMap && typeof window.evacuationMap.renderShelters === 'function') {
-        window.evacuationMap.renderShelters();
-      }
-
-      // 3. Update emergency guides view
-      const guidePath = `locators/content/guides_${targetLang}.json`;
-      
-      if (window.emergencyGuides && typeof window.emergencyGuides.setLanguage === 'function') {
-        window.emergencyGuides.setLanguage(guidePath);
-      } else if (window.guideRenderer && typeof window.guideRenderer.setLanguage === 'function') {
-        window.guideRenderer.setLanguage(guidePath);
-      }
-
-    } catch (error) {
-      console.error(`Error switching language to [${targetLang}]:`, error);
-    }
-  }
+     async setLanguage(lang) {
+     const targetLang = ['en', 'zh', 'jp'].includes(lang) ? lang : 'en';
+   
+     try {
+       const uiUrl = `./locators/ui/${targetLang}.json`;
+   
+       // Fetch UI translations (EmergencyGuides handles its own guide JSON fetch)
+       const uiRes = await fetch(uiUrl).catch(() => null);
+   
+       if (uiRes && uiRes.ok) {
+         this.translations = await uiRes.json();
+       } else {
+         console.warn(`UI translation file missing for [${targetLang}] at ${uiUrl}`);
+       }
+   
+       // Persist language state globally
+       this.currentLang = targetLang;
+       window.currentLang = targetLang;
+       localStorage.setItem('app_lang', targetLang);
+   
+       // 1. Update static UI elements & dropdowns
+       this.updateUI();
+   
+       // 2. Refresh active map markers/popups
+       if (window.evacuationMap && typeof window.evacuationMap.renderShelters === 'function') {
+         window.evacuationMap.renderShelters();
+       }
+   
+       // 3. Delegation: Pass content path to EmergencyGuides instance
+       const guidePath = `locators/content/guides_${targetLang}.json`;
+   
+       if (window.emergencyGuides && typeof window.emergencyGuides.setLanguage === 'function') {
+         await window.emergencyGuides.setLanguage(guidePath);
+       } else if (window.guideRenderer && typeof window.guideRenderer.setLanguage === 'function') {
+         await window.guideRenderer.setLanguage(guidePath);
+       }
+   
+     } catch (error) {
+       console.error(`Error switching language to [${targetLang}]:`, error);
+     }
+   }
 
   /**
    * Resolves nested translation keys (e.g., "alarms.earthquake_early.title")
