@@ -163,7 +163,33 @@ if (typeof window.EvacuationMap === 'undefined') {
     }
 
     /**
-     * Centers map on user device geolocation
+     * Determines prefecture key based on latitude/longitude boundaries
+     */
+    getPrefectureFromCoords(lat, lng) {
+      // Kanto Region
+      if (lat >= 35.1 && lat <= 35.7 && lng >= 138.9 && lng <= 139.8) return 'kanagawa';
+      if (lat >= 35.5 && lat <= 35.9 && lng >= 138.9 && lng <= 139.9) return 'tokyo';
+      if (lat >= 34.8 && lat <= 36.1 && lng >= 139.7 && lng <= 140.9) return 'chiba';
+      if (lat >= 35.7 && lat <= 36.3 && lng >= 138.9 && lng <= 139.9) return 'saitama';
+      if (lat >= 35.8 && lat <= 36.9 && lng >= 139.8 && lng <= 140.8) return 'ibaraki';
+      if (lat >= 36.2 && lat <= 37.2 && lng >= 139.3 && lng <= 140.2) return 'tochigi';
+      if (lat >= 36.0 && lat <= 37.1 && lng >= 138.4 && lng <= 139.5) return 'gunma';
+
+      // Kansai Region
+      if (lat >= 34.2 && lat <= 35.1 && lng >= 135.1 && lng <= 135.8) return 'osaka';
+      if (lat >= 34.7 && lat <= 35.8 && lng >= 134.8 && lng <= 136.0) return 'kyoto';
+      if (lat >= 34.1 && lat <= 35.7 && lng >= 134.3 && lng <= 135.5) return 'hyogo';
+
+      // Chubu Region
+      if (lat >= 34.6 && lat <= 35.4 && lng >= 138.7 && lng <= 139.2) return 'shizuoka';
+      if (lat >= 34.5 && lat <= 35.4 && lng >= 136.7 && lng <= 137.5) return 'aichi';
+
+      // Default fallback to Kanagawa if not in explicit bounds
+      return 'kanagawa';
+    }
+
+    /**
+     * Centers map on user device geolocation and updates shelter data
      */
     locateUser() {
       if (!this.map || !navigator.geolocation) return;
@@ -173,6 +199,7 @@ if (typeof window.EvacuationMap === 'undefined') {
           const { latitude, longitude } = position.coords;
           const latlng = [latitude, longitude];
 
+          // 1. Render / Update User Location Blue Marker
           if (this.userLocationLayer) {
             this.map.removeLayer(this.userLocationLayer);
           }
@@ -186,6 +213,19 @@ if (typeof window.EvacuationMap === 'undefined') {
             fillOpacity: 0.9
           }).addTo(this.map);
 
+          // 2. Identify Prefecture from GPS
+          const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
+
+          // 3. Update <select id="prefectureSelect"> element in UI
+          const selectEl = document.getElementById('prefectureSelect');
+          if (selectEl) {
+            selectEl.value = detectedPref;
+          }
+
+          // 4. Fetch shelter data for detected prefecture
+          this.loadShelterData(detectedPref);
+
+          // 5. Center map view on user coordinates
           this.map.setView(latlng, 14);
         },
         (error) => {
