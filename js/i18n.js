@@ -46,7 +46,7 @@ class I18nManager {
   }
 
   /**
-   * Switches active language and re-renders UI + shelters map
+   * Switches active language and re-renders UI + shelters map + disaster guides
    */
   async setLanguage(lang) {
     const targetLang = ['en', 'zh', 'jp'].includes(lang) ? lang : 'en';
@@ -85,8 +85,10 @@ class I18nManager {
         window.evacuationMap.renderShelters();
       }
 
-      // 3. Render guides if guide manager exists
-      if (window.guideManager && typeof window.guideManager.renderGuides === 'function') {
+      // 3. Update emergency guides view
+      if (window.emergencyGuides && typeof window.emergencyGuides.setLanguage === 'function') {
+        window.emergencyGuides.setLanguage(guideUrl);
+      } else if (window.guideManager && typeof window.guideManager.renderGuides === 'function') {
         window.guideManager.renderGuides(this.guideData);
       }
 
