@@ -24,7 +24,25 @@ class I18nManager {
       initialLang = 'en';
     }
 
+    // Attach click listeners to language switch buttons
+    this.setupEventListeners();
+
     await this.setLanguage(initialLang);
+  }
+
+  /**
+   * Binds click events to language toggle buttons
+   */
+  setupEventListeners() {
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.lang-btn, [data-lang]');
+      if (btn) {
+        const targetLang = btn.getAttribute('data-lang');
+        if (targetLang && targetLang !== this.currentLang) {
+          this.setLanguage(targetLang);
+        }
+      }
+    });
   }
 
   /**
@@ -36,22 +54,24 @@ class I18nManager {
     try {
       const uiUrl = `./locators/ui/${targetLang}.json`;
       const guideUrl = `./locators/content/guides_${targetLang}.json`;
-      const shelterUrl = `./locators/content/shelters.json`;
 
-      // Fetch all 3 files concurrently
-      const [uiRes, guideRes, shelterRes] = await Promise.all([
-        fetch(uiUrl),
-        fetch(guideUrl),
-        fetch(shelterUrl)
+      // Fetch UI and Guide resources
+      const [uiRes, guideRes] = await Promise.all([
+        fetch(uiUrl).catch(err => null),
+        fetch(guideUrl).catch(err => null)
       ]);
 
-      if (!uiRes.ok) throw new Error(`HTTP ${uiRes.status} loading ${uiUrl}`);
-      if (!guideRes.ok) throw new Error(`HTTP ${guideRes.status} loading ${guideUrl}`);
-      if (!shelterRes.ok) throw new Error(`HTTP ${shelterRes.status} loading ${shelterUrl}`);
+      if (uiRes && uiRes.ok) {
+        this.translations = await uiRes.json();
+      } else {
+        console.warn(`UI translation file missing for [${targetLang}] at ${uiUrl}`);
+      }
 
-      this.translations = await uiRes.json();
-      this.guideData = await guideRes.json();
-      this.shelterData = await shelterRes.json(); // <-- Populates window.i18n.shelterData
+      if (guideRes && guideRes.ok) {
+        this.guideData = await guideRes.json();
+      } else {
+        console.warn(`Guide data file missing for [${targetLang}] at ${guideUrl}`);
+      }
 
       this.currentLang = targetLang;
       window.currentLang = targetLang;
@@ -60,9 +80,9 @@ class I18nManager {
       // 1. Update text elements & dropdowns across the page
       this.updateUI();
 
-      // 2. Pass shelter data to map instance and render
-      if (window.evacuationMap) {
-        window.evacuationMap.setShelterData(this.shelterData);
+      // 2. Refresh active map markers/popups with new language
+      if (window.evacuationMap && typeof window.evacuationMap.renderShelters === 'function') {
+        window.evacuationMap.renderShelters();
       }
 
       // 3. Render guides if guide manager exists
@@ -103,9 +123,8 @@ class I18nManager {
     const prefDict = this.t('prefectures');
     if (!prefDict || typeof prefDict !== 'object') return;
 
-    // Loop over each option element and swap its text content
     Array.from(select.options).forEach((option) => {
-      const slug = option.value; // e.g., "kanagawa", "tokyo"
+      const slug = option.value;
       if (prefDict[slug]) {
         option.textContent = prefDict[slug];
       }
