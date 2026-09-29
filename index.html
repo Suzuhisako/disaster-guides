@@ -182,15 +182,16 @@
       const tabMap = document.getElementById('tabMap');
       const contentArea = document.getElementById('contentArea');
       const mapSection = document.getElementById('mapSection');
-      const langSelect = document.getElementById('langSelect');
-      const disasterSelect = document.getElementById('disasterSelect'); // <-- 1. Grab dropdown reference
+      const disasterSelect = document.getElementById('disasterSelect'); 
     
-      // Set initial language from storage or dropdown
-      const langSelect = document.getElementById('langSelect');
-  
-      // 1. Read saved language consistently with i18n.js ('app_lang')
-      const initialLang = localStorage.getItem('app_lang') || (langSelect ? langSelect.value : 'en');
-      if (langSelect) langSelect.value = initialLang;
+      // 1. Determine initial language (saved preference -> browser language -> English fallback)
+      const savedLang = localStorage.getItem('app_lang');
+      const browserLang = navigator.language ? navigator.language.slice(0, 2) : 'en';
+      
+      let initialLang = savedLang || browserLang;
+      if (!['en', 'zh'].includes(initialLang)) {
+        initialLang = 'en';
+      }
     
       // 2. Initialize EmergencyGuides on window.emergencyGuides
       if (typeof EmergencyGuides !== 'undefined') {
