@@ -1,6 +1,5 @@
-const CACHE_NAME = 'disaster-guide-v1';
+const CACHE_NAME = 'disaster-guide-v2'; // Incremented to force SW update!
 
-// All paths use relative addresses suitable for '/disaster-guides/' subfolder scope
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -11,12 +10,19 @@ const PRECACHE_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  // External CDN dependencies
+  
+  // CDN dependencies
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
-  // Core prefecture shelter data files
+  
+  // Prefecture shelter data
   './locators/content/prefectures/kanagawa.json',
-  './locators/content/prefectures/tokyo.json'
+  './locators/content/prefectures/tokyo.json',
+  
+  // === ADD YOUR CHINESE & TRANSLATION ASSETS HERE ===
+  './locators/content/guides/zh.json',       // Adjust path if your Chinese JSON lives elsewhere
+  './locators/content/guides/en.json',
+  './locators/content/guides/jp.json'
 ];
 
 self.addEventListener('install', (event) => {
