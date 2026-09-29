@@ -1,4 +1,4 @@
-const CACHE_NAME = 'disaster-guide-v6';
+const CACHE_NAME = 'disaster-guide-v7';
 
 // Ensure these paths match your actual repository file structure exactly
 const PRECACHE_ASSETS = [
