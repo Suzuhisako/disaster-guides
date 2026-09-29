@@ -27,7 +27,7 @@ if (typeof window.EvacuationMap === 'undefined') {
         preferCanvas: true,
         zoomControl: true,
         renderer: L.canvas({ padding: 0.5, tolerance: 10 })
-      }).setView([35.3670, 139.3872], 11);
+      }).setView([35.6812, 139.7671], 11);
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -35,7 +35,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       }).addTo(this.map);
 
       // Load local Kanagawa data (~0.87MB) for fast initial rendering
-      this.loadShelterData('kanagawa');
+      this.loadShelterData('tokyo');
 
       const selectEl = document.getElementById('prefectureSelect');
       if (selectEl) {
@@ -50,7 +50,7 @@ if (typeof window.EvacuationMap === 'undefined') {
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
      */
-    async loadShelterData(prefecture = 'kanagawa') {
+    async loadShelterData(prefecture = 'tokyo') {
       try {
         const response = await fetch(`./locators/content/prefectures/${prefecture}.json`);
         if (!response.ok) {
@@ -185,7 +185,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       if (lat >= 34.5 && lat <= 35.4 && lng >= 136.7 && lng <= 137.5) return 'aichi';
 
       // Default fallback to Kanagawa if not in explicit bounds
-      return 'kanagawa';
+      return 'tokyo';
     }
 
     /**
