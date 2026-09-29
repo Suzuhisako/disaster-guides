@@ -250,6 +250,8 @@
       window.switchTab('guides');
     
       // 4. Dropdown Language Change Handler
+      const langSelect = document.getElementById('langSelect');
+      
       if (langSelect) {
         langSelect.addEventListener('change', async (e) => {
           const selectedLang = e.target.value;
