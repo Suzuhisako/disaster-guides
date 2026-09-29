@@ -5,8 +5,50 @@
 class EmergencyGuides {
   constructor(containerId, contentPath) {
     this.container = document.getElementById(containerId);
-    this.contentPath = contentPath || 'locators/content/guides_en.json';
+    this.contentPath = this.normalizePath(contentPath || 'locators/content/guides_en.json');
     this.guidesData = [];
+    
+    // UI Label Translations matching current language
+    this.labels = this.getLabelsForPath(this.contentPath);
+  }
+
+  /**
+   * Normalizes path format to ensure reliable comparison
+   */
+  normalizePath(path) {
+    if (!path) return 'locators/content/guides_en.json';
+    return path.replace(/^\.\//, '');
+  }
+
+  /**
+   * Returns localized card headers based on current file path
+   */
+  getLabelsForPath(path) {
+    if (path.includes('_zh')) {
+      return {
+        alertTitle: '警报标识',
+        jpPhrase: '日语短语:',
+        detail: '详情:',
+        immediateAction: '⚡ 立即采取动作:',
+        actionSteps: '应对步骤:'
+      };
+    } else if (path.includes('_jp')) {
+      return {
+        alertTitle: '警報識別',
+        jpPhrase: '日本語フレーズ:',
+        detail: '詳細:',
+        immediateAction: '⚡ 緊急行動:',
+        actionSteps: '行動手順:'
+      };
+    }
+    // Default English
+    return {
+      alertTitle: 'Alert Identifier',
+      jpPhrase: 'Japanese Phrase:',
+      detail: 'Detail:',
+      immediateAction: '⚡ Immediate Action:',
+      actionSteps: 'Action Steps:'
+    };
   }
 
   /**
@@ -17,7 +59,7 @@ class EmergencyGuides {
       console.warn('EmergencyGuides: Container element not found in DOM.');
       return;
     }
-  
+
     try {
       const response = await fetch(this.contentPath);
       if (!response.ok) {
@@ -39,8 +81,11 @@ class EmergencyGuides {
    * Updates content path and re-initializes view (for language switching)
    */
   async setLanguage(newContentPath) {
-    if (this.contentPath === newContentPath) return;
-    this.contentPath = newContentPath;
+    const normalized = this.normalizePath(newContentPath);
+    
+    // Always update labels and re-fetch when setLanguage is explicitly called
+    this.contentPath = normalized;
+    this.labels = this.getLabelsForPath(normalized);
     await this.init();
   }
 
@@ -71,16 +116,16 @@ class EmergencyGuides {
     const alarmSection = guide.alarm ? `
       <div class="guide-alarm-box">
         <div class="alarm-header">
-          <strong>📢 ${this.escapeHtml(guide.alarm.title || 'Alert Identifier')}</strong>
+          <strong>📢 ${this.escapeHtml(guide.alarm.title || this.labels.alertTitle)}</strong>
         </div>
         ${guide.alarm.jp_phrase ? `
           <div class="alarm-jp-phrase">
-            <span>Japanese Phrase:</span> <code>${this.escapeHtml(guide.alarm.jp_phrase)}</code>
+            <span>${this.labels.jpPhrase}</span> <code>${this.escapeHtml(guide.alarm.jp_phrase)}</code>
           </div>
         ` : ''}
         ${alarmDesc ? `
           <p class="alarm-description">
-            <strong>Detail:</strong> ${this.escapeHtml(alarmDesc)}
+            <strong>${this.labels.detail}</strong>${this.escapeHtml(alarmDesc)}
           </p>
         ` : ''}
       </div>
@@ -88,7 +133,7 @@ class EmergencyGuides {
 
     const immediateAction = guide.immediate_action ? `
       <div class="guide-immediate-action">
-        <strong>⚡ Immediate Action:</strong> ${this.escapeHtml(guide.immediate_action)}
+        <strong>${this.labels.immediateAction}</strong> ${this.escapeHtml(guide.immediate_action)}
       </div>
     ` : '';
 
@@ -103,7 +148,7 @@ class EmergencyGuides {
         ${alarmSection}
         ${stepsList ? `
           <div class="guide-steps">
-            <h4>Action Steps:</h4>
+            <h4>${this.labels.actionSteps}</h4>
             <ol>${stepsList}</ol>
           </div>
         ` : ''}
