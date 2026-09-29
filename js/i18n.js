@@ -86,10 +86,12 @@ class I18nManager {
       }
 
       // 3. Update emergency guides view
+      const guidePath = `locators/content/guides_${targetLang}.json`;
+      
       if (window.emergencyGuides && typeof window.emergencyGuides.setLanguage === 'function') {
-        window.emergencyGuides.setLanguage(guideUrl);
-      } else if (window.guideManager && typeof window.guideManager.renderGuides === 'function') {
-        window.guideManager.renderGuides(this.guideData);
+        window.emergencyGuides.setLanguage(guidePath);
+      } else if (window.guideRenderer && typeof window.guideRenderer.setLanguage === 'function') {
+        window.guideRenderer.setLanguage(guidePath);
       }
 
     } catch (error) {
