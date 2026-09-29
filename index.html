@@ -251,12 +251,10 @@
       if (langSelect) {
         langSelect.addEventListener('change', async (e) => {
           const selectedLang = e.target.value;
-              
-          if (window.i18n && typeof window.i18n.setLanguage === 'function') {
+          localStorage.setItem('appLang', selectedLang);
+    
+          if (window.i18n) {
             await window.i18n.setLanguage(selectedLang);
-          } else {
-            // Fallback if i18n isn't ready
-            localStorage.setItem('app_lang', selectedLang);
           }
     
           if (window.guideRenderer) {
