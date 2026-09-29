@@ -11,6 +11,10 @@ const PRECACHE_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+  './locators/ui/en.json',
+  './locators/ui/zh.json',
+  './locators/content/guides_en.json',
+  './locators/content/guides_zh.json',
   // CDN dependencies
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
