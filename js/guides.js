@@ -5,50 +5,8 @@
 class EmergencyGuides {
   constructor(containerId, contentPath) {
     this.container = document.getElementById(containerId);
-    this.contentPath = this.normalizePath(contentPath || 'locators/content/guides_en.json');
+    this.contentPath = contentPath || 'locators/content/guides_en.json';
     this.guidesData = [];
-    
-    // UI Label Translations matching current language
-    this.labels = this.getLabelsForPath(this.contentPath);
-  }
-
-  /**
-   * Normalizes path format to ensure reliable comparison
-   */
-  normalizePath(path) {
-    if (!path) return 'locators/content/guides_en.json';
-    return path.replace(/^\.\//, '');
-  }
-
-  /**
-   * Returns localized card headers based on current file path
-   */
-  getLabelsForPath(path) {
-    if (path.includes('_zh')) {
-      return {
-        alertTitle: '警报标识',
-        jpPhrase: '日语短语:',
-        detail: '详情:',
-        immediateAction: '⚡ 立即采取动作:',
-        actionSteps: '应对步骤:'
-      };
-    } else if (path.includes('_jp')) {
-      return {
-        alertTitle: '警報識別',
-        jpPhrase: '日本語フレーズ:',
-        detail: '詳細:',
-        immediateAction: '⚡ 緊急行動:',
-        actionSteps: '行動手順:'
-      };
-    }
-    // Default English
-    return {
-      alertTitle: 'Alert Identifier',
-      jpPhrase: 'Japanese Phrase:',
-      detail: 'Detail:',
-      immediateAction: '⚡ Immediate Action:',
-      actionSteps: 'Action Steps:'
-    };
   }
 
   /**
@@ -66,10 +24,10 @@ class EmergencyGuides {
         throw new Error(`Failed to load guide data: ${response.status}`);
       }
       const data = await response.json();
-      
-      // Extract the array whether it's wrapped in { events: [...] } or top-level [...]
+
+      // Extract array whether it's wrapped in { events: [...] } or top-level [...]
       this.guidesData = Array.isArray(data) ? data : (data.events || []);
-      
+
       this.render();
     } catch (error) {
       console.error('Error initializing Emergency Guides:', error);
@@ -81,11 +39,7 @@ class EmergencyGuides {
    * Updates content path and re-initializes view (for language switching)
    */
   async setLanguage(newContentPath) {
-    const normalized = this.normalizePath(newContentPath);
-    
-    // Always update labels and re-fetch when setLanguage is explicitly called
-    this.contentPath = normalized;
-    this.labels = this.getLabelsForPath(normalized);
+    this.contentPath = newContentPath;
     await this.init();
   }
 
@@ -103,29 +57,62 @@ class EmergencyGuides {
   }
 
   /**
+   * Gets localized UI labels via window.i18n or language fallback
+   */
+  getLabels() {
+    const lang = (window.i18n && window.i18n.currentLang) || 'en';
+    const labels = {
+      en: {
+        jpPhrase: 'Japanese Phrase:',
+        detail: 'Detail:',
+        immediateAction: '⚡ Immediate Action:',
+        actionSteps: 'Action Steps:',
+        alertIdentifier: 'Alert Identifier'
+      },
+      zh: {
+        jpPhrase: '日文短语：',
+        detail: '详细信息：',
+        immediateAction: '⚡ 紧急应对：',
+        actionSteps: '应对步骤：',
+        alertIdentifier: '警报标识'
+      },
+      jp: {
+        jpPhrase: '日本語フレーズ:',
+        detail: '詳細:',
+        immediateAction: '⚡ 緊急行動:',
+        actionSteps: '行動手順:',
+        alertIdentifier: '警報識別'
+      }
+    };
+
+    return labels[lang] || labels.en;
+  }
+
+  /**
    * Creates markup for an individual disaster guide card
    */
   createGuideCard(guide) {
+    const labels = this.getLabels();
     const iconSpan = guide.icon ? `<span class="guide-icon">${guide.icon}</span> ` : '';
-    
-    // Support both sound_description and meaning fields
-    const alarmDesc = guide.alarm 
+
+    // Support sound_description, meaning, or direct fallback
+    const alarmDesc = guide.alarm
       ? (guide.alarm.sound_description || guide.alarm.meaning || '')
       : '';
 
     const alarmSection = guide.alarm ? `
       <div class="guide-alarm-box">
         <div class="alarm-header">
-          <strong>📢 ${this.escapeHtml(guide.alarm.title || this.labels.alertTitle)}</strong>
+          <strong>📢 ${this.escapeHtml(guide.alarm.title || labels.alertIdentifier)}</strong>
         </div>
         ${guide.alarm.jp_phrase ? `
           <div class="alarm-jp-phrase">
-            <span>${this.labels.jpPhrase}</span> <code>${this.escapeHtml(guide.alarm.jp_phrase)}</code>
+            <span>${labels.jpPhrase}</span> <code>${this.escapeHtml(guide.alarm.jp_phrase)}</code>
           </div>
         ` : ''}
         ${alarmDesc ? `
           <p class="alarm-description">
-            <strong>${this.labels.detail}</strong>${this.escapeHtml(alarmDesc)}
+            <strong>${labels.detail}</strong>${this.escapeHtml(alarmDesc)}
           </p>
         ` : ''}
       </div>
@@ -133,7 +120,7 @@ class EmergencyGuides {
 
     const immediateAction = guide.immediate_action ? `
       <div class="guide-immediate-action">
-        <strong>${this.labels.immediateAction}</strong> ${this.escapeHtml(guide.immediate_action)}
+        <strong>${labels.immediateAction}</strong> ${this.escapeHtml(guide.immediate_action)}
       </div>
     ` : '';
 
@@ -148,7 +135,7 @@ class EmergencyGuides {
         ${alarmSection}
         ${stepsList ? `
           <div class="guide-steps">
-            <h4>${this.labels.actionSteps}</h4>
+            <h4>${labels.actionSteps}</h4>
             <ol>${stepsList}</ol>
           </div>
         ` : ''}
@@ -160,6 +147,7 @@ class EmergencyGuides {
    * Renders fallback UI in case of data fetching errors
    */
   renderError() {
+    if (!this.container) return;
     this.container.innerHTML = `
       <div class="guides-error">
         <p>Unable to load emergency guides at this time. Please check your connection.</p>
@@ -181,7 +169,9 @@ class EmergencyGuides {
   }
 }
 
-// Export for module or global use
+// Global & Module Export Setup
+window.EmergencyGuides = EmergencyGuides;
+
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = EmergencyGuides;
 }
