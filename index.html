@@ -199,7 +199,9 @@
           'contentArea', 
           `locators/content/guides_${initialLang}.json`
         );
-        await window.emergencyGuides.init();
+        window.emergencyGuides.init().catch(err => {
+          console.warn('EmergencyGuides init failed:', err);
+        });
       }
     
       // 2. Load i18n bundle if available
