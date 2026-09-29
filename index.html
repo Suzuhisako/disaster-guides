@@ -191,8 +191,8 @@
     
       // 1. Initialize EmergencyGuides
       if (typeof EmergencyGuides !== 'undefined') {
-        window.guideRenderer = new EmergencyGuides('contentArea', `locators/content/guides_${initialLang}.json`);
-        await window.guideRenderer.init();
+        window.emergencyGuides = new EmergencyGuides('contentArea', `locators/content/guides_${initialLang}.json`);
+        await window.emergencyGuides.init();
       }
     
       // 2. Load i18n bundle if available
