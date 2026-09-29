@@ -251,7 +251,7 @@
       if (langSelect) {
         langSelect.addEventListener('change', async (e) => {
           const selectedLang = e.target.value;
-          localStorage.setItem('appLang', selectedLang);
+          localStorage.setItem('app_lang', selectedLang);
     
           if (window.i18n) {
             await window.i18n.setLanguage(selectedLang);
