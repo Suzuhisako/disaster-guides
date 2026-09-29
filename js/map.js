@@ -69,7 +69,7 @@ if (typeof window.EvacuationMap === 'undefined') {
         this.renderShelters();
 
         // Auto-fit map boundaries to selected prefecture features
-        if (this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
+        if (!this.userLocationLayer && this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
           const bounds = this.shelterLayer.getBounds();
           if (bounds.isValid()) {
             this.map.fitBounds(bounds, { padding: [30, 30] });
