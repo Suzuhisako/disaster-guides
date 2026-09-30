@@ -197,12 +197,17 @@ if (typeof window.EvacuationMap === 'undefined') {
      * Centers map on user device geolocation and updates shelter data
      */
     locateUser() {
-     if (!this.map || !navigator.geolocation) return;
+     if (!this.map || !navigator.geolocation) {
+       console.warn('Map or Geolocation not available');
+       return;
+     }
    
      navigator.geolocation.getCurrentPosition(
        async (position) => {
          const { latitude, longitude } = position.coords;
          const latlng = [latitude, longitude];
+   
+         console.log('1. GPS Position acquired:', latlng);
    
          // 1. Render / Update User Location Blue Marker
          if (this.userLocationLayer) {
@@ -215,28 +220,37 @@ if (typeof window.EvacuationMap === 'undefined') {
            color: '#ffffff',
            weight: 2,
            opacity: 1,
-           fillOpacity: 0.9
+           fillOpacity: 0.9,
+           zIndexOffset: 1000
          }).addTo(this.map);
    
          // 2. Identify Prefecture from GPS
          const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
    
-         // 3. Update <select id="prefectureSelect"> element in UI
+         // 3. Update select element WITHOUT triggering 'change' events
          const selectEl = document.getElementById('prefectureSelect');
-         if (selectEl) {
+         if (selectEl && selectEl.value !== detectedPref) {
            selectEl.value = detectedPref;
          }
    
-         // 4. Fetch shelter data WITHOUT auto-fitting bounds to prefecture
+         // 4. Await shelter data loading with shouldFitBounds = false
+         console.log('2. Fetching shelter data for:', detectedPref);
          await this.loadShelterData(detectedPref, false);
    
-         // 5. Pin the map view to user coordinates with tight street-level zoom
-         this.map.setView(latlng, 16);
+         // 5. Force setView on the next animation frame to guarantee it executes AFTER all layer rendering
+         requestAnimationFrame(() => {
+           console.log('3. Forcing map view to user location [lat, lng], zoom 16');
+           this.map.setView(latlng, 16, { animate: false });
+           
+           // Open a popup to confirm visual placement
+           this.userLocationLayer.bindPopup('You are here').openPopup();
+         });
        },
        (error) => {
-         console.warn('Geolocation failed or permission denied:', error);
+         console.error('Geolocation failed:', error);
+         alert(`Geolocation error: ${error.message}`);
        },
-       { enableHighAccuracy: true, timeout: 10000 }
+       { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
      );
    }
 
