@@ -197,48 +197,48 @@ if (typeof window.EvacuationMap === 'undefined') {
      * Centers map on user device geolocation and updates shelter data
      */
     locateUser() {
-      if (!this.map || !navigator.geolocation) return;
-
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-          const latlng = [latitude, longitude];
-
-          // 1. Render / Update User Location Blue Marker
-          if (this.userLocationLayer) {
-            this.map.removeLayer(this.userLocationLayer);
-          }
-
-          this.userLocationLayer = L.circleMarker(latlng, {
-            radius: 8,
-            fillColor: '#007bff',
-            color: '#ffffff',
-            weight: 2,
-            opacity: 1,
-            fillOpacity: 0.9
-          }).addTo(this.map);
-
-          // 2. Identify Prefecture from GPS
-          const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
-
-          // 3. Update <select id="prefectureSelect"> element in UI
-          const selectEl = document.getElementById('prefectureSelect');
-          if (selectEl) {
-            selectEl.value = detectedPref;
-          }
-
-          // 4. Fetch shelter data for detected prefecture
-          await this.loadShelterData(detectedPref, false);
-
-          // 5. Center map view on user coordinates with street-level zoom (15 or 16) AFTER data loads
-          this.map.setView(latlng, 15);
-        },
-        (error) => {
-          console.warn('Geolocation failed or permission denied:', error);
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    }
+     if (!this.map || !navigator.geolocation) return;
+   
+     navigator.geolocation.getCurrentPosition(
+       async (position) => {
+         const { latitude, longitude } = position.coords;
+         const latlng = [latitude, longitude];
+   
+         // 1. Render / Update User Location Blue Marker
+         if (this.userLocationLayer) {
+           this.map.removeLayer(this.userLocationLayer);
+         }
+   
+         this.userLocationLayer = L.circleMarker(latlng, {
+           radius: 8,
+           fillColor: '#007bff',
+           color: '#ffffff',
+           weight: 2,
+           opacity: 1,
+           fillOpacity: 0.9
+         }).addTo(this.map);
+   
+         // 2. Identify Prefecture from GPS
+         const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
+   
+         // 3. Update <select id="prefectureSelect"> element in UI
+         const selectEl = document.getElementById('prefectureSelect');
+         if (selectEl) {
+           selectEl.value = detectedPref;
+         }
+   
+         // 4. Fetch shelter data WITHOUT auto-fitting bounds to prefecture
+         await this.loadShelterData(detectedPref, false);
+   
+         // 5. Pin the map view to user coordinates with tight street-level zoom
+         this.map.setView(latlng, 16);
+       },
+       (error) => {
+         console.warn('Geolocation failed or permission denied:', error);
+       },
+       { enableHighAccuracy: true, timeout: 10000 }
+     );
+   }
 
     refreshMapSize() {
       if (this.map) {
