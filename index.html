@@ -371,15 +371,31 @@
       `;
     }
 
-    // Register Service Worker for 100% Offline PWA functionality
+    // Register Service Worker & check for updates on open
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        // Explicitly set scope to your repository subfolder
-        navigator.serviceWorker.register('./sw.js', { scope: '/disaster-guides/' })
-          .then(reg => console.log('[SW] Registered successfully with scope:', reg.scope))
-          .catch(err => console.warn('[SW] Registration failed:', err));
-      });
+      // Explicitly set scope to your repository subfolder
+      navigator.serviceWorker.register('./sw.js', { scope: '/disaster-guides/' })
+        .then(reg => {
+          console.log('[SW] Registered successfully with scope:', reg.scope);
+          // Force SW to check for new sw.js / cache version every time app opens
+          reg.update();
+        })
+        .catch(err => console.warn('[SW] Registration failed:', err));
     }
+
+    // Add this right after your SW registration in index.html:
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') {
+        // 1. Redraw Leaflet canvas so map unfreezes
+        if (window.evacuationMap && typeof window.evacuationMap.refreshMapSize === 'function') {
+          window.evacuationMap.refreshMapSize();
+        }
+        // 2. Refresh active language UI
+        if (window.i18n && typeof window.i18n.updateUI === 'function') {
+          window.i18n.updateUI();
+        }
+      }
+    });
   </script>
   
   <script src="js/i18n.js"></script>
