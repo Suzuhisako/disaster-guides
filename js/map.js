@@ -241,7 +241,10 @@ if (typeof window.EvacuationMap === 'undefined') {
          // Open popup after map camera has settled
          setTimeout(() => {
            if (this.userLocationLayer) {
-             this.userLocationLayer.bindPopup('You are here').openPopup();
+            this.userLocationLayer.bindPopup('You are here', {
+              autoPan: true,
+              autoPanPadding: [50, 50]
+            }).openPopup();
            }
          }, 300);
        },
