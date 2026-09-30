@@ -184,7 +184,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       if (lat >= 34.6 && lat <= 35.4 && lng >= 138.7 && lng <= 139.2) return 'shizuoka';
       if (lat >= 34.5 && lat <= 35.4 && lng >= 136.7 && lng <= 137.5) return 'aichi';
 
-      // Default fallback to Kanagawa if not in explicit bounds
+      
       return 'tokyo';
     }
 
