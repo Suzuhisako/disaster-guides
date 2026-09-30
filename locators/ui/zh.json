@@ -27,7 +27,7 @@
     }
   },
   "map": {
-    "filter_all": "灾害/全部",
+    "filter_all": "灾害:全部",
     "filter_quake": "地震",
     "filter_tsunami": "海啸",
     "filter_flood": "洪水",
