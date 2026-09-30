@@ -34,18 +34,24 @@ if (typeof window.EvacuationMap === 'undefined') {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
 
-      // Load local Kanagawa data (~0.87MB) for fast initial rendering
+      // Load initial Tokyo data
       this.loadShelterData('tokyo');
 
       const selectEl = document.getElementById('prefectureSelect');
       if (selectEl) {
         selectEl.addEventListener('change', (e) => {
           const selectedPref = e.target.value;
-          this.loadShelterData(selectedPref); // Use 'this' directly!
+          
+          // Clear active user location pin when user manually switches prefecture
+          if (this.userLocationLayer) {
+            this.map.removeLayer(this.userLocationLayer);
+            this.userLocationLayer = null;
+          }
+
+          this.loadShelterData(selectedPref);
         });
       }
     }
-    
 
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
@@ -69,7 +75,7 @@ if (typeof window.EvacuationMap === 'undefined') {
         this.renderShelters();
 
         // Auto-fit map boundaries to selected prefecture features
-        if (!this.userLocationLayer && this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
+        if (this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
           const bounds = this.shelterLayer.getBounds();
           if (bounds.isValid()) {
             this.map.fitBounds(bounds, { padding: [30, 30] });
@@ -184,7 +190,6 @@ if (typeof window.EvacuationMap === 'undefined') {
       if (lat >= 34.6 && lat <= 35.4 && lng >= 138.7 && lng <= 139.2) return 'shizuoka';
       if (lat >= 34.5 && lat <= 35.4 && lng >= 136.7 && lng <= 137.5) return 'aichi';
 
-      
       return 'tokyo';
     }
 
