@@ -27,8 +27,7 @@
     }
   },
   "map": {
-    "filter_label": "灾害类型筛选：",
-    "filter_all": "全部避难所",
+    "filter_all": "灾害类型：全部",
     "filter_quake": "地震",
     "filter_tsunami": "海啸",
     "filter_flood": "洪水",
