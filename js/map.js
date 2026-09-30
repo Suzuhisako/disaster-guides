@@ -198,7 +198,6 @@ if (typeof window.EvacuationMap === 'undefined') {
      */
     locateUser() {
      if (!this.map || !navigator.geolocation) {
-       console.warn('Map or Geolocation not available');
        return;
      }
    
@@ -206,8 +205,6 @@ if (typeof window.EvacuationMap === 'undefined') {
        async (position) => {
          const { latitude, longitude } = position.coords;
          const latlng = [latitude, longitude];
-   
-         console.log('1. GPS Position acquired:', latlng);
    
          // 1. Render / Update User Location Blue Marker
          if (this.userLocationLayer) {
@@ -233,22 +230,24 @@ if (typeof window.EvacuationMap === 'undefined') {
            selectEl.value = detectedPref;
          }
    
-         // 4. Await shelter data loading with shouldFitBounds = false
-         console.log('2. Fetching shelter data for:', detectedPref);
+         // 4. Load shelter data without fitting bounds to full prefecture
          await this.loadShelterData(detectedPref, false);
    
-         // 5. Force setView on the next animation frame to guarantee it executes AFTER all layer rendering
-         requestAnimationFrame(() => {
-           console.log('3. Forcing map view to user location [lat, lng], zoom 16');
-           this.map.setView(latlng, 16, { animate: false });
-           
-           // Open a popup to confirm visual placement
-           this.userLocationLayer.bindPopup('You are here').openPopup();
-         });
+         // 5. Recalculate map dimensions and center on user
+         // Force Leaflet to recalculate map container bounds first
+         this.map.invalidateSize();
+   
+         // Small delay ensures mobile webview layouts settle before re-centering
+         setTimeout(() => {
+           this.map.invalidateSize();
+           this.map.setView(latlng, 16, { animate: true });
+           if (this.userLocationLayer) {
+             this.userLocationLayer.bindPopup('You are here').openPopup();
+           }
+         }, 100);
        },
        (error) => {
-         console.error('Geolocation failed:', error);
-         alert(`Geolocation error: ${error.message}`);
+         console.warn('Geolocation failed or permission denied:', error);
        },
        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
      );
