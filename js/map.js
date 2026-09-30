@@ -197,57 +197,56 @@ if (typeof window.EvacuationMap === 'undefined') {
      * Centers map on user device geolocation and updates shelter data
      */
     locateUser() {
-     if (!this.map || !navigator.geolocation) {
-       return;
-     }
+     if (!this.map || !navigator.geolocation) return;
    
      navigator.geolocation.getCurrentPosition(
        async (position) => {
          const { latitude, longitude } = position.coords;
          const latlng = [latitude, longitude];
    
-         // 1. Render / Update User Location Blue Marker
-         if (this.userLocationLayer) {
-           this.map.removeLayer(this.userLocationLayer);
-         }
-   
-         this.userLocationLayer = L.circleMarker(latlng, {
-           radius: 8,
-           fillColor: '#007bff',
-           color: '#ffffff',
-           weight: 2,
-           opacity: 1,
-           fillOpacity: 0.9,
-           zIndexOffset: 1000
-         }).addTo(this.map);
-   
-         // 2. Identify Prefecture from GPS
+         // 1. Identify Prefecture
          const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
    
-         // 3. Update select element WITHOUT triggering 'change' events
          const selectEl = document.getElementById('prefectureSelect');
          if (selectEl && selectEl.value !== detectedPref) {
            selectEl.value = detectedPref;
          }
    
-         // 4. Load shelter data without fitting bounds to full prefecture
+         // 2. Fetch data first
          await this.loadShelterData(detectedPref, false);
    
-         // 5. Recalculate map dimensions and center on user
-         // Force Leaflet to recalculate map container bounds first
+         // 3. Render / Update User Marker
+         if (this.userLocationLayer) {
+           this.map.removeLayer(this.userLocationLayer);
+         }
+   
+         this.userLocationLayer = L.circleMarker(latlng, {
+           radius: 9,
+           fillColor: '#007bff',
+           color: '#ffffff',
+           weight: 3,
+           opacity: 1,
+           fillOpacity: 0.9,
+           zIndexOffset: 2000
+         }).addTo(this.map);
+   
+         // 4. Force map camera lock
+         // Stop any pending view animations or pan sequences
+         this.map.stop();
+         
+         // Force immediate view jump first, then smooth zoom
+         this.map.setView(latlng, 16, { animate: false });
          this.map.invalidateSize();
    
-         // Small delay ensures mobile webview layouts settle before re-centering
+         // Open popup after map camera has settled
          setTimeout(() => {
-           this.map.invalidateSize();
-           this.map.setView(latlng, 16, { animate: true });
            if (this.userLocationLayer) {
              this.userLocationLayer.bindPopup('You are here').openPopup();
            }
-         }, 100);
+         }, 300);
        },
        (error) => {
-         console.warn('Geolocation failed or permission denied:', error);
+         console.warn('Geolocation error:', error);
        },
        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
      );
