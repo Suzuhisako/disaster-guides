@@ -383,16 +383,25 @@
         .catch(err => console.warn('[SW] Registration failed:', err));
     }
 
-    // Add this right after your SW registration in index.html:
+    let appMinimizedTime = 0;
+
+    // Track when the user minimizes or foregrounds the PWA
     document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') {
-        // 1. Redraw Leaflet canvas so map unfreezes
-        if (window.evacuationMap && typeof window.evacuationMap.refreshMapSize === 'function') {
-          window.evacuationMap.refreshMapSize();
-        }
-        // 2. Refresh active language UI
-        if (window.i18n && typeof window.i18n.updateUI === 'function') {
-          window.i18n.updateUI();
+      if (document.visibilityState === 'hidden') {
+        // 1. User pressed Circle (Home) or switched apps — record timestamp
+        appMinimizedTime = Date.now();
+      } else if (document.visibilityState === 'visible') {
+        // 2. User tapped the app icon to resume — check how long it was backgrounded
+        const backgroundDuration = Date.now() - appMinimizedTime;
+    
+        // If minimized for more than 2 seconds, force a clean reload on Circle button resume
+        if (appMinimizedTime > 0 && backgroundDuration > 2000) {
+          window.location.reload();
+        } else {
+          // Short switch — soft update Leaflet canvas size without full reload
+          if (window.evacuationMap && typeof window.evacuationMap.refreshMapSize === 'function') {
+            window.evacuationMap.refreshMapSize();
+          }
         }
       }
     });
