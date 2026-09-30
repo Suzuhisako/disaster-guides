@@ -27,8 +27,7 @@
     }
   },
   "map": {
-    "filter_label": "Filter by Hazard:",
-    "filter_all": "All Categories",
+    "filter_all": "Hazard: All",
     "filter_quake": "Earthquake",
     "filter_tsunami": "Tsunami",
     "filter_flood": "Flood",
