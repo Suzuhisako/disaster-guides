@@ -298,6 +298,37 @@
         });
       }
 
+      // Function to handle soft refresh when returning to app
+      function handleAppForeground() {
+        // 1. Invalidate Leaflet map canvas so tiles/markers redraw cleanly
+        if (window.evacuationMap && typeof window.evacuationMap.refreshMapSize === 'function') {
+          window.evacuationMap.refreshMapSize();
+        }
+      
+        // 2. Optional: Reload shelter data for currently selected prefecture
+        const selectEl = document.getElementById('prefectureSelect');
+        if (selectEl && window.evacuationMap) {
+          window.evacuationMap.loadShelterData(selectEl.value);
+        }
+      
+        // 3. Re-sync active language UI from LocalStorage
+        if (window.i18n && typeof window.i18n.updateUI === 'function') {
+          window.i18n.updateUI();
+        }
+      }
+      
+      // Trigger refresh when PWA resumes from background
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          handleAppForeground();
+        }
+      });
+      
+      // Fallback for mobile browsers returning focus
+      window.addEventListener('focus', () => {
+        handleAppForeground();
+      });
+
       // Search Input Real-Time Filter Listener
       const shelterSearchInput = document.getElementById('shelterSearchInput');
       if (shelterSearchInput) {
