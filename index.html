@@ -55,95 +55,79 @@
     <div id="mapSection" class="tab-content" style="display: none;"> 
       <!-- Filter & Search Controls Bar -->
       <div class="filter-container">
-        <!-- Left group: Hazard selector + Prefecture Selector -->
-        <div class="filter-controls-group">
-          <!-- Hazard Category Selector -->
-          <div class="filter-group">
-            <label for="disasterSelect" data-i18n="map.label_hazard">Hazard</label>
-            <select id="disasterSelect">
-              <option value="all" data-i18n="map.filter_all">All Categories</option>
-              <option value="quake" data-i18n="map.filter_quake">Earthquake</option>
-              <option value="tsunami" data-i18n="map.filter_tsunami">Tsunami</option>
-              <option value="flood" data-i18n="map.filter_flood">Flood</option>
-              <option value="landslide" data-i18n="map.filter_landslide">Landslide</option>
-              <option value="fire" data-i18n="map.filter_fire">Fire</option>
-              <option value="surge" data-i18n="map.filter_surge">Storm Surge</option>
-              <option value="inland_flood" data-i18n="map.filter_inland_flood">Inland Flood</option>
-              <option value="volcano" data-i18n="map.filter_volcano">Volcano</option>
-            </select>
-          </div>
+        <!-- Hazard Category Dropdown -->
+        <select id="disasterSelect" aria-label="Filter by Hazard">
+          <option value="all" data-i18n="map.filter_all">Hazard: All</option>
+          <option value="quake" data-i18n="map.filter_quake">Earthquake</option>
+          <option value="tsunami" data-i18n="map.filter_tsunami">Tsunami</option>
+          <option value="flood" data-i18n="map.filter_flood">Flood</option>
+          <option value="landslide" data-i18n="map.filter_landslide">Landslide</option>
+          <option value="fire" data-i18n="map.filter_fire">Fire</option>
+          <option value="surge" data-i18n="map.filter_surge">Storm Surge</option>
+          <option value="inland_flood" data-i18n="map.filter_inland_flood">Inland Flood</option>
+          <option value="volcano" data-i18n="map.filter_volcano">Volcano</option>
+        </select>
       
-          <!-- Prefecture / Region Selector -->
-          <div class="filter-group">
-            <label for="prefectureSelect" data-i18n="map.label_region">Region</label>
-            <select id="prefectureSelect" class="form-select" aria-label="Select Prefecture">
-              <!-- Kanto Region (Default & Common) -->
-              <option value="tokyo" selected>Tokyo (東京都)</option>
-              <option value="kanagawa">Kanagawa (神奈川県)</option>
-              <option value="chiba">Chiba (千葉県)</option>
-              <option value="saitama">Saitama (埼玉県)</option>
-              <option value="ibaraki">Ibaraki (茨城県)</option>
-              <option value="tochigi">Tochigi (栃木県)</option>
-              <option value="gunma">Gunma (群馬県)</option>
+        <!-- Region / Prefecture Dropdown -->
+        <select id="prefectureSelect" class="form-select" aria-label="Select Region">
+          <option value="tokyo" selected>Tokyo (東京都)</option>
+          <option value="kanagawa">Kanagawa (神奈川県)</option>
+          <option value="chiba">Chiba (千葉県)</option>
+          <option value="saitama">Saitama (埼玉県)</option>
+          <option value="ibaraki">Ibaraki (茨城県)</option>
+          <option value="tochigi">Tochigi (栃木県)</option>
+          <option value="gunma">Gunma (群馬県)</option>
+          <!-- Hokkaido & Tohoku -->
+          <option value="hokkaido">Hokkaido (北海道)</option>
+          <option value="aomori">Aomori (青森県)</option>
+          <option value="iwate">Iwate (岩手県)</option>
+          <option value="miyagi">Miyagi (宮城県)</option>
+          <option value="akita">Akita (秋田県)</option>
+          <option value="yamagata">Yamagata (山形県)</option>
+          <option value="fukushima">Fukushima (福島県)</option>
+          <!-- Chubu -->
+          <option value="niigata">Niigata (新潟県)</option>
+          <option value="toyama">Toyama (富山県)</option>
+          <option value="ishikawa">Ishikawa (石川県)</option>
+          <option value="fukui">Fukui (福井県)</option>
+          <option value="yamanashi">Yamanashi (山梨県)</option>
+          <option value="nagano">Nagano (長野県)</option>
+          <option value="gifu">Gifu (岐阜県)</option>
+          <option value="shizuoka">Shizuoka (静岡県)</option>
+          <option value="aichi">Aichi (愛知県)</option>
+          <!-- Kansai -->
+          <option value="mie">Mie (三重県)</option>
+          <option value="shiga">Shiga (滋賀県)</option>
+          <option value="kyoto">Kyoto (京都府)</option>
+          <option value="osaka">Osaka (大阪府)</option>
+          <option value="hyogo">Hyogo (兵庫県)</option>
+          <option value="nara">Nara (奈良県)</option>
+          <option value="wakayama">Wakayama (和歌山県)</option>
+          <!-- Chugoku -->
+          <option value="tottori">Tottori (鳥取県)</option>
+          <option value="shimane">Shimane (島根県)</option>
+          <option value="okayama">Okayama (岡山県)</option>
+          <option value="hiroshima">Hiroshima (広島県)</option>
+          <option value="yamaguchi">Yamaguchi (山口県)</option>
+          <!-- Shikoku -->
+          <option value="tokushima">Tokushima (徳島県)</option>
+          <option value="kagawa">Kagawa (香川県)</option>
+          <option value="ehime">Ehime (愛媛県)</option>
+          <option value="kochi">Kochi (高知県)</option>
+          <!-- Kyushu & Okinawa -->
+          <option value="fukuoka">Fukuoka (福岡県)</option>
+          <option value="saga">Saga (佐賀県)</option>
+          <option value="nagasaki">Nagasaki (長崎県)</option>
+          <option value="kumamoto">Kumamoto (熊本県)</option>
+          <option value="oita">Oita (大分県)</option>
+          <option value="miyazaki">Miyazaki (宮崎県)</option>
+          <option value="kagoshima">Kagoshima (鹿児島県)</option>
+          <option value="okinawa">Okinawa (沖縄県)</option>
+        </select>
       
-              <!-- Hokkaido & Tohoku -->
-              <option value="hokkaido">Hokkaido (北海道)</option>
-              <option value="aomori">Aomori (青森県)</option>
-              <option value="iwate">Iwate (岩手県)</option>
-              <option value="miyagi">Miyagi (宮城県)</option>
-              <option value="akita">Akita (秋田県)</option>
-              <option value="yamagata">Yamagata (山形県)</option>
-              <option value="fukushima">Fukushima (福島県)</option>
-      
-              <!-- Chubu -->
-              <option value="niigata">Niigata (新潟県)</option>
-              <option value="toyama">Toyama (富山県)</option>
-              <option value="ishikawa">Ishikawa (石川県)</option>
-              <option value="fukui">Fukui (福井県)</option>
-              <option value="yamanashi">Yamanashi (山梨県)</option>
-              <option value="nagano">Nagano (長野県)</option>
-              <option value="gifu">Gifu (岐阜県)</option>
-              <option value="shizuoka">Shizuoka (静岡県)</option>
-              <option value="aichi">Aichi (愛知県)</option>
-      
-              <!-- Kansai -->
-              <option value="mie">Mie (三重県)</option>
-              <option value="shiga">Shiga (滋賀県)</option>
-              <option value="kyoto">Kyoto (京都府)</option>
-              <option value="osaka">Osaka (大阪府)</option>
-              <option value="hyogo">Hyogo (兵庫県)</option>
-              <option value="nara">Nara (奈良県)</option>
-              <option value="wakayama">Wakayama (和歌山県)</option>
-      
-              <!-- Chugoku -->
-              <option value="tottori">Tottori (鳥取県)</option>
-              <option value="shimane">Shimane (島根県)</option>
-              <option value="okayama">Okayama (岡山県)</option>
-              <option value="hiroshima">Hiroshima (広島県)</option>
-              <option value="yamaguchi">Yamaguchi (山口県)</option>
-      
-              <!-- Shikoku -->
-              <option value="tokushima">Tokushima (徳島県)</option>
-              <option value="kagawa">Kagawa (香川県)</option>
-              <option value="ehime">Ehime (愛媛県)</option>
-              <option value="kochi">Kochi (高知県)</option>
-      
-              <!-- Kyushu & Okinawa -->
-              <option value="fukuoka">Fukuoka (福岡県)</option>
-              <option value="saga">Saga (佐賀県)</option>
-              <option value="nagasaki">Nagasaki (長崎県)</option>
-              <option value="kumamoto">Kumamoto (熊本県)</option>
-              <option value="oita">Oita (大分県)</option>
-              <option value="miyazaki">Miyazaki (宮崎県)</option>
-              <option value="kagoshima">Kagoshima (鹿児島県)</option>
-              <option value="okinawa">Okinawa (沖縄県)</option>
-            </select>
-          </div>
-        </div>
-      
-        <!-- Right group: Locate Me Button -->
+        <!-- Locate Me Button -->
         <button id="btnLocateMe" type="button">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="7"></circle>
             <line x1="12" y1="2" x2="12" y2="6"></line>
             <line x1="12" y1="18" x2="12" y2="22"></line>
