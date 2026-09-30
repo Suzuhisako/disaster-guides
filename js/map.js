@@ -227,7 +227,8 @@ if (typeof window.EvacuationMap === 'undefined') {
            weight: 3,
            opacity: 1,
            fillOpacity: 0.9,
-           zIndexOffset: 2000
+           zIndexOffset: 2000,
+           className: 'pulse-location-marker'
          }).addTo(this.map);
    
          // 4. Force map camera lock
