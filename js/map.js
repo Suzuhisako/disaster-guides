@@ -56,7 +56,7 @@ if (typeof window.EvacuationMap === 'undefined') {
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
      */
-    async loadShelterData(prefecture = 'tokyo') {
+     async loadShelterData(prefecture = 'tokyo') {
       try {
         const response = await fetch(`./locators/content/prefectures/${prefecture}.json`);
         if (!response.ok) {
