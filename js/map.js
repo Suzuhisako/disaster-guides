@@ -200,7 +200,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       if (!this.map || !navigator.geolocation) return;
 
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        async (position) => {
           const { latitude, longitude } = position.coords;
           const latlng = [latitude, longitude];
 
@@ -228,10 +228,10 @@ if (typeof window.EvacuationMap === 'undefined') {
           }
 
           // 4. Fetch shelter data for detected prefecture
-          this.loadShelterData(detectedPref);
+          await this.loadShelterData(detectedPref, false);
 
-          // 5. Center map view on user coordinates
-          this.map.setView(latlng, 14);
+          // 5. Center map view on user coordinates with street-level zoom (15 or 16) AFTER data loads
+          this.map.setView(latlng, 15);
         },
         (error) => {
           console.warn('Geolocation failed or permission denied:', error);
