@@ -169,20 +169,15 @@ body {
 
 /* Compact Locate Button */
 #btnLocateMe {
-  flex: 0 0 auto !important;
-  height: 38px;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0 12px;
-  font-size: 0.85rem;
+  height: 44px; /* 4px taller than standard select boxes */
+  padding: 0 16px;
+  font-size: 0.92rem;
   font-weight: 600;
+  border-radius: 22px; /* Pill shape */
+  background: #007bff;
   color: #ffffff;
-  background-color: #007bff;
   border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.4);
 }
 
 #btnLocateMe:hover {
