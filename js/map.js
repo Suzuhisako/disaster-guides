@@ -183,9 +183,8 @@ if (typeof window.EvacuationMap === 'undefined') {
              volcano: '火山噴发'
            },        
            en: {
-             quake: 'Earthquake', earthquake: 'Earthquake', tsunami: 'Tsunami',
-             landslide: 'Landslide', flood: 'Flood', inundation: 'Inundation',
-             fire: 'Fire', volcano: 'Volcano'
+             quake: 'Earthquake', tsunami: 'Tsunami', flood: 'Flood', landslide: 'Landslide', 
+             fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano',
            }
          };
          
