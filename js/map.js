@@ -11,6 +11,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       flood: '洪水',
       inland_flood: '内水泛滥',
       fire: '火灾',
+      surge: '高潮',
       volcano: '火山噴发',
       hazard_label: '适用灾害'
     },    
