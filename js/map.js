@@ -9,7 +9,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       tsunami: '海啸',
       landslide: '滑坡/泥石流',
       flood: '洪水',
-      inland_flood: '内水氾滥',
+      inland_flood: '内水泛滥,
       fire: '火灾',
       volcano: '火山噴发',
       hazard_label: '适用灾害'
