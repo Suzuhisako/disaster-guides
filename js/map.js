@@ -23,6 +23,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       flood: 'Flood',
       inland_flood: 'Inland Flood',
       fire: 'Fire',
+      surge: 'Storm Surge'
       volcano: 'Volcano',
       hazard_label: 'Hazards'
     }
