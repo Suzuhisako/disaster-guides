@@ -36,7 +36,8 @@
     "filter_surge": "高潮",
     "filter_inland_flood": "内水泛滥",
     "filter_volcano": "火山",
-    "locate_me": "我的位置"
+    "locate_me": "我的位置",
+    "you_are_here": "你在这里"
   },
   "prefectures": {
     "kanagawa": "神奈川县 (神奈川県)",
