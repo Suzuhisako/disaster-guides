@@ -240,12 +240,23 @@ if (typeof window.EvacuationMap === 'undefined') {
          this.map.invalidateSize();
    
          // Open popup after map camera has settled
+         // Open popup after map camera has settled
          setTimeout(() => {
            if (this.userLocationLayer) {
-            this.userLocationLayer.bindPopup('You are here', {
-              autoPan: true,
-              autoPanPadding: [50, 50]
-            }).openPopup();
+             // 1. Determine current active language
+             const lang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'zh');
+         
+             // 2. Select localized popup text based on language
+             const popupText = {
+               'zh': '你在这里',              
+               'en': 'You are here'
+             }[lang] || '你在这里'; // Default fallback
+         
+             // 3. Bind popup with localized string
+             this.userLocationLayer.bindPopup(popupText, {
+               autoPan: true,
+               autoPanPadding: [50, 50]
+             }).openPopup();
            }
          }, 300);
        },
