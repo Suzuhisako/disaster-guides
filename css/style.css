@@ -104,28 +104,6 @@ body {
   background-color: #fafafa;
 }
 
-/* ==========================================================================
-   Main Layout & Floating Overlay Map Controls
-   ========================================================================== */
-.main-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Tab content wrapper */
-.tab-content {
-  display: block;
-}
-
-/* Container wrapper for map and controls overlay */
-.map-wrapper {
-  position: relative;
-  width: 100%;
-}
-
 /* Floating Glassmorphism Container */
 .filter-container {
   position: absolute;
@@ -135,9 +113,9 @@ body {
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: rgba(255, 255, 255, 0.92);
-  padding: 8px 10px;
+  padding: 6px 8px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(4px);
@@ -146,16 +124,13 @@ body {
   box-sizing: border-box;
 }
 
-/* Select dropdowns forced into equal row allocation without overflow */
+/* Base Select Dropdowns */
 .filter-container select,
 #disasterSelect, 
 #prefectureSelect {
-  flex: 1 1 0px !important;
-  width: 0 !important;
-  min-width: 0 !important;
-  height: 38px;
-  padding: 0 8px;
-  font-size: 0.85rem;
+  height: 40px;
+  padding: 0 6px;
+  font-size: 0.82rem;
   font-weight: 600;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -167,17 +142,52 @@ body {
   box-sizing: border-box;
 }
 
-/* Compact Locate Button */
+/* 1. Hazard Dropdown: Moderate allocation */
+#disasterSelect {
+  flex: 1 1 0px !important;
+  width: 0 !important;
+  min-width: 0 !important;
+}
+
+/* 2. Prefecture Dropdown: Compact allocation */
+#prefectureSelect {
+  flex: 0.7 1 0px !important; /* Smaller share than Hazard */
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: 85px; /* Keeps prefecture box tidy on mobile */
+}
+
+/* 3. Locate Me Button: Prominent Primary Hero */
 #btnLocateMe {
-  height: 44px; /* 4px taller than standard select boxes */
-  padding: 0 16px;
-  font-size: 0.92rem;
+  flex: 1.6 1 0px !important; /* Takes up almost double the prefecture space */
+  height: 40px;
+  padding: 0 10px;
+  font-size: 0.88rem;
   font-weight: 600;
-  border-radius: 22px; /* Pill shape */
-  background: #007bff;
-  color: #ffffff;
-  border: none;
-  box-shadow: 0 3px 10px rgba(0, 123, 255, 0.4);
+  border-radius: 6px;
+  background: linear-gradient(135deg, #007bff, #0056b3) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  white-space: nowrap;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+#btnLocateMe:hover {
+  background: linear-gradient(135deg, #0056b3, #004085) !important;
+}
+
+#btnLocateMe svg {
+  width: 16px;
+  height: 16px;
+  fill: #ffffff;
+  stroke: #ffffff;
+  flex-shrink: 0;
 }
 
 #btnLocateMe:hover {
@@ -391,77 +401,88 @@ body {
    Mobile Responsive Adjustments
    ========================================================================== */
 @media (max-width: 600px) {
-   /* Floating Glassmorphism Container */
-   .filter-container {
-     position: absolute;
-     top: 10px;
-     left: 10px;
-     right: 10px;
-     z-index: 1000;
-     display: flex;
-     align-items: center;
-     gap: 8px;
-     background: rgba(255, 255, 255, 0.92);
-     padding: 8px 10px;
-     border-radius: 8px;
-     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
-     backdrop-filter: blur(4px);
-     width: calc(100% - 20px) !important;
-     max-width: calc(100% - 20px) !important;
-     box-sizing: border-box;
-   }
-   
-   /* Select dropdowns forced into equal row allocation without overflow */
-   .filter-container select,
-   #disasterSelect, 
-   #prefectureSelect {
-     flex: 1 1 0px !important;
-     width: 0 !important;
-     min-width: 0 !important;
-     height: 38px;
-     padding: 0 8px;
-     font-size: 0.85rem;
-     font-weight: 600;
-     border-radius: 6px;
-     border: 1px solid #ccc;
-     background-color: #ffffff;
-     color: #212529;
-     outline: none;
-     text-overflow: ellipsis;
-     white-space: nowrap;
-     box-sizing: border-box;
-   }
-   
-   /* Compact Locate Button */
-   #btnLocateMe {
-     flex: 0 0 auto !important;
-     height: 38px;
-     display: inline-flex;
-     align-items: center;
-     gap: 5px;
-     padding: 0 12px;
-     font-size: 0.85rem;
-     font-weight: 600;
-     color: #ffffff;
-     background-color: #007bff;
-     border: none;
-     border-radius: 6px;
-     cursor: pointer;
-     white-space: nowrap;
-   }
-   
-   /* Mobile Tweak */
-   @media (max-width: 600px) {
-     .filter-container {
-       top: 8px;
-       left: 8px;
-       right: 8px;
-       width: calc(100% - 16px) !important;
-       max-width: calc(100% - 16px) !important;
-       gap: 6px;
-       padding: 6px;
-     }
-   } 
+  /* Floating Glassmorphism Container */
+  .filter-container {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+    width: calc(100% - 16px) !important;
+    max-width: calc(100% - 16px) !important;
+    box-sizing: border-box;
+  }
+  
+  /* Base Select Styles */
+  .filter-container select,
+  #disasterSelect, 
+  #prefectureSelect {
+    height: 40px;
+    padding: 0 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+    color: #212529;
+    outline: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  /* 1. Hazard Dropdown: Moderate share */
+  #disasterSelect {
+    flex: 1 1 0px !important;
+    width: 0 !important;
+    min-width: 0 !important;
+  }
+
+  /* 2. Prefecture Dropdown: Compact share */
+  #prefectureSelect {
+    flex: 0.65 1 0px !important; /* Takes up less room */
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 80px; /* Fits short names like 東京都 cleanly */
+    padding-right: 14px;
+  }
+
+  /* 3. Locate Me Button: Prominent Visual Anchor */
+  #btnLocateMe {
+    flex: 1.6 1 0px !important; /* Expanded to take up prime space */
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #007bff, #0056b3) !important;
+    border: none !important;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.4);
+    cursor: pointer;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  #btnLocateMe svg {
+    width: 16px;
+    height: 16px;
+    fill: #ffffff;
+    stroke: #ffffff;
+    flex-shrink: 0;
+  }
 
   #mapArea {
     height: calc(100vh - 110px) !important;
