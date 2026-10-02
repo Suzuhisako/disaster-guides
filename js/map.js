@@ -2,6 +2,30 @@
    Evacuation Map Application Logic (Canvas Mode with Disaster Filtering)
    ========================================================================== */
 if (typeof window.EvacuationMap === 'undefined') {
+   const HAZARD_TRANSLATIONS = {
+    zh: {
+      quake: '地震',
+      earthquake: '地震',
+      tsunami: '海啸',
+      landslide: '滑坡/泥石流',
+      flood: '洪水',
+      inundation: '内水氾滥',
+      fire: '火灾',
+      volcano: '火山噴发',
+      hazard_label: '适用灾害'
+    },    
+    en: {
+      quake: 'Earthquake',
+      earthquake: 'Earthquake',
+      tsunami: 'Tsunami',
+      landslide: 'Landslide',
+      flood: 'Flood',
+      inundation: 'Inundation',
+      fire: 'Fire',
+      volcano: 'Volcano',
+      hazard_label: 'Hazards'
+    }
+  };
   class EvacuationMap {
     constructor() {
       this.map = null;
@@ -10,31 +34,6 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.shelterData = null;
       this.selectedCategory = 'all'; // Default: show all shelters
     }
-
-    const HAZARD_TRANSLATIONS = {
-      zh: {
-        quake: '地震',
-        earthquake: '地震',
-        tsunami: '海啸',
-        landslide: '滑坡/泥石流',
-        flood: '洪水',
-        inundation: '内水氾滥',
-        fire: '火灾',
-        volcano: '火山噴发',
-        hazard_label: '适用灾害'
-      },   
-      en: {
-        quake: 'Earthquake',
-        earthquake: 'Earthquake',
-        tsunami: 'Tsunami',
-        landslide: 'Landslide',
-        flood: 'Flood',
-        inundation: 'Inundation',
-        fire: 'Fire',
-        volcano: 'Volcano',
-        hazard_label: 'Hazards'
-      }
-    };
 
     /**
      * Initializes the Leaflet map with preferCanvas enabled
