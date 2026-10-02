@@ -178,9 +178,9 @@ if (typeof window.EvacuationMap === 'undefined') {
          // --- 3. Localized Disaster Category Badges ---
          const HAZARD_MAP = {
            zh: {
-             quake: '地震', earthquake: '地震', tsunami: '海啸',
-             landslide: '滑坡/泥石流', flood: '洪水', inundation: '内水淹没',
-             fire: '火灾', volcano: '火山噴发'
+             quake: '地震', tsunami: '海啸', flood: '洪水',
+             landslide: '土砂灾害',  fire: '火灾', surge: '高潮',  inland_flood: '内水泛滥', 
+             volcano: '火山噴发'
            },        
            en: {
              quake: 'Earthquake', earthquake: 'Earthquake', tsunami: 'Tsunami',
