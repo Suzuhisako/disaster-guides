@@ -3,7 +3,7 @@
     {
       "id": "earthquake",
       "title": "Earthquake (地震)",
-      "icon": "🌋",
+      "icon": "🏚️",
       "alarm": {
         "sound_id": "earthquake_j_alert",
         "title": "J-Alert Early Warning",
