@@ -4,26 +4,24 @@
 if (typeof window.EvacuationMap === 'undefined') {
    const HAZARD_TRANSLATIONS = {
     zh: {
-      quake: '地震',
-      earthquake: '地震',
+      quake: '地震',     
       tsunami: '海啸',
-      landslide: '滑坡/泥石流',
       flood: '洪水',
-      inland_flood: '内水泛滥',
+      landslide: '土砂灾害',  
       fire: '火灾',
       surge: '高潮',
+      inland_flood: '内水泛滥',       
       volcano: '火山噴发',
       hazard_label: '适用灾害'
     },    
     en: {
-      quake: 'Earthquake',
-      earthquake: 'Earthquake',
+      quake: 'Earthquake',     
       tsunami: 'Tsunami',
-      landslide: 'Landslide',
       flood: 'Flood',
-      inland_flood: 'Inland Flood',
+      landslide: 'Landslide', 
       fire: 'Fire',
-      surge: 'Storm Surge'
+      surge: 'Storm Surge',        
+      inland_flood: 'Inland Flood',
       volcano: 'Volcano',
       hazard_label: 'Hazards'
     }
