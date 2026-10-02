@@ -20,7 +20,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       tsunami: 'Tsunami',
       landslide: 'Landslide',
       flood: 'Flood',
-      inland-flood: 'Inland Flood',
+      inland_flood: 'Inland Flood',
       fire: 'Fire',
       volcano: 'Volcano',
       hazard_label: 'Hazards'
