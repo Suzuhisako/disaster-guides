@@ -11,6 +11,31 @@ if (typeof window.EvacuationMap === 'undefined') {
       this.selectedCategory = 'all'; // Default: show all shelters
     }
 
+    const HAZARD_TRANSLATIONS = {
+      zh: {
+        quake: '地震',
+        earthquake: '地震',
+        tsunami: '海啸',
+        landslide: '滑坡/泥石流',
+        flood: '洪水',
+        inundation: '内水氾滥',
+        fire: '火灾',
+        volcano: '火山噴发',
+        hazard_label: '适用灾害'
+      },   
+      en: {
+        quake: 'Earthquake',
+        earthquake: 'Earthquake',
+        tsunami: 'Tsunami',
+        landslide: 'Landslide',
+        flood: 'Flood',
+        inundation: 'Inundation',
+        fire: 'Fire',
+        volcano: 'Volcano',
+        hazard_label: 'Hazards'
+      }
+    };
+
     /**
      * Initializes the Leaflet map with preferCanvas enabled
      */
@@ -133,37 +158,57 @@ if (typeof window.EvacuationMap === 'undefined') {
         onEachFeature: (feature, layer) => {
           const props = feature.properties || {};
 
-          // --- 1. Multilingual Name Resolution ---
-          let shelterName = '';
-          if (props.name && typeof props.name === 'object') {
-            shelterName = props.name[currentLang] || props.name['en'] || props.name['zh'] || props.jp_name || props.name['jp'];
-          } else {
-            shelterName = props.name || props.jp_name || '避難所';
-          }
-
-          // --- 2. Multilingual Address Resolution ---
-          let shelterAddress = '';
-          if (props.address && typeof props.address === 'object') {
-            shelterAddress = props.address[currentLang] || props.address['en'] || props.address['zh'] || props.address['jp'] || '';
-          } else {
-            shelterAddress = props.address || '';
-          }
-
-          // --- 3. Format Disaster Category Badges ---
-          const disasters = props.disasters || [];
-          const disasterBadges = disasters.map(d => 
-            `<span style="display:inline-block; background:#e2e8f0; color:#334155; font-size:0.68rem; padding:2px 5px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(d)}</span>`
-          ).join('');
-
-          const popupContent = `
-            <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
-              <h4 style="margin: 0 0 6px 0; color: #d9534f; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
-              ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #555; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
-              ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
-            </div>
-          `;
-
-          layer.bindPopup(popupContent);
+          // --- 1. Japanese Name Ground Truth ---
+         let shelterName = '';
+         if (props.name && typeof props.name === 'object') {
+           // Always prefer Japanese for name so it matches local signs and physical maps
+           shelterName = props.jp_name || props.name['ja'] || props.name['jp'] || props.name['zh'] || props.name['en'];
+         } else {
+           shelterName = props.jp_name || props.name || '避難所';
+         }
+         
+         // --- 2. Japanese Address Ground Truth ---
+         let shelterAddress = '';
+         if (props.address && typeof props.address === 'object') {
+           // Always prefer Japanese address for navigation/asking locals
+           shelterAddress = props.address['ja'] || props.address['jp'] || props.address['zh'] || props.address['en'] || '';
+         } else {
+           shelterAddress = props.address || '';
+         }
+         
+         // --- 3. Localized Disaster Category Badges ---
+         const HAZARD_MAP = {
+           zh: {
+             quake: '地震', earthquake: '地震', tsunami: '海啸',
+             landslide: '滑坡/泥石流', flood: '洪水', inundation: '内水淹没',
+             fire: '火灾', volcano: '火山噴发'
+           },        
+           en: {
+             quake: 'Earthquake', earthquake: 'Earthquake', tsunami: 'Tsunami',
+             landslide: 'Landslide', flood: 'Flood', inundation: 'Inundation',
+             fire: 'Fire', volcano: 'Volcano'
+           }
+         };
+         
+         const activeLangMap = HAZARD_MAP[currentLang] || HAZARD_MAP['zh'];
+         const disasters = props.disasters || [];
+         
+         const disasterBadges = disasters.map(d => {
+           const cleanKey = String(d).toLowerCase().trim();
+           const localizedLabel = activeLangMap[cleanKey] || d; // Translate key or fallback to raw string
+           
+           return `<span style="display:inline-block; background:#ffebee; color:#c62828; font-size:0.7rem; padding:2px 6px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(localizedLabel)}</span>`;
+         }).join('');
+         
+         const popupContent = `
+           <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
+             <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
+             ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
+             ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
+           </div>
+         `;
+         
+         layer.bindPopup(popupContent);
         }
       }).addTo(this.map);
     }
