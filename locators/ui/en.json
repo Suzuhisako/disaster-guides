@@ -36,7 +36,8 @@
     "filter_surge": "Storm Surge",
     "filter_inland_flood": "Inland Flood",
     "filter_volcano": "Volcano",
-    "locate_me": "Locate Me"
+    "locate_me": "Locate Me",
+    "you_are_here": "You are here"
   },
   "prefectures": {
     "kanagawa": "Kanagawa (神奈川県)",
