@@ -1,4 +1,4 @@
-const CACHE_NAME = 'disaster-guide-v9';
+const CACHE_NAME = 'disaster-guide-v10';
 
 // Ensure these paths match your actual repository file structure exactly
 const PRECACHE_ASSETS = [
@@ -11,18 +11,32 @@ const PRECACHE_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+
+  // UI Translations
   './locators/ui/en.json',
   './locators/ui/zh.json',
+  './locators/ui/ja.json', 
+  './locators/ui/vi.json',
+  './locators/ui/ko.json',
+  './locators/ui/tl.json',
+  './locators/ui/pt.json',
+
+  // Disaster Guide Content
   './locators/content/guides_en.json',
   './locators/content/guides_zh.json',
+  './locators/content/guides_ja.json', 
   './locators/content/guides_vi.json',
+  './locators/content/guides_ko.json',
+  './locators/content/guides_tl.json',
+  './locators/content/guides_pt.json',
+
   // CDN dependencies
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
+
   // Prefecture shelter data
   './locators/content/prefectures/kanagawa.json',
   './locators/content/prefectures/tokyo.json'
-  // Note: Add your exact guide/translation JSON paths here once verified!
 ];
 
 // Install Event: Safely cache assets individually so one missing file won't break the worker
