@@ -76,6 +76,13 @@ class EmergencyGuides {
         actionSteps: '应对步骤：',
         alertIdentifier: '警报标识'
       },
+      jp: {
+        jpPhrase: '日本語フレーズ:',
+        detail: '詳細:',
+        immediateAction: '⚡ 緊急行動:',
+        actionSteps: '行動手順:',
+        alertIdentifier: '警報識別'
+      },
       vi: {
         jpPhrase: 'Cụm từ tiếng Nhật:',
         detail: 'Chi tiết:',
