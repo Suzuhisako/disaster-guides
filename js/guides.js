@@ -76,12 +76,33 @@ class EmergencyGuides {
         actionSteps: '应对步骤：',
         alertIdentifier: '警报标识'
       },
-      jp: {
-        jpPhrase: '日本語フレーズ:',
-        detail: '詳細:',
-        immediateAction: '⚡ 緊急行動:',
-        actionSteps: '行動手順:',
-        alertIdentifier: '警報識別'
+      vi: {
+        jpPhrase: 'Cụm từ tiếng Nhật:',
+        detail: 'Chi tiết:',
+        immediateAction: '⚡ Hành động khẩn cấp:',
+        actionSteps: 'Các bước thực hiện:',
+        alertIdentifier: 'Nhận diện cảnh báo'
+      },
+      ko: {
+        jpPhrase: '일본어 문구:',
+        detail: '상세 내용:',
+        immediateAction: '⚡ 긴급 대응:',
+        actionSteps: '대피 및 행동 절차:',
+        alertIdentifier: '경보 식별'
+      },
+      tl: {
+        jpPhrase: 'Pariralang Hapon:',
+        detail: 'Detalyado:',
+        immediateAction: '⚡ Agarang Aksyon:',
+        actionSteps: 'Mga Hakbang sa Pag-iingat:',
+        alertIdentifier: 'Tukoy ng Babala'
+      },
+      pt: {
+        jpPhrase: 'Frase em japonês:',
+        detail: 'Detalhes:',
+        immediateAction: '⚡ Ação Imediata:',
+        actionSteps: 'Passos de Ação:',
+        alertIdentifier: 'Identificador do alerta'
       }
     };
 
