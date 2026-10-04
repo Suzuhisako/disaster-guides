@@ -1,0 +1,30 @@
+{
+  "app": { "title": "دليل الكوارث المصغر" },
+  "nav": { "guides": "أدلة الطوارئ", "map": "خريطة الإخلاء" },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "إنذار مبكر للزلازل",
+      "description": "تصدر الهواتف والتلفزيون نغمات تنبيه عاجلة يليها: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai'. احمِ رأسك فوراً."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "تحذير من تسونامي",
+      "description": "تطلق صفارات الإنذار الساحلية (3 ثوانٍ صوت، 2 ثانية توقف). إخلاء فوري إلى مرتفع أو مبنى إخلاء تسونامي."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "أمر إخلاء (طوارئ)",
+      "description": "التنبيه من المستوى 4. يجب على جميع الأشخاص في مناطق الخطر الإخلاء إلى مأوى فوراً."
+    }
+  },
+  "map": {
+    "filter_all": "المخاطر: الكل", "filter_quake": "زلزال", "filter_tsunami": "تسونامي",
+    "filter_flood": "فيضان", "filter_landslide": "انهيار أرضي", "filter_fire": "حريق",
+    "filter_surge": "عاصفة بحرية", "filter_inland_flood": "فيضان داخلي", "filter_volcano": "ثوران بركاني",
+    "locate_me": "موقعي", "you_are_here": "أنت هنا"
+  }
+}
