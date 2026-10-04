@@ -24,7 +24,18 @@ if (typeof window.EvacuationMap === 'undefined') {
       inland_flood: 'Inland Flood',
       volcano: 'Volcano',
       hazard_label: 'Hazards'
-    }
+    },
+    vi: {
+       quake: 'Động đất',
+       tsunami: 'Sóng thần',
+       flood: 'Lũ lụt',
+       landslide: 'Sạt lở đất',
+       fire: 'Hỏa hoạn',
+       surge: 'Triều cường / Sóng lớn',
+       inland_flood: 'Ngập lụt nội thành',
+       volcano: 'Núi lửa phun trào',
+       hazard_label: 'Hiểm họa'
+     }
   };
   class EvacuationMap {
     constructor() {
