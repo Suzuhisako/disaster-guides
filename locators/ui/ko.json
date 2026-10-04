@@ -6,6 +6,10 @@
     "guides": "긴급 가이드",
     "map": "대피소 지도"
   },
+  "guides": {
+    "immediate_action": "긴급 대응 Action",
+    "steps": "대피 및 행동 절차"
+  },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
