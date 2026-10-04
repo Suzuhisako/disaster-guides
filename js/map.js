@@ -68,6 +68,17 @@ if (typeof window.EvacuationMap === 'undefined') {
        inland_flood: 'Alagamento urbano',
        volcano: 'Erupção vulcânica',
        hazard_label: 'Desastres aplicáveis'
+     },
+     ja: {
+       quake: '地震',
+       tsunami: '津波',
+       flood: '洪水',
+       landslide: '土砂災害',
+       fire: '火災',
+       surge: '高潮',
+       inland_flood: '内水氾濫',
+       volcano: '火山噴火',
+       hazard_label: '対応災害'
      }
   };
   class EvacuationMap {
@@ -251,6 +262,12 @@ if (typeof window.EvacuationMap === 'undefined') {
                landslide: 'Deslizamento de terra', fire: 'Incêndio', surge: 'Ressaca / Calamidade marítima',
                inland_flood: 'Alagamento urbano', volcano: 'Erupção vulcânica',
                hazard_label: 'Desastres aplicáveis'
+             },
+             ja: {
+               quake: '地震', tsunami: '津波', flood: '洪水',
+               landslide: '土砂災害', fire: '火災', surge: '高潮',
+               inland_flood: '内水氾濫', volcano: '火山噴火',
+               hazard_label: '対応災害'
              }
            };
            
