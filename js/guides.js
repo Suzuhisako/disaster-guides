@@ -110,6 +110,34 @@ class EmergencyGuides {
         immediateAction: '⚡ Ação Imediata:',
         actionSteps: 'Passos de Ação:',
         alertIdentifier: 'Identificador do alerta'
+      },     
+      'zh-TW': {
+        jpPhrase: '日文短語：',
+        detail: '詳細資訊：',
+        immediateAction: '⚡ 緊急應對：',
+        actionSteps: '應對步驟：',
+        alertIdentifier: '警報識別'
+      },
+      es: {
+        jpPhrase: 'Frase en japonés:',
+        detail: 'Detalle:',
+        immediateAction: '⚡ Acción Inmediata:',
+        actionSteps: 'Pasos a seguir:',
+        alertIdentifier: 'Identificador de alerta'
+      },
+      th: {
+        jpPhrase: 'ประโยคภาษาญี่ปุ่น:',
+        detail: 'รายละเอียด:',
+        immediateAction: '⚡ การปฏิบัติทันที:',
+        actionSteps: 'ขั้นตอนการปฏิบัติ:',
+        alertIdentifier: 'รหัสการแจ้งเตือน'
+      },
+      ar: {
+        jpPhrase: 'العبارة اليابانية:',
+        detail: 'التفاصيل:',
+        immediateAction: '⚡ إجراء فوري:',
+        actionSteps: 'خطوات العمل:',
+        alertIdentifier: 'معرف التنبيه'
       }
     };
 
