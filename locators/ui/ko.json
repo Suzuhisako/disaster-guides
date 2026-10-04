@@ -1,0 +1,91 @@
+{
+  "app": {
+    "title": "방재 안내 미니 매뉴얼"
+  },
+  "nav": {
+    "guides": "긴급 가이드",
+    "map": "대피소 지도"
+  },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "긴급 지진 속보",
+      "description": "TV 및 스마트폰에서 급박한 알림음('포뇽, 포뇽')이 울린 후 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai'(긴급 지진 속보입니다. 강한 진동에 대비하세요)라는 음성이 재생됩니다. 즉시 자세를 낮추고 머리를 보호하세요."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "쓰나미(해일) 경보",
+      "description": "해안가 সাই렌 사이렌이 울립니다(3초 울림, 2초 쉬움). 즉시 고지대나 쓰나미 대피 빌딩으로 대피하세요."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "대피 지시(긴급)",
+      "description": "경보 단계 4. 위험 지역 내의 모든 사람은 즉시 가장 가까운 대피소로 대피하세요."
+    }
+  },
+  "map": {
+    "filter_all": "재해: 전체",
+    "filter_quake": "지진",
+    "filter_tsunami": "쓰나미(해일)",
+    "filter_flood": "홍수",
+    "filter_landslide": "산사태",
+    "filter_fire": "화재",
+    "filter_surge": "폭풍해일",
+    "filter_inland_flood": "내수범람",
+    "filter_volcano": "화산분화",
+    "locate_me": "내 위치",
+    "you_are_here": "현재 위치"
+  },
+  "prefectures": {
+    "kanagawa": "가나가와현 (神奈川県)",
+    "tokyo": "도쿄도 (東京都)",
+    "chiba": "치바현 (千葉県)",
+    "saitama": "사이타마현 (埼玉県)",
+    "ibaraki": "이바라키현 (茨城県)",
+    "tochigi": "토치기현 (栃木県)",
+    "gunma": "군마현 (群馬県)",
+    "hokkaido": "홋카이도 (北海道)",
+    "aomori": "아오모리현 (青森県)",
+    "iwate": "이와테현 (岩手県)",
+    "miyagi": "미야기현 (宮城県)",
+    "akita": "아키타현 (秋田県)",
+    "yamagata": "야마가타현 (山形県)",
+    "fukushima": "후쿠시마현 (福島県)",
+    "niigata": "니가타현 (新潟県)",
+    "toyama": "토야마현 (富山県)",
+    "ishikawa": "이시카와현 (石川県)",
+    "fukui": "후쿠이현 (福井県)",
+    "yamanashi": "야마나시현 (山梨県)",
+    "nagano": "나가노현 (長野県)",
+    "gifu": "기후현 (岐阜県)",
+    "shizuoka": "시즈오카현 (静岡県)",
+    "aichi": "아이치현 (愛知県)",
+    "mie": "미에현 (三重県)",
+    "shiga": "시가현 (滋賀県)",
+    "kyoto": "교토부 (京都府)",
+    "osaka": "오사카부 (大阪府)",
+    "hyogo": "효고현 (兵庫県)",
+    "nara": "나라현 (奈良県)",
+    "wakayama": "와카야마현 (和歌山県)",
+    "tottori": "돗토리현 (鳥取県)",
+    "shimane": "시마네현 (島根県)",
+    "okayama": "오카야마현 (岡山県)",
+    "hiroshima": "히로시마현 (広島県)",
+    "yamaguchi": "야마구치현 (山口県)",
+    "tokushima": "도쿠시마현 (徳島県)",
+    "kagawa": "카가와현 (香川県)",
+    "ehime": "에히메현 (愛媛県)",
+    "kochi": "고치현 (高知県)",
+    "fukuoka": "후쿠오카현 (福岡県)",
+    "saga": "사가현 (佐賀県)",
+    "nagasaki": "나가사키현 (長崎県)",
+    "kumamoto": "구마모토현 (熊本県)",
+    "oita": "오이타현 (大分県)",
+    "miyazaki": "미야자키현 (宮崎県)",
+    "kagoshima": "가고시마현 (鹿児島県)",
+    "okinawa": "오키나와현 (沖縄県)"
+  }
+}
