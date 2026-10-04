@@ -303,7 +303,8 @@ if (typeof window.EvacuationMap === 'undefined') {
              // 2. Select localized popup text based on language
              const popupText = {
                'zh': '你在这里',              
-               'en': 'You are here'
+               'en': 'You are here',
+               'vi': 'Bạn đang ở đây'
              }[lang] || '你在这里'; // Default fallback
          
              // 3. Bind popup with localized string
