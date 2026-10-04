@@ -35,6 +35,17 @@ if (typeof window.EvacuationMap === 'undefined') {
        inland_flood: 'Ngập lụt nội thành',
        volcano: 'Núi lửa phun trào',
        hazard_label: 'Hiểm họa'
+     },
+     ko: {
+       quake: '지진',
+       tsunami: '쓰나미(해일)', 
+       flood: '홍수',
+       landslide: '산사태', 
+       fire: '화재', 
+       surge: '폭풍해일',
+       inland_flood: '내수범람', 
+       volcano: '화산분화',
+       hazard_label: '대응 재해'
      }
   };
   class EvacuationMap {
@@ -311,7 +322,8 @@ if (typeof window.EvacuationMap === 'undefined') {
              const popupText = {
                'zh': '你在这里',              
                'en': 'You are here',
-               'vi': 'Bạn đang ở đây'
+               'vi': 'Bạn đang ở đây',
+               'ko': '현재 위치'
              }[lang] || '你在这里'; // Default fallback
          
              // 3. Bind popup with localized string
