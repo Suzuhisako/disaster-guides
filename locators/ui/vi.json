@@ -9,7 +9,7 @@
   "guides": {
     "immediate_action": "Hành động khẩn cấp",
     "steps": "Các bước thực hiện"
-  }
+  },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
