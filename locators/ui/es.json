@@ -1,0 +1,30 @@
+{
+  "app": { "title": "Microguía de Emergencias" },
+  "nav": { "guides": "Guías de Emergencia", "map": "Mapa de Evacuación" },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "Alerta Temprana de Terremoto",
+      "description": "Los teléfonos y la televisión emiten un tono urgente seguido de: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai'. Proteja su cabeza de inmediato."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "Alerta de Tsunami",
+      "description": "Suenan las sirenas costeras (3s de sonido, 2s de pausa). Evacúe de inmediato a un lugar alto o edificio de evacuación por tsunami."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "Orden de Evacuación (Emergencia)",
+      "description": "Nivel de alerta 4. Todas las personas en zonas de riesgo deben evacuar a un refugio inmediatamente."
+    }
+  },
+  "map": {
+    "filter_all": "Riesgo: Todos", "filter_quake": "Terremoto", "filter_tsunami": "Tsunami",
+    "filter_flood": "Inundación", "filter_landslide": "Deslizamiento", "filter_fire": "Incendio",
+    "filter_surge": "Marea de tempestad", "filter_inland_flood": "Inundación urbana", "filter_volcano": "Erupción volcánica",
+    "locate_me": "Mi ubicación", "you_are_here": "Estás aquí"
+  }
+}
