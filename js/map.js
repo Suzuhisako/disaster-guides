@@ -57,6 +57,17 @@ if (typeof window.EvacuationMap === 'undefined') {
        inland_flood: 'Baha sa Loob ng Lungsod', 
        volcano: 'Pagsabog ng Bulkan',
        hazard_label: 'Mga Panganib'
+     },
+     pt: {
+       quake: 'Terremoto',
+       tsunami: 'Tsunami',
+       flood: 'Inundação',
+       landslide: 'Deslizamento de terra',
+       fire: 'Incêndio', 
+       surge: 'Ressaca / Calamidade marítima',
+       inland_flood: 'Alagamento urbano',
+       volcano: 'Erupção vulcânica',
+       hazard_label: 'Desastres aplicáveis'
      }
   };
   class EvacuationMap {
@@ -234,7 +245,13 @@ if (typeof window.EvacuationMap === 'undefined') {
                landslide: 'Pagguho ng Lupa', fire: 'Sunog', surge: 'Daluyong ng Dagat',
                inland_flood: 'Baha sa Loob ng Lungsod', volcano: 'Pagsabog ng Bulkan',
                hazard_label: 'Mga Panganib'
-              }
+              },
+             pt: {
+               quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundação',
+               landslide: 'Deslizamento de terra', fire: 'Incêndio', surge: 'Ressaca / Calamidade marítima',
+               inland_flood: 'Alagamento urbano', volcano: 'Erupção vulcânica',
+               hazard_label: 'Desastres aplicáveis'
+             }
            };
            
            // Resolve active language with safe fallback
@@ -346,7 +363,8 @@ if (typeof window.EvacuationMap === 'undefined') {
                'en': 'You are here',
                'vi': 'Bạn đang ở đây',
                'ko': '현재 위치',
-               'tl': 'Nandito ka'
+               'tl': 'Nandito ka',
+               'pt': 'Você está aqui'
              }[lang] || '你在这里'; // Default fallback
          
              // 3. Bind popup with localized string
