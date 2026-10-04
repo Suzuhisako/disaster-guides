@@ -1,0 +1,30 @@
+{
+  "app": { "title": "防災微指南" },
+  "nav": { "guides": "緊急指南", "map": "避難地圖" },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "緊急地震速報",
+      "description": "手機與電視發出急促警報聲後播報：「Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai」。請立即保護頭部。"
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "海嘯警報",
+      "description": "沿海警報器響起（鳴響3秒，暫停2秒）。請立即撤離至高地或津波避難大樓。"
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "避難指示（緊急）",
+      "description": "警戒等級4。危險區域內的所有人員必須立即撤離至避難所。"
+    }
+  },
+  "map": {
+    "filter_all": "災害：全部", "filter_quake": "地震", "filter_tsunami": "海嘯",
+    "filter_flood": "洪水", "filter_landslide": "土砂災害", "filter_fire": "火災",
+    "filter_surge": "暴潮", "filter_inland_flood": "內水氾濫", "filter_volcano": "火山爆發",
+    "locate_me": "我的位置", "you_are_here": "您在這裡"
+  }
+}
