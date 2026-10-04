@@ -1,0 +1,30 @@
+{
+  "app": { "title": "คู่มือรับมือภัยพิบัติฉบับย่อ" },
+  "nav": { "guides": "คู่มือฉุกเฉิน", "map": "แผนที่จุดอพยพ" },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "เตือนภัยแผ่นดินไหวล่วงหน้า",
+      "description": "โทรศัพท์และทีวีจะส่งเสียงเตือนด่วนตามด้วย: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai' ให้คุ้มกันศีรษะทันที"
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "เตือนภัยสึนามิ",
+      "description": "ไซเรนชายฝั่งจะดังขึ้น (ดัง 3 วินาที หยุด 2 วินาที) อพยพขึ้นที่สูงหรืออาคารอพยพสึนามิทันที"
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "คำสั่งอพยพ (ฉุกเฉิน)",
+      "description": "เตือนภัยระดับ 4 ทุกคนในพื้นที่เสี่ยงต้องอพยพไปยังศูนย์พักพิงทันที"
+    }
+  },
+  "map": {
+    "filter_all": "ภัยพิบัติ: ทั้งหมด", "filter_quake": "แผ่นดินไหว", "filter_tsunami": "สึนามิ",
+    "filter_flood": "น้ำท่วม", "filter_landslide": "ดินถล่ม", "filter_fire": "ไฟไหม้",
+    "filter_surge": "คลื่นพายุหมุนฝั่ง", "filter_inland_flood": "น้ำท่วมขัง", "filter_volcano": "ภูเขาไฟระเบิด",
+    "locate_me": "ตำแหน่งของฉัน", "you_are_here": "คุณอยู่ที่นี่"
+  }
+}
