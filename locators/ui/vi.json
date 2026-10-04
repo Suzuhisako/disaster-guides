@@ -1,18 +1,91 @@
 {
-  "app_title": "Sơ đồ Trung tâm Sơ tán Khẩn cấp",
-  "locate_me": "Vị trí của tôi",
-  "select_prefecture": "Tỉnh / Thành",
-  "select_hazard": "Loại thảm họa (Tất cả)",
-  "all_hazards": "Tất cả thảm họa",
-  "quake": "Động đất",
-  "tsunami": "Sóng thần",
-  "landslide": "Sạt lở đất",
-  "flood": "Lũ lụt",
-  "inundation": "Ngập lụt",
-  "fire": "Hỏa hoạn",
-  "volcano": "Núi lửa",
-  "you_are_here": "Bạn đang ở đây",
-  "shelter_count": "Số lượng trung tâm sơ tán",
-  "loading": "Đang tải dữ liệu...",
-  "offline_notice": "Đang ở chế độ ngoại tuyến"
+  "app": {
+    "title": "Cẩm nang Phòng chống Thiên tai"
+  },
+  "nav": {
+    "guides": "Hướng dẫn Khẩn cấp",
+    "map": "Bản đồ Nơi sơ tán"
+  },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "Cảnh báo Động đất Sớm Khẩn cấp",
+      "description": "Cảnh báo phát âm thanh dồn dập (“Ponyon, Ponyon”) trên TV và điện thoại, tiếp theo là âm báo: “Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai” (Cảnh báo động đất sớm khẩn cấp. Hãy đề phòng rung lắc mạnh). Hãy lập tức cúi thấp người, che chắn và bảo vệ đầu."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "Cảnh báo Sóng thần",
+      "description": "Còi báo động vùng ven biển vang lên (tiếng còi dài 3 giây, nghỉ 2 giây). Hãy lập tức sơ tán đến vùng đất cao hoặc tòa nhà sơ tán sóng thần."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "Lệnh Sơ tán (Khẩn cấp)",
+      "description": "Mức cảnh báo 4. Tất cả mọi người trong khu vực nguy hiểm hãy lập tức sơ tán đến nơi sơ tán gần nhất."
+    }
+  },
+  "map": {
+    "filter_all": "Thảm họa: Tất cả",
+    "filter_quake": "Động đất",
+    "filter_tsunami": "Sóng thần",
+    "filter_flood": "Lũ lụt",
+    "filter_landslide": "Sạt lở đất",
+    "filter_fire": "Hỏa hoạn",
+    "filter_surge": "Triều cường",
+    "filter_inland_flood": "Ngập lụt nội thành",
+    "filter_volcano": "Núi lửa phun trào",
+    "locate_me": "Vị trí của tôi",
+    "you_are_here": "Bạn đang ở đây"
+  },
+  "prefectures": {
+    "kanagawa": "Tỉnh Kanagawa (神奈川県)",
+    "tokyo": "Thành phố Tokyo (東京都)",
+    "chiba": "Tỉnh Chiba (千葉県)",
+    "saitama": "Tỉnh Saitama (埼玉県)",
+    "ibaraki": "Tỉnh Ibaraki (茨城県)",
+    "tochigi": "Tỉnh Tochigi (栃木県)",
+    "gunma": "Tỉnh Gunma (群馬県)",
+    "hokkaido": "Tỉnh Hokkaido (北海道)",
+    "aomori": "Tỉnh Aomori (青森県)",
+    "iwate": "Tỉnh Iwate (岩手県)",
+    "miyagi": "Tỉnh Miyagi (宮城県)",
+    "akita": "Tỉnh Akita (秋田県)",
+    "yamagata": "Tỉnh Yamagata (山形県)",
+    "fukushima": "Tỉnh Fukushima (福島県)",
+    "niigata": "Tỉnh Niigata (新潟県)",
+    "toyama": "Tỉnh Toyama (富山県)",
+    "ishikawa": "Tỉnh Ishikawa (石川県)",
+    "fukui": "Tỉnh Fukui (福井県)",
+    "yamanashi": "Tỉnh Yamanashi (山梨県)",
+    "nagano": "Tỉnh Nagano (長野県)",
+    "gifu": "Tỉnh Gifu (岐阜県)",
+    "shizuoka": "Tỉnh Shizuoka (静岡県)",
+    "aichi": "Tỉnh Aichi (愛知県)",
+    "mie": "Tỉnh Mie (三重県)",
+    "shiga": "Tỉnh Shiga (滋賀県)",
+    "kyoto": "Phủ Kyoto (京都府)",
+    "osaka": "Phủ Osaka (大阪府)",
+    "hyogo": "Tỉnh Hyogo (兵庫県)",
+    "nara": "Tỉnh Nara (奈良県)",
+    "wakayama": "Tỉnh Wakayama (和歌山県)",
+    "tottori": "Tỉnh Tottori (鳥取県)",
+    "shimane": "Tỉnh Shimane (島根県)",
+    "okayama": "Tỉnh Okayama (岡山県)",
+    "hiroshima": "Tỉnh Hiroshima (広島県)",
+    "yamaguchi": "Tỉnh Yamaguchi (山口県)",
+    "tokushima": "Tỉnh Tokushima (徳島県)",
+    "kagawa": "Tỉnh Kagawa (香川県)",
+    "ehime": "Tỉnh Ehime (愛媛県)",
+    "kochi": "Tỉnh Kochi (高知県)",
+    "fukuoka": "Tỉnh Fukuoka (福岡県)",
+    "saga": "Tỉnh Saga (佐賀県)",
+    "nagasaki": "Tỉnh Nagasaki (長崎県)",
+    "kumamoto": "Tỉnh Kumamoto (熊本県)",
+    "oita": "Tỉnh Oita (大分県)",
+    "miyazaki": "Tỉnh Miyazaki (宮崎県)",
+    "kagoshima": "Tỉnh Kagoshima (鹿児島県)",
+    "okinawa": "Tỉnh Okinawa (沖縄県)"
+  }
 }
