@@ -1,0 +1,18 @@
+{
+  "app_title": "Sơ đồ Trung tâm Sơ tán Khẩn cấp",
+  "locate_me": "Vị trí của tôi",
+  "select_prefecture": "Tỉnh / Thành",
+  "select_hazard": "Loại thảm họa (Tất cả)",
+  "all_hazards": "Tất cả thảm họa",
+  "quake": "Động đất",
+  "tsunami": "Sóng thần",
+  "landslide": "Sạt lở đất",
+  "flood": "Lũ lụt",
+  "inundation": "Ngập lụt",
+  "fire": "Hỏa hoạn",
+  "volcano": "Núi lửa",
+  "you_are_here": "Bạn đang ở đây",
+  "shelter_count": "Số lượng trung tâm sơ tán",
+  "loading": "Đang tải dữ liệu...",
+  "offline_notice": "Đang ở chế độ ngoại tuyến"
+}
