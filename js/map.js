@@ -212,6 +212,11 @@ if (typeof window.EvacuationMap === 'undefined') {
                quake: 'Động đất', tsunami: 'Sóng thần', flood: 'Lũ lụt',
                landslide: 'Sạt lở đất', fire: 'Hỏa hoạn', surge: 'Triều cường / Sóng lớn',
                inland_flood: 'Ngập lụt nội thành', volcano: 'Núi lửa phun trào'
+             }, 
+             ko: {
+               quake: '지진', tsunami: '쓰나미(해일)', flood: '홍수',
+               landslide: '산사태', fire: '화재', surge: '폭풍해일',
+               inland_flood: '내수범람', volcano: '화산분화'
              }
            };
            
