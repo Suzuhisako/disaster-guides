@@ -20,7 +20,7 @@ class I18nManager {
     const browserLang = navigator.language ? navigator.language.slice(0, 2) : 'en';
     
     let initialLang = savedLang || browserLang;
-    if (!['en', 'zh', 'jp'].includes(initialLang)) {
+    if (!['en', 'zh', 'jp', 'vi'].includes(initialLang)) {
       initialLang = 'en';
     }
 
@@ -49,7 +49,7 @@ class I18nManager {
    * Switches active language and re-renders UI + shelters map + disaster guides
    */
      async setLanguage(lang) {
-     const targetLang = ['en', 'zh', 'jp'].includes(lang) ? lang : 'en';
+     const targetLang = ['en', 'zh', 'jp', 'vi'].includes(lang) ? lang : 'en';
    
      try {
        const uiUrl = `./locators/ui/${targetLang}.json`;
@@ -77,7 +77,7 @@ class I18nManager {
        }
    
        // 3. Delegation: Pass content path to EmergencyGuides instance
-       const guidePath = `locators/content/guides_${targetLang}.json`;
+       const guidePath = `locators/content/guides_${targetLang}.json`;        
    
        if (window.emergencyGuides && typeof window.emergencyGuides.setLanguage === 'function') {
          await window.emergencyGuides.setLanguage(guidePath);
