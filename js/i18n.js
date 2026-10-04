@@ -20,7 +20,7 @@ class I18nManager {
     const browserLang = navigator.language ? navigator.language.slice(0, 2) : 'en';
     
     let initialLang = savedLang || browserLang;
-    if (!['en', 'zh', 'jp', 'vi', 'ko'].includes(initialLang)) {
+    if (!['en', 'zh', 'jp', 'vi', 'ko', 'tl'].includes(initialLang)) {
       initialLang = 'en';
     }
 
@@ -49,7 +49,7 @@ class I18nManager {
    * Switches active language and re-renders UI + shelters map + disaster guides
    */
      async setLanguage(lang) {
-     const targetLang = ['en', 'zh', 'jp', 'vi', 'ko'].includes(lang) ? lang : 'en';
+     const targetLang = ['en', 'zh', 'jp', 'vi', 'ko', 'tl'].includes(lang) ? lang : 'en';
    
      try {
        const uiUrl = `./locators/ui/${targetLang}.json`;
