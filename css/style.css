@@ -49,33 +49,37 @@ body {
 /* ==========================================================================
    Header Navigation Bar
    ========================================================================== */
-/* Header Container */
 .app-header .header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 12px; /* Slightly tighter padding for mobile screen space */
-  gap: 8px;          /* Prevents title and language buttons from touching */
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 8px 12px !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
 }
 
-/* App Title Styling */
+/* Fix Title Truncation Completely */
 .app-header h1 {
-  margin: 0;
-  font-size: clamp(1rem, 4.2vw, 1.25rem); /* Dynamically scales down on smaller screens */
-  white-space: nowrap;                   /* Prevents wrapping to a second/third line */
-  word-break: keep-all;                  /* Keeps CJK words intact without mid-word breaks */
-  overflow: hidden;
-  text-overflow: ellipsis;              /* Fades cleanly with '...' on extremely narrow screens */
-  flex-shrink: 1;                        /* Allows title to shrink if needed */
+  margin: 0 !important;
+  font-size: 1.1rem !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  overflow: visible !important;
+  text-overflow: clip !important; /* Force removal of "..." dots */
+  flex-shrink: 0 !important;      /* Never allow language buttons to squish the title */
 }
 
-/* Language Selector Container (if applicable) */
-.lang-selector,
-.header-container > div:last-child {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;                        /* Protects language buttons from being squeezed */
+/* Horizontal Scrollable Language Selector for Mobile */
+.lang-switch-group {
+  display: flex !important;
+  gap: 4px !important;
+  overflow-x: auto !important;     /* Smooth horizontal scroll if buttons exceed screen width */
+  white-space: nowrap !important;
+  flex-shrink: 1 !important;      /* Allows flags container to fit neatly in remaining space */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
 }
 
 
@@ -412,27 +416,15 @@ body {
    ========================================================================== */
 /* Mobile Screen Adjustments (Width <= 480px) */
 @media (max-width: 600px) {
-  flex-direction: column;    /* Stack title on top, language buttons below */
-    align-items: flex-start;  /* Align title to the left */
-    padding: 8px 12px;
-    gap: 6px;
+  .app-header .header-container {
+    flex-direction: column !important; /* Stack title above buttons on mobile for 100% full view */
+    align-items: flex-start !important;
+    gap: 6px !important;
+    padding: 8px 10px !important;
   }
 
-  .app-header h1 {
-    font-size: 1.1rem;
-    white-space: normal;      /* Allow clean line wrapping if ever needed */
-    overflow: visible;
-    text-overflow: clip;      /* Remove ellipsis (...) truncation */
-  }
-
-  .lang-switch-group,
-  .header-container > div:last-child {
-    width: 100%;
-    display: flex;
-    overflow-x: auto;         /* Allow smooth horizontal scrolling for 8 buttons */
-    white-space: nowrap;
-    padding-bottom: 2px;
-    gap: 6px;
+  .lang-switch-group {
+    width: 100% !important;
   }
 
   /* Floating Glassmorphism Container */
