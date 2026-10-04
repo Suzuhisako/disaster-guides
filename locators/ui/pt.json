@@ -1,0 +1,91 @@
+{
+  "app": {
+    "title": "Miniguia de Prevenção de Desastres"
+  },
+  "nav": {
+    "guides": "Guia de Emergência",
+    "map": "Mapa de Abrigos"
+  },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "Alerta Prévio de Terremoto",
+      "description": "Após um sinal sonoro urgente no celular ou TV, é emitido o aviso em áudio: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai' (Alerta prévio de terremoto. Prepare-se para fortes tremores). Abaixe-se imediatamente e proteja a cabeça."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "Alerta de Tsunami",
+      "description": "Sirenes costeiras soarão (3 segundos de som, 2 segundos de pausa). Evacue imediatamente para um local alto ou edifício de evacuação de tsunami."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "Ordem de Evacuação (Emergência)",
+      "description": "Nível de alerta 4. Todas as pessoas na área de risco devem evacuar imediatamente para o abrigo mais próximo."
+    }
+  },
+  "map": {
+    "filter_all": "Desastre: Todos",
+    "filter_quake": "Terremoto",
+    "filter_tsunami": "Tsunami",
+    "filter_flood": "Inundação",
+    "filter_landslide": "Deslizamento",
+    "filter_fire": "Incêndio",
+    "filter_surge": "Ressaca",
+    "filter_inland_flood": "Alagamento",
+    "filter_volcano": "Erupção vulcânica",
+    "locate_me": "Minha localização",
+    "you_are_here": "Você está aqui"
+  },
+  "prefectures": {
+    "kanagawa": "Província de Kanagawa (神奈川県)",
+    "tokyo": "Tóquio (東京都)",
+    "chiba": "Província de Chiba (千葉県)",
+    "saitama": "Província de Saitama (埼玉県)",
+    "ibaraki": "Província de Ibaraki (茨城県)",
+    "tochigi": "Província de Tochigi (栃木県)",
+    "gunma": "Província de Gunma (群馬県)",
+    "hokkaido": "Província de Hokkaido (北海道)",
+    "aomori": "Província de Aomori (青森県)",
+    "iwate": "Província de Iwate (岩手県)",
+    "miyagi": "Província de Miyagi (宮城県)",
+    "akita": "Província de Akita (秋田県)",
+    "yamagata": "Província de Yamagata (山形県)",
+    "fukushima": "Província de Fukushima (福島県)",
+    "niigata": "Província de Niigata (新潟県)",
+    "toyama": "Província de Toyama (富山県)",
+    "ishikawa": "Província de Ishikawa (石川県)",
+    "fukui": "Província de Fukui (福井県)",
+    "yamanashi": "Província de Yamanashi (山梨県)",
+    "nagano": "Província de Nagano (長野県)",
+    "gifu": "Província de Gifu (岐阜県)",
+    "shizuoka": "Província de Shizuoka (静岡県)",
+    "aichi": "Província de Aichi (愛知県)",
+    "mie": "Província de Mie (三重県)",
+    "shiga": "Província de Shiga (滋賀県)",
+    "kyoto": "Província de Quioto (京都府)",
+    "osaka": "Província de Osaka (大阪府)",
+    "hyogo": "Província de Hyogo (兵庫県)",
+    "nara": "Província de Nara (奈良県)",
+    "wakayama": "Província de Wakayama (和歌山県)",
+    "tottori": "Província de Tottori (鳥取県)",
+    "shimane": "Província de Shimane (島根県)",
+    "okayama": "Província de Okayama (岡山県)",
+    "hiroshima": "Província de Hiroshima (広島県)",
+    "yamaguchi": "Província de Yamaguchi (山口県)",
+    "tokushima": "Província de Tokushima (徳島県)",
+    "kagawa": "Província de Kagawa (香川県)",
+    "ehime": "Província de Ehime (愛媛県)",
+    "kochi": "Província de Kochi (高知県)",
+    "fukuoka": "Província de Fukuoka (福岡県)",
+    "saga": "Província de Saga (佐賀県)",
+    "nagasaki": "Província de Nagasaki (長崎県)",
+    "kumamoto": "Província de Kumamoto (熊本県)",
+    "oita": "Província de Oita (大分県)",
+    "miyazaki": "Província de Miyazaki (宮崎県)",
+    "kagoshima": "Província de Kagoshima (鹿児島県)",
+    "okinawa": "Província de Okinawa (沖縄県)"
+  }
+}
