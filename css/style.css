@@ -49,25 +49,35 @@ body {
 /* ==========================================================================
    Header Navigation Bar
    ========================================================================== */
-.app-header {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  padding: 0.85rem 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header-container {
-  max-width: 800px;
-  margin: 0 auto;
+/* Header Container */
+.app-header .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 8px 12px; /* Slightly tighter padding for mobile screen space */
+  gap: 8px;          /* Prevents title and language buttons from touching */
 }
 
-.header-container h1 {
-  font-size: 1.25rem;
-  font-weight: 700;
+/* App Title Styling */
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(1rem, 4.2vw, 1.25rem); /* Dynamically scales down on smaller screens */
+  white-space: nowrap;                   /* Prevents wrapping to a second/third line */
+  word-break: keep-all;                  /* Keeps CJK words intact without mid-word breaks */
+  overflow: hidden;
+  text-overflow: ellipsis;              /* Fades cleanly with '...' on extremely narrow screens */
+  flex-shrink: 1;                        /* Allows title to shrink if needed */
 }
+
+/* Language Selector Container (if applicable) */
+.lang-selector,
+.header-container > div:last-child {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;                        /* Protects language buttons from being squeezed */
+}
+
 
 /* ==========================================================================
    2-Tab Navigation Bar
@@ -400,7 +410,12 @@ body {
 /* ==========================================================================
    Mobile Responsive Adjustments
    ========================================================================== */
+/* Mobile Screen Adjustments (Width <= 480px) */
 @media (max-width: 600px) {
+  .app-header .header-container {
+    padding: 6px 10px;
+  }
+
   /* Floating Glassmorphism Container */
   .filter-container {
     position: absolute;
