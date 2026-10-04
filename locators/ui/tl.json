@@ -1,0 +1,91 @@
+{
+  "app": {
+    "title": "Gabay sa Pag-iingat sa Sakuna"
+  },
+  "nav": {
+    "guides": "Pang-emerhensyang Gabay",
+    "map": "Mapa ng Evacuation Center"
+  },
+  "alarms": {
+    "earthquake_early": {
+      "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
+      "english": "Emergency Earthquake Early Warning",
+      "zh": "Mabilis na Babala sa Lindol",
+      "description": "Tumatunog ang mabilis na babala ('Ponyon, Ponyon') sa TV at cellphone, kasunod ang boses na: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai' (Mabilis na babala sa lindol. Mag-ingat sa malakas na pagyanig). Agad na dumapa, magtago, at protektahan ang ulo."
+    },
+    "tsunami_warning": {
+      "japanese_phrase": "津波警報 (Tsunami Keihou)",
+      "english": "Tsunami Warning",
+      "zh": "Babala sa Tsunami",
+      "description": "Tumatunog ang sirina sa baybayin (3 segundong tunog, 2 segundong hinto). Agad na lumikas patungo sa mataas na lugar o gusaling likasan sa tsunami."
+    },
+    "evacuation_order": {
+      "japanese_phrase": "避難指示 (Hinan Shiji)",
+      "english": "Evacuation Instruction (Emergency)",
+      "zh": "Kautusan sa Paglikas (Pang-emerhensya)",
+      "description": "Antas ng babala 4. Ang lahat ng tao sa dangerous zone ay dapat agad na lumikas patungo sa pinakamalapit na evacuation center."
+    }
+  },
+  "map": {
+    "filter_all": "Sakuna: Lahat",
+    "filter_quake": "Lindol",
+    "filter_tsunami": "Tsunami",
+    "filter_flood": "Baha",
+    "filter_landslide": "Pagguho ng Lupa",
+    "filter_fire": "Sunog",
+    "filter_surge": "Daluyong ng Dagat",
+    "filter_inland_flood": "Baha sa Loob ng Lungsod",
+    "filter_volcano": "Pagsabog ng Bulkan",
+    "locate_me": "Aking Lokasyon",
+    "you_are_here": "Nandito ka"
+  },
+  "prefectures": {
+    "kanagawa": "Kagawaran ng Kanagawa (神奈川県)",
+    "tokyo": "Lungsod ng Tokyo (東京都)",
+    "chiba": "Kagawaran ng Chiba (千葉県)",
+    "saitama": "Kagawaran ng Saitama (埼玉県)",
+    "ibaraki": "Kagawaran ng Ibaraki (茨城県)",
+    "tochigi": "Kagawaran ng Tochigi (栃木県)",
+    "gunma": "Kagawaran ng Gunma (群馬県)",
+    "hokkaido": "Kagawaran ng Hokkaido (北海道)",
+    "aomori": "Kagawaran ng Aomori (青森県)",
+    "iwate": "Kagawaran ng Iwate (岩手県)",
+    "miyagi": "Kagawaran ng Miyagi (宮城県)",
+    "akita": "Kagawaran ng Akita (秋田県)",
+    "yamagata": "Kagawaran ng Yamagata (山形県)",
+    "fukushima": "Kagawaran ng Fukushima (福島県)",
+    "niigata": "Kagawaran ng Niigata (新潟県)",
+    "toyama": "Kagawaran ng Toyama (富山県)",
+    "ishikawa": "Kagawaran ng Ishikawa (石川県)",
+    "fukui": "Kagawaran ng Fukui (福井県)",
+    "yamanashi": "Kagawaran ng Yamanashi (山梨県)",
+    "nagano": "Kagawaran ng Nagano (長野県)",
+    "gifu": "Kagawaran ng Gifu (岐阜県)",
+    "shizuoka": "Kagawaran ng Shizuoka (静岡県)",
+    "aichi": "Kagawaran ng Aichi (愛知県)",
+    "mie": "Kagawaran ng Mie (三重県)",
+    "shiga": "Kagawaran ng Shiga (滋賀県)",
+    "kyoto": "Lungsod ng Kyoto (京都府)",
+    "osaka": "Lungsod ng Osaka (大阪府)",
+    "hyogo": "Kagawaran ng Hyogo (兵庫県)",
+    "nara": "Kagawaran ng Nara (奈良県)",
+    "wakayama": "Kagawaran ng Wakayama (和歌山県)",
+    "tottori": "Kagawaran ng Tottori (鳥取県)",
+    "shimane": "Kagawaran ng Shimane (島根県)",
+    "okayama": "Kagawaran ng Okayama (岡山県)",
+    "hiroshima": "Kagawaran ng Hiroshima (広島県)",
+    "yamaguchi": "Kagawaran ng Yamaguchi (山口県)",
+    "tokushima": "Kagawaran ng Tokushima (徳島県)",
+    "kagawa": "Kagawaran ng Kagawa (香川県)",
+    "ehime": "Kagawaran ng Ehime (愛媛県)",
+    "kochi": "Kagawaran ng Kochi (高知県)",
+    "fukuoka": "Kagawaran ng Fukuoka (福岡県)",
+    "saga": "Kagawaran ng Saga (佐賀県)",
+    "nagasaki": "Kagawaran ng Nagasaki (長崎県)",
+    "kumamoto": "Kagawaran ng Kumamoto (熊本県)",
+    "oita": "Kagawaran ng Oita (大分県)",
+    "miyazaki": "Kagawaran ng Miyazaki (宮崎県)",
+    "kagoshima": "Kagawaran ng Kagoshima (鹿児島県)",
+    "okinawa": "Kagawaran ng Okinawa (沖縄県)"
+  }
+}
