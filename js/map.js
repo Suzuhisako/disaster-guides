@@ -166,59 +166,66 @@ if (typeof window.EvacuationMap === 'undefined') {
         },
 
         onEachFeature: (feature, layer) => {
-          const props = feature.properties || {};
-
-          // --- 1. Japanese Name Ground Truth ---
-         let shelterName = '';
-         if (props.name && typeof props.name === 'object') {
-           // Always prefer Japanese for name so it matches local signs and physical maps
-           shelterName = props.jp_name || props.name['ja'] || props.name['jp'] || props.name['zh'] || props.name['en'];
-         } else {
-           shelterName = props.jp_name || props.name || '避難所';
-         }
+           const props = feature.properties || {};
          
-         // --- 2. Japanese Address Ground Truth ---
-         let shelterAddress = '';
-         if (props.address && typeof props.address === 'object') {
-           // Always prefer Japanese address for navigation/asking locals
-           shelterAddress = props.address['ja'] || props.address['jp'] || props.address['zh'] || props.address['en'] || '';
-         } else {
-           shelterAddress = props.address || '';
-         }
-         
-         // --- 3. Localized Disaster Category Badges ---
-         const HAZARD_MAP = {
-           zh: {
-             quake: '地震', tsunami: '海啸', flood: '洪水',
-             landslide: '土砂灾害',  fire: '火灾', surge: '高潮',  inland_flood: '内水泛滥', 
-             volcano: '火山噴发'
-           },        
-           en: {
-             quake: 'Earthquake', tsunami: 'Tsunami', flood: 'Flood', landslide: 'Landslide', 
-             fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano',
+           // --- 1. Japanese Name Ground Truth ---
+           let shelterName = '';
+           if (props.name && typeof props.name === 'object') {
+             // Always prefer Japanese for name so it matches local signs and physical maps
+             shelterName = props.jp_name || props.name['ja'] || props.name['jp'] || props.name['zh'] || props.name['en'];
+           } else {
+             shelterName = props.jp_name || props.name || '避難所';
            }
-         };
-         
-         const activeLangMap = HAZARD_MAP[currentLang] || HAZARD_MAP['zh'];
-         const disasters = props.disasters || [];
-         
-         const disasterBadges = disasters.map(d => {
-           const cleanKey = String(d).toLowerCase().trim();
-           const localizedLabel = activeLangMap[cleanKey] || d; // Translate key or fallback to raw string
            
-           return `<span style="display:inline-block; background:#ffebee; color:#c62828; font-size:0.7rem; padding:2px 6px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(localizedLabel)}</span>`;
-         }).join('');
-         
-         const popupContent = `
-           <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
-             <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
-             ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
-             ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
-           </div>
-         `;
-         
-         layer.bindPopup(popupContent);
-        }
+           // --- 2. Japanese Address Ground Truth ---
+           let shelterAddress = '';
+           if (props.address && typeof props.address === 'object') {
+             // Always prefer Japanese address for navigation/asking locals
+             shelterAddress = props.address['ja'] || props.address['jp'] || props.address['zh'] || props.address['en'] || '';
+           } else {
+             shelterAddress = props.address || '';
+           }
+           
+           // --- 3. Localized Disaster Category Badges ---
+           const HAZARD_MAP = {
+             zh: {
+               quake: '地震', tsunami: '海啸', flood: '洪水',
+               landslide: '土砂灾害', fire: '火灾', surge: '高潮', inland_flood: '内水泛滥', 
+               volcano: '火山噴发'
+             },        
+             en: {
+               quake: 'Earthquake', tsunami: 'Tsunami', flood: 'Flood', landslide: 'Landslide', 
+               fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano'
+             },
+             vi: {
+               quake: 'Động đất', tsunami: 'Sóng thần', flood: 'Lũ lụt',
+               landslide: 'Sạt lở đất', fire: 'Hỏa hoạn', surge: 'Triều cường / Sóng lớn',
+               inland_flood: 'Ngập lụt nội thành', volcano: 'Núi lửa phun trào'
+             }
+           };
+           
+           // Resolve active language with safe fallback
+           const activeLang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'zh');
+           const activeLangMap = HAZARD_MAP[activeLang] || HAZARD_MAP['zh'];
+           const disasters = props.disasters || [];
+           
+           const disasterBadges = disasters.map(d => {
+             const cleanKey = String(d).toLowerCase().trim();
+             const localizedLabel = activeLangMap[cleanKey] || d; // Translate key or fallback to raw string
+             
+             return `<span style="display:inline-block; background:#ffebee; color:#c62828; font-size:0.7rem; padding:2px 6px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(localizedLabel)}</span>`;
+           }).join('');
+           
+           const popupContent = `
+             <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
+               <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
+               ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
+               ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
+             </div>
+           `;
+           
+           layer.bindPopup(popupContent);
+         }
       }).addTo(this.map);
     }
 
