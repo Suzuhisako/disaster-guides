@@ -6,6 +6,10 @@
     "guides": "Guia de Emergência",
     "map": "Mapa de Abrigos"
   },
+  "guides": {
+    "immediate_action": "Ação Imediata",
+    "steps": "Passos de Ação"
+  },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
