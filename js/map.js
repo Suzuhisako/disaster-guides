@@ -381,7 +381,8 @@ if (typeof window.EvacuationMap === 'undefined') {
                'vi': 'Bạn đang ở đây',
                'ko': '현재 위치',
                'tl': 'Nandito ka',
-               'pt': 'Você está aqui'
+               'pt': 'Você está aqui',
+               'ja': '現在地'
              }[lang] || '你在这里'; // Default fallback
          
              // 3. Bind popup with localized string
