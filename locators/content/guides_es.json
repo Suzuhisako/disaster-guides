@@ -1,0 +1,57 @@
+{
+  "events": [
+    {
+      "id": "earthquake", "title": "Alerta de Terremoto (地震)", "icon": "🫨",
+      "alarm": {
+        "sound_id": "earthquake_j_alert", "title": "Alerta Temprana J-Alert",
+        "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
+        "meaning": "Alerta Temprana de Terremoto: Un fuerte temblor es inminente, prepárese de inmediato."
+      },
+      "immediate_action": "Agáchase, cubra su cabeza y agárrese fuerte.",
+      "steps": [
+        "Protéjase debajo de una mesa resistente o use una mochila/almohada para proteger la cabeza.",
+        "Manténgase alejado de ventanas, estanterías no sujetas y muebles altos.",
+        "No corra hacia afuera durante el temblor; la caída de tejas y vidrios es muy peligrosa.",
+        "Cuando el temblor pare, apague fuentes de fuego/gas y abra puertas para asegurar la ruta de escape."
+      ]
+    },
+    {
+      "id": "tsunami", "title": "Alerta de Tsunami (津波警報)", "icon": "🌊",
+      "alarm": {
+        "sound_id": "tsunami_siren", "title": "Sirena Costera de Tsunami",
+        "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
+        "meaning": "Alerta de Tsunami: El sonido continuo indica evacuación inmediata a un lugar elevado."
+      },
+      "immediate_action": "Evacúe de inmediato a un lugar alto o edificio de evacuación de tsunami.",
+      "steps": [
+        "Si siente un temblor fuerte o prolongado cerca de la costa, evacúe de inmediato sin esperar el aviso official.",
+        "Desplácese a pie hacia un lugar elevado (3.er piso o superior en edificios de concreto).",
+        "Evite usar vehículos para evacuar; los embotellamientos pueden bloquear su escape.",
+        "Permanezca en el lugar elevado, ya que el tsunami puede golpear en varias olas durante varias horas."
+      ]
+    },
+    {
+      "id": "bousai_broadcast", "title": "Transmisión Comunitaria de Emergencia (防災行政無線)", "icon": "📢",
+      "alarm": {
+        "sound_id": "town_broadcast", "title": "Altavoz de Prevención de Desastres",
+        "jp_phrase": "「緊急放送。避難指示が発令されました。」",
+        "meaning": "Transmisión de Emergencia: Se ha emitido la Orden de Evacuación (Nivel de Alerta 4)."
+      },
+      "immediate_action": "Escuche atentamente los avisos locales y siga las instrucciones municipales.",
+      "steps": [
+        "Si la lluvia o el viento impiden oír el aviso, consulte el sitio web municipal o los carteles de señalización.",
+        "Tome su mochila de emergencia y diríjase al refugio más cercano."
+      ]
+    },
+    {
+      "id": "heatwave", "title": "Calor Extremo y Golpes de Calor (熱中症)", "icon": "☀️",
+      "alarm": null,
+      "immediate_action": "Vaya a un lugar con aire acondicionado e hidrátese con agua y electrolitos.",
+      "steps": [
+        "Cuando el Alerta por Golpe de Calor (熱中症警戒アラート) esté activo, mantenga el aire acondicionado encendido.",
+        "Beba agua con frecuencia, incluso sin sentir sed.",
+        "Si siente mareo o debilidad, afloje la ropa y aplique compresas frías en cuello y axilas."
+      ]
+    }
+  ]
+}
