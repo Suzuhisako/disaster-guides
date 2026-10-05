@@ -131,13 +131,6 @@ class EmergencyGuides {
         immediateAction: '⚡ การปฏิบัติทันที:',
         actionSteps: 'ขั้นตอนการปฏิบัติ:',
         alertIdentifier: 'รหัสการแจ้งเตือน'
-      },
-      ar: {
-        jpPhrase: 'العبارة اليابانية:',
-        detail: 'التفاصيل:',
-        immediateAction: '⚡ إجراء فوري:',
-        actionSteps: 'خطوات العمل:',
-        alertIdentifier: 'معرف التنبيه'
       }
     };
 
