@@ -52,7 +52,8 @@ class I18nManager {
      const targetLang = ['en', 'zh', 'zh-TW', 'ja', 'vi', 'ko', 'tl', 'pt', 'es', 'th'].includes(lang) ? lang : 'en';
    
      try {
-       const uiUrl = `./locators/ui/${targetLang}.json`;
+       const cleanLang = (targetLang || 'ja').toLowerCase();
+       const uiUrl = `./locators/ui/${cleanLang}.json`;
    
        // Fetch UI translations (EmergencyGuides handles its own guide JSON fetch)
        const uiRes = await fetch(uiUrl).catch(() => null);
