@@ -81,28 +81,38 @@ if (typeof window.EvacuationMap === 'undefined') {
        hazard_label: '対応災害'
      },
      'zh-TW': {
-       quake: '地震', tsunami: '海嘯', flood: '洪水',
-       landslide: '土砂災害', fire: '火災', surge: '暴潮', inland_flood: '內水氾濫',
-       volcano: '火山爆發', hazard_label: '適用災害'
+       quake: '地震',
+       tsunami: '海嘯', 
+       flood: '洪水',
+       landslide: '土砂災害', 
+       fire: '火災',
+       surge: '暴潮',
+       inland_flood: '內水氾濫',
+       volcano: '火山爆發',
+       hazard_label: '適用災害'
      },
      es: {
-       quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundación',
-       landslide: 'Deslizamiento', fire: 'Incendio', surge: 'Marea de tempestad',
-       inland_flood: 'Inundación urbana', volcano: 'Erupción volcánica',
+       quake: 'Terremoto',
+       tsunami: 'Tsunami',
+       flood: 'Inundación',
+       landslide: 'Deslizamiento',
+       fire: 'Incendio',
+       surge: 'Marea de tempestad',
+       inland_flood: 'Inundación urbana',
+       volcano: 'Erupción volcánica',
        hazard_label: 'Peligros'
      },
      th: {
-       quake: 'แผ่นดินไหว', tsunami: 'สึนามิ', flood: 'น้ำท่วม',
-       landslide: 'ดินถล่ม', fire: 'ไฟไหม้', surge: 'คลื่นพายุหมุนฝั่ง',
-       inland_flood: 'น้ำท่วมขัง', volcano: 'ภูเขาไฟระเบิด',
+       quake: 'แผ่นดินไหว',
+       tsunami: 'สึนามิ',
+       flood: 'น้ำท่วม',
+       landslide: 'ดินถล่ม',
+       fire: 'ไฟไหม้',
+       surge: 'คลื่นพายุหมุนฝั่ง',
+       inland_flood: 'น้ำท่วมขัง',
+       volcano: 'ภูเขาไฟระเบิด',
        hazard_label: 'ภัยพิบัติที่รองรับ'
-     },
-     ar: {
-       quake: 'زلزال', tsunami: 'تسونامي', flood: 'فيضان',
-       landslide: 'انهيار أرضي', fire: 'حريق', surge: 'عاصفة بحرية',
-       inland_flood: 'فيضان داخلي', volcano: 'ثوران بركاني',
-       hazard_label: 'المخاطر'
-     }
+     }    
   };
   class EvacuationMap {
     constructor() {
@@ -308,12 +318,6 @@ if (typeof window.EvacuationMap === 'undefined') {
                 landslide: 'ดินถล่ม', fire: 'ไฟไหม้', surge: 'คลื่นพายุหมุนฝั่ง',
                 inland_flood: 'น้ำท่วมขัง', volcano: 'ภูเขาไฟระเบิด',
                 hazard_label: 'ภัยพิบัติที่รองรับ'
-              },
-              ar: {
-                quake: 'زلزال', tsunami: 'تسونامي', flood: 'فيضان',
-                landslide: 'انهيار أرضي', fire: 'حريق', surge: 'عاصفة بحرية',
-                inland_flood: 'فيضان داخلي', volcano: 'ثوران بركاني',
-                hazard_label: 'المخاطر'
               }
            };
            
@@ -431,8 +435,7 @@ if (typeof window.EvacuationMap === 'undefined') {
                'ja': '現在地',
                'zh-TW': '您在這裡',
                'es': 'Estás aquí',
-               'th': 'คุณอยู่ที่นี่',
-               'ar': 'أنت هنا'
+               'th': 'คุณอยู่ที่นี่'               
              }[lang] || '你在这里'; // Default fallback
          
              // 3. Bind popup with localized string
