@@ -1,4 +1,4 @@
-const CACHE_NAME = 'disaster-guide-v11';
+const CACHE_NAME = 'disaster-guide-v12';
 
 // Ensure these paths match your actual repository file structure exactly
 const PRECACHE_ASSETS = [
@@ -23,8 +23,7 @@ const PRECACHE_ASSETS = [
   './locators/ui/zh-TW.json',
   './locators/ui/es.json',
   './locators/ui/th.json',
-  './locators/ui/ar.json',
-
+ 
   // Disaster Guide Content
   './locators/content/guides_en.json',
   './locators/content/guides_zh.json',
@@ -36,8 +35,7 @@ const PRECACHE_ASSETS = [
   './locators/content/guides_zh-TW.json',
   './locators/content/guides_es.json',
   './locators/content/guides_th.json',
-  './locators/content/guides_ar.json'
-
+  
   // CDN dependencies
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css',
   'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js',
