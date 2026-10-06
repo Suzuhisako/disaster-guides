@@ -6,27 +6,23 @@
     "guides": "Hướng dẫn Khẩn cấp",
     "map": "Bản đồ Nơi sơ tán"
   },
-  "guides": {
-    "immediate_action": "Hành động khẩn cấp",
-    "steps": "Các bước thực hiện"
-  },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
       "english": "Emergency Earthquake Early Warning",
-      "zh": "Cảnh báo Động đất Sớm Khẩn cấp",
-      "description": "Cảnh báo phát âm thanh dồn dập (“Ponyon, Ponyon”) trên TV và điện thoại, tiếp theo là âm báo: “Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai” (Cảnh báo động đất sớm khẩn cấp. Hãy đề phòng rung lắc mạnh). Hãy lập tức cúi thấp người, che chắn và bảo vệ đầu."
+      "zh": "紧急地震速报",
+      "description": "Cảnh báo phát âm thanh dồn dập (“Ponyon, Ponyon”) trên TV và điện thoại, tiếp theo là âm báo: “Kinkyū Jishin Sokuhō desu. Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni sonaete kudasai.” (Cảnh báo động đất sớm khẩn cấp. Hãy đề phòng rung lắc mạnh). Hãy lập tức cúi thấp người, che chắn và bảo vệ đầu."
     },
     "tsunami_warning": {
       "japanese_phrase": "津波警報 (Tsunami Keihou)",
       "english": "Tsunami Warning",
-      "zh": "Cảnh báo Sóng thần",
+      "zh": "海啸警报",
       "description": "Còi báo động vùng ven biển vang lên (tiếng còi dài 3 giây, nghỉ 2 giây). Hãy lập tức sơ tán đến vùng đất cao hoặc tòa nhà sơ tán sóng thần."
     },
     "evacuation_order": {
       "japanese_phrase": "避難指示 (Hinan Shiji)",
       "english": "Evacuation Instruction (Emergency)",
-      "zh": "Lệnh Sơ tán (Khẩn cấp)",
+      "zh": "避难指示（紧急）",
       "description": "Mức cảnh báo 4. Tất cả mọi người trong khu vực nguy hiểm hãy lập tức sơ tán đến nơi sơ tán gần nhất."
     }
   },
@@ -45,7 +41,7 @@
   },
   "prefectures": {
     "kanagawa": "Tỉnh Kanagawa (神奈川県)",
-    "tokyo": "Thành phố Tokyo (東京都)",
+    "tokyo": "Thủ đô Tokyo (東京都)",
     "chiba": "Tỉnh Chiba (千葉県)",
     "saitama": "Tỉnh Saitama (埼玉県)",
     "ibaraki": "Tỉnh Ibaraki (茨城県)",
@@ -69,8 +65,8 @@
     "aichi": "Tỉnh Aichi (愛知県)",
     "mie": "Tỉnh Mie (三重県)",
     "shiga": "Tỉnh Shiga (滋賀県)",
-    "kyoto": "Phủ Kyoto (京都府)",
-    "osaka": "Phủ Osaka (大阪府)",
+    "kyoto": "Tỉnh Kyoto (京都府)",
+    "osaka": "Tỉnh Osaka (大阪府)",
     "hyogo": "Tỉnh Hyogo (兵庫県)",
     "nara": "Tỉnh Nara (奈良県)",
     "wakayama": "Tỉnh Wakayama (和歌山県)",
