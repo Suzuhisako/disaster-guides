@@ -376,11 +376,12 @@ body {
   background-color: #1e40af;
 }
 
-/* Keeps emoji icons bright and distinct on dark button backgrounds */
+/* Makes the dark phone emoji pure white on mobile screens */
 .btn-emergency .btn-icon {
   margin-right: 0.35rem;
   font-size: 1rem;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3)); /* Adds subtle outline contrast */
+  display: inline-block;
+  filter: brightness(0) invert(1); /* Converts any dark emoji graphic into pure white */
 }
 
 /* Mobile Optimizations (< 480px) */
