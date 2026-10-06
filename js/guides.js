@@ -88,10 +88,10 @@ class EmergencyGuides {
         detail: 'Chi tiết:',
         immediateAction: '⚡ Hành động khẩn cấp:',
         actionSteps: 'Các bước thực hiện:',
-        alertIdentifier: 'Nhận diện cảnh báo'
+        alertIdentifier: 'Tên cảnh báo'
       },
       ko: {
-        jpPhrase: '일본어 문구:',
+        jpPhrase: '일본어 표현:',
         detail: '상세 내용:',
         immediateAction: '⚡ 긴급 대응:',
         actionSteps: '대피 및 행동 절차:',
@@ -99,10 +99,10 @@ class EmergencyGuides {
       },
       tl: {
         jpPhrase: 'Pariralang Hapon:',
-        detail: 'Detalyado:',
+        detail: 'Mga Detalye:',
         immediateAction: '⚡ Agarang Aksyon:',
         actionSteps: 'Mga Hakbang sa Pag-iingat:',
-        alertIdentifier: 'Tukoy ng Babala'
+        alertIdentifier: 'Pagtukoy ng Babala'
       },
       pt: {
         jpPhrase: 'Frase em japonês:',
@@ -120,7 +120,7 @@ class EmergencyGuides {
       },
       es: {
         jpPhrase: 'Frase en japonés:',
-        detail: 'Detalle:',
+        detail: 'Detalles:',
         immediateAction: '⚡ Acción Inmediata:',
         actionSteps: 'Pasos a seguir:',
         alertIdentifier: 'Identificador de alerta'
