@@ -2,66 +2,67 @@
   "events": [
     {
       "id": "earthquake",
-      "title": "Cảnh báo Động đất (地震)",
+      "title": "Cảnh báo sớm Động đất Khẩn cấp (緊急地震速報)",
       "icon": "🫨",
       "alarm": {
         "sound_id": "earthquake_j_alert",
-        "title": "J-Alert Cảnh báo Động đất Sớm Khẩn cấp",
+        "title": "J-Alert / Tiếng chuông Cảnh báo sớm Động đất Khẩn cấp",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
-        "meaning": "Cảnh báo động đất sớm: Dự báo sắp có rung lắc mạnh, vui lòng chuẩn bị."
+        "meaning": "Cảnh báo sớm Động đất Khẩn cấp: Rung lắc mạnh sẽ đến sau vài giây đến vài chục giây. Hãy lập tức bảo vệ an toàn cho bản thân."
       },
-      "immediate_action": "Cúi thấp, Che chắn, Giữ chặt. Lập tức bảo vệ đầu.",
+      "immediate_action": "Hạ thấp trọng tâm, che chắn đầu và giữ nguyên tư thế cho đến khi hết rung lắc.",
       "steps": [
-        "Ẩn nấp dưới bàn chắc chắn, hoặc dùng cặp/gối để bảo vệ đầu.",
-        "Tránh xa cửa kính, kệ sách chưa cố định và đồ nội thất cao lớn.",
-        "Không vội vàng chạy ra ngoài khi đang rung lắc; gạch đá và kính rơi xuống cực kỳ nguy hiểm.",
-        "Sau khi hết rung lắc, tắt các nguồn lửa và mở cửa để đảm bảo lối thoát hiểm."
+        "Ẩn nấp dưới bàn chắc chắn, hoặc dùng cặp/gối để bảo vệ đầu và phía sau cổ.",
+        "Tránh xa cửa kính, kệ sách dễ đổ và đồ nội thất cao lớn ngay lập tức.",
+        "Không lao ra ngoài trong lúc đang rung lắc; nguy cơ bị thương do ngói rơi hoặc kính vỡ là rất cao.",
+        "Sau khi hết rung lắc, kiểm tra và tắt các nguồn lửa (bếp gas, lò sưởi) và mở cửa để đảm bảo lối thoát hiểm."
       ]
     },
     {
       "id": "tsunami",
-      "title": "Cảnh báo Sóng thần (津波警報)",
+      "title": "Cảnh báo Sóng thần / Sóng thần Lớn (津波警報・大津波警報)",
       "icon": "🌊",
       "alarm": {
         "sound_id": "tsunami_siren",
         "title": "Còi báo động Sóng thần Ven biển",
-        "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
-        "meaning": "Cảnh báo sóng thần: Còi báo động kéo dài liên tục báo hiệu cần lập tức sơ tán lên vùng đất cao."
+        "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報発令」",
+        "meaning": "Có nguy cơ sóng thần lớn ập vào. Hãy lập tức sơ tán lên vùng đất cao hoặc tầng cao của tòa nhà kiên cố."
       },
-      "immediate_action": "Lập tức sơ tán lên vùng đất cao hoặc tòa nhà sơ tán sóng thần.",
+      "immediate_action": "Tránh xa vùng ven biển và sông rạch, lập tức sơ tán lên vùng đất cao hoặc tòa nhà sơ tán sóng thần.",
       "steps": [
-        "Nếu ở gần bờ biển và cảm nhận rung lắc mạnh hoặc kéo dài, hãy lập tức sơ tán trước khi có chỉ thị chính thức.",
-        "Đi bộ lên vùng đất cao (tầng 3 trở lên của các tòa nhà bê tông cốt thép).",
-        "Tránh dùng ô tô để sơ tán, ùn tắc giao thông sẽ cản trở việc thoát hiểm.",
-        "Hãy ở lại vùng đất cao; sóng thần có thể kéo dài nhiều giờ với nhiều đợt sóng liên tiếp."
+        "Nếu ở gần bờ biển mà cảm nhận được rung lắc mạnh hoặc kéo dài, hãy lập tức di chuyển lên vùng đất cao mà không cần chờ cảnh báo.",
+        "Về nguyên tắc phải sơ tán bằng cách đi bộ. Việc dùng ô tô sẽ gây ùn tắc giao thông và dẫn đến không kịp thoát hiểm.",
+        "Sơ tán lên vùng đất cao hoặc tòa nhà bê tông cốt thép kiên cố (tầng 3 trở lên) và ở yên đó cho đến khi cảnh báo được dỡ bỏ.",
+        "Sóng thần sẽ ập vào bờ liên tiếp thành nhiều đợt. Tuyệt đối không quay lại gần bờ biển ngay cả khi đợt sóng đầu tiên đã qua."
       ]
     },
     {
       "id": "bousai_broadcast",
-      "title": "Loa Báo động Phòng chống Thiên tai (防災行政無線)",
+      "title": "Loa Phát thanh Phòng chống Thiên tai / Lệnh Sơ tán (防災行政無線・避難指示)",
       "icon": "📢",
       "alarm": {
         "sound_id": "town_broadcast",
-        "title": "Loa Phát thanh Báo động Cộng đồng",
+        "title": "Loa Báo động Phòng chống Thiên tai Địa phương",
         "jp_phrase": "「緊急放送。避難指示が発令されました。」",
-        "meaning": "Phát thanh khẩn cấp: Đã có Lệnh sơ tán (Mức cảnh báo 4)."
+        "meaning": "Đã có Lệnh Sơ tán (Mức cảnh báo 4). Toàn bộ người dân trong khu vực ảnh hưởng hãy nhanh chóng sơ tán khỏi nơi nguy hiểm."
       },
-      "immediate_action": "Chú ý nghe phát thanh cộng đồng và tuân theo chỉ thị của địa phương.",
+      "immediate_action": "Xác nhận nội dung phát thanh và chủ động lập tức sơ tán đến nơi an toàn theo quyết định của bản thân.",
       "steps": [
-        "Nếu tiếng loa bị át bởi tiếng mưa gió, hãy tìm nhân viên địa phương hoặc xem biển hướng dẫn sơ tán.",
-        "Chuẩn bị sẵn túi đồ khẩn cấp và di chuyển đến nơi sơ tán gần nhất."
+        "Nếu tiếng loa khó nghe do mưa lớn hoặc gió mạnh, hãy kiểm tra thông tin trên trang web phòng chống thiên tai của chính quyền địa phương hoặc các ứng dụng cảnh báo khẩn cấp.",
+        "Mang theo túi đồ khẩn cấp và di chuyển đến địa điểm sơ tán khẩn cấp chỉ định gần nhất hoặc tòa nhà an toàn.",
+        "Nếu là ban đêm hoặc bên ngoài quá nguy hiểm, không nên cố sức ra ngoài; hãy di chuyển đến nơi an toàn hơn trong nhà (như tầng 2 hoặc phòng ở phía đối diện với đồi/núi)."
       ]
     },
     {
       "id": "heatwave",
-      "title": "Nắng nóng Gay gắt & Say nắng (熱中症)",
+      "title": "Cảnh báo Say nắng / Nắng nóng Gay gắt (熱中症警戒アラート・熱中症)",
       "icon": "☀️",
       "alarm": null,
-      "immediate_action": "Di chuyển vào phòng có máy điều hòa, bổ sung nước và chất điện giải.",
+      "immediate_action": "Di chuyển vào phòng có máy điều hòa, bổ sung nước và muối (chất điện giải).",
       "steps": [
-        "Khi có Cảnh báo Say nắng (熱中症警戒アラート), hãy bật máy điều hòa liên tục.",
-        "Uống nước thường xuyên ngay cả khi không cảm thấy khát.",
-        "Nếu có người bị chóng mặt hoặc hôn mê, hãy nới lỏng quần áo và chườm đá vào cổ, nách để hạ nhiệt."
+        "Khi Cảnh báo Say nắng (熱中症警戒アラート) được đưa ra, hãy hạn chế ra ngoài khi không cần thiết và tránh tập thể dục ngoài trời.",
+        "Bổ sung nước và chất điện giải thường xuyên trước khi cảm thấy khát.",
+        "Nếu cảm thấy chóng mặt, đau đầu hoặc hoa mắt, hãy di chuyển đến nơi mát mẻ, thoáng gió, nới lỏng quần áo và chườm lạnh ở cổ và nách."
       ]
     }
   ]
