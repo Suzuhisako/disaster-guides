@@ -2,66 +2,67 @@
   "events": [
     {
       "id": "earthquake",
-      "title": "Babala sa Lindol (地震)",
+      "title": "Mabilis na Babala sa Lindol (緊急地震速報)",
       "icon": "🫨",
       "alarm": {
         "sound_id": "earthquake_j_alert",
-        "title": "J-Alert Mabilis na Babala sa Lindol",
+        "title": "J-Alert / Tunog ng Mabilis na Babala sa Lindol",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
-        "meaning": "Mabilis na Babala sa Lindol: Inaasahan ang malakas na pagyanig, pakihanda ang sarili."
+        "meaning": "Mabilis na Babala sa Lindol: Darating ang malakas na pagyanig sa loob ng ilang segundo. Agad na protektahan ang iyong sarili."
       },
-      "immediate_action": "Dumapa, Magtago, Kumapit. Agad na protektahan ang ulo.",
+      "immediate_action": "Dumapa, protektahan ang ulo, at manatiling walang galaw hanggang sa huminto ang pagyanig.",
       "steps": [
-        "Magtago sa ilalim ng matibay na lamesa, o gamitin ang bag/unan para protektahan ang ulo.",
-        "Lumayo sa mga bintanang salamin, istante na hindi nakapako, at matataas na muwebles.",
-        "Huwag agad tumakbo sa labas habang gumagalaw ang lupa; napakadelikado ng mga bumabagsak na bubong at salamin.",
-        "Kapag huminto ang pagyanig, patayin ang apoy at buksan ang pinto upang makataktas."
+        "Pumailalim sa matibay na mesa, o gumamit ng bag/unan upang protektahan ang ulo at likod ng leeg.",
+        "Lumayo agad sa mga bintanang salamin, istante na madaling matumba, at matataas na muwebles.",
+        "Huwag tumakbo sa labas habang gumagalaw ang lupa; napakataas ng panganib na masugatan mula sa bumabagsak na bubong o salamin.",
+        "Kapag huminto na ang pagyanig, suriin at patayin ang mga pinagmumulan ng apoy (gas stove o heater), at buksan ang pinto upang matiyak ang daan sa paglikas."
       ]
     },
     {
       "id": "tsunami",
-      "title": "Babala sa Tsunami (津波警報)",
+      "title": "Babala sa Tsunami / Malaking Tsunami (津波警報・大津波警報)",
       "icon": "🌊",
       "alarm": {
         "sound_id": "tsunami_siren",
         "title": "Sirina sa Baybayin para sa Tsunami",
-        "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
-        "meaning": "Babala sa Tsunami: Ang tuluy-tuloy na sirina ay senyales na kailangang lumikas agad sa mataas na lugar."
+        "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報発令」",
+        "meaning": "May panganib ng pagdating ng malaking tsunami. Agad na lumikas patungo sa mataas na lugar o sa matataas na palapag ng matibay na gusali."
       },
-      "immediate_action": "Agad na lumikas patungo sa mataas na lugar o gusaling likasan sa tsunami.",
+      "immediate_action": "Lumayo sa baybayin at mga ilog, at agad na lumikas patungo sa mataas na lugar o gusaling likasan sa tsunami.",
       "steps": [
-        "Kung malapit sa dagat at nakaramdam ng malakas o matagal na pagyanig, agad na lumikas bago pa man magpalabas ng opisyal na utos.",
-        "Maglakad patungo sa mataas na lugar (ika-3 palapag o pataas ng gusaling gawa sa semento).",
-        "Iwasang gumamit ng kotse sa paglikas, ang trapik ay makakahadlang sa pagtakas.",
-        "Manatili sa mataas na lugar; ang tsunami ay maaaring tumagal ng ilang oras at may sunod-sunod na alon."
+        "Kung malapit sa baybayin at nakaramdam ng malakas o matagal na pagyanig, agad na lumikas patungo sa mataas na lugar nang hindi na naghihintay ng babala.",
+        "Ang paglikas ay dapat gawin sa pamamagitan ng paglalakad. Ang paggamit ng kotse ay nagdudulot ng trapik at dahilan upang hindi makatakas nang mabilis.",
+        "Lumikas sa mataas na lugar o sa matibay na gusaling gawa sa reinforced concrete (ika-3 palapag o pataas) at manatili doon hanggang sa matanggal ang babala.",
+        "Ang tsunami ay paulit-ulit na dumarating sa maraming alon. Huwag na huwag babalik sa baybayin kahit na lumipas na ang unang alon."
       ]
     },
     {
       "id": "bousai_broadcast",
-      "title": "Pang-emerhensyang Brodkast sa Bayan (防災行政無線)",
+      "title": "Pang-emerhensyang Brodkast sa Bayan / Kautusan sa Paglikas (防災行政無線・避難指示)",
       "icon": "📢",
       "alarm": {
         "sound_id": "town_broadcast",
-        "title": "Ispiker para sa Babala sa Komunidad",
+        "title": "Loudspeaker para sa Pang-emerhensyang Brodkast sa Bayan",
         "jp_phrase": "「緊急放送。避難指示が発令されました。」",
-        "meaning": "Pang-emerhensyang brodkast: Ipinatupad na ang Kautusan sa Paglikas (Antas 4)."
+        "meaning": "Ipinatupad na ang Kautusan sa Paglikas (Alert Level 4). Lahat ng residente sa apektadong lugar ay dapat mabilis na lumikas mula sa mga delikadong lugar."
       },
-      "immediate_action": "Makinig nang mabuti sa brodkast ng komunidad at sundin ang mga utos ng lokal na pamahalaan.",
+      "immediate_action": "Suriin ang nilalaman ng brodkast at agad na simulan ang paglikas patungo sa ligtas na lugar sa sarili mong pagpapasya.",
       "steps": [
-        "Kung hindi marinig ang brodkast dahil sa ingay ng hangin at ulan, maghanap ng lokal na tauhan o tingnan ang mga karatula sa paglikas.",
-        "Ihanda ang pang-emerhensyang bag at pumunta sa pinakamalapit na evacuation center."
+        "Kung mahirap marinig ang ispiker dahil sa malakas na ulan o hangin, suriin ang impormasyon sa disaster prevention website ng munisipyo o sa mga emergency app.",
+        "Dalhin ang iyong emergency bag at pumunta sa pinakamalapit na itinalagang emergency evacuation shelter o sa ligtas na gusali.",
+        "Kung gabi na o kapag lubhang delikado sa labas, huwag piliting lumabas; lumipat sa mas ligtas na lugar sa loob ng bahay (tulad ng ika-2 palapag o sa kuwartong malayo sa kabundukan/gulod)."
       ]
     },
     {
       "id": "heatwave",
-      "title": "Matinding Init at Heatstroke (熱中症)",
+      "title": "Babala sa Heatstroke / Matinding Init (熱中症警戒アラート・熱中症)",
       "icon": "☀️",
       "alarm": null,
-      "immediate_action": "Pumunta sa silid na may aircon, uminom ng tubig at electrolytes.",
+      "immediate_action": "Pumunta sa silid na may aircon, at uminom ng tubig at electrolytes.",
       "steps": [
-        "Kapag may Babala sa Heatstroke (熱中症警戒アラート), patuloy na gamitin ang aircon.",
-        "Uminom ng tubig nang madalas kahit hindi nakakaramdam ng uhaw.",
-        "Kung may nahihilo o nawawalan ng malay, paluwagin ang damit at lagyan ng yelo ang leeg at kili-kili upang palamigin ang katawan."
+        "Kapag nakataas ang Babala sa Heatstroke (熱中症警戒アラート), iwasan ang hindi kinakailangang paglabas at ang pag-eehersisyo sa labas.",
+        "Uminom ng tubig at electrolytes nang madalas bago pa man makaramdam ng uhaw.",
+        "Kung nakakaramdam ng pagkahilo, sakit ng ulo, o panghihina, lumipat sa malamig at preskong lugar, paluwagin ang damit, at palamigin ang leeg at kili-kili."
       ]
     }
   ]
