@@ -59,6 +59,40 @@ body {
   box-sizing: border-box !important;
 }
 
+.app-footer {
+  padding: 1.5rem 1rem 2.5rem;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.footer-block {
+  margin-bottom: 1.25rem;
+}
+
+.footer-block:last-child {
+  margin-bottom: 0;
+}
+
+.footer-heading {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.35rem;
+}
+
+.app-footer .en-text {
+  margin-bottom: 0.25rem;
+  color: #334155;
+}
+
+.app-footer .ja-text {
+  color: #64748b;
+  font-size: 0.725rem;
+}
+
 /* Fix Title Truncation Completely */
 .app-header h1 {
   margin: 0 !important;
@@ -438,6 +472,20 @@ body {
     align-items: flex-start !important;
     gap: 6px !important;
     padding: 8px 10px !important;
+  }
+
+   app-footer {
+    /* Extra bottom padding prevents text from hiding behind mobile navigation/safari bars */
+    padding: 1.25rem 0.875rem 3.5rem; 
+    font-size: 0.7rem;
+  }
+
+  .footer-heading {
+    font-size: 0.775rem;
+  }
+
+  .app-footer .ja-text {
+    font-size: 0.685rem;
   }
 
   .lang-switch-group {
