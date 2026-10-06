@@ -26,6 +26,11 @@
       "description": "Mức cảnh báo 4. Tất cả mọi người trong khu vực nguy hiểm hãy lập tức sơ tán đến nơi sơ tán gần nhất."
     }
   },
+  "emergency_contacts": {
+    "call_119": "119 (Cấp cứu / Cứu hỏa)",
+    "call_110": "110 (Cảnh sát)",
+    "severe_warning": "Nếu nạn nhân bị lơ mơ, phản ứng chậm hoặc chấn thương nặng, hãy gọi ngay 119 (Cấp cứu/Cứu hỏa) hoặc 110 (Cảnh sát)."
+  },
   "map": {
     "filter_all": "Thảm họa: Tất cả",
     "filter_quake": "Động đất",
