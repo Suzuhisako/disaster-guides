@@ -11,7 +11,7 @@
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
       "english": "Emergency Earthquake Early Warning",
       "zh": "紧急地震速报",
-      "description": "电视和手机发出急促提示音（“Ponyon, Ponyon”），随后播放语音：“Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai”（紧急地震速报。请警惕剧烈摇晃）。请立即伏地、掩护并保护头部。"
+      "description": "电视和手机发出急促提示音（“Ponyon, Ponyon”），随后播放语音：“Kinkyū Jishin Sokuhō desu. Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni sonaete kudasai.”（紧急地震速报。请警惕剧烈摇晃）。请立即伏地、掩护并保护头部。"
     },
     "tsunami_warning": {
       "japanese_phrase": "津波警報 (Tsunami Keihou)",
@@ -33,9 +33,9 @@
     "filter_flood": "洪水",
     "filter_landslide": "土砂灾害",
     "filter_fire": "火灾",
-    "filter_surge": "高潮",
+    "filter_surge": "风暴潮",
     "filter_inland_flood": "内水泛滥",
-    "filter_volcano": "火山噴发",
+    "filter_volcano": "火山喷发",
     "locate_me": "我的位置",
     "you_are_here": "你在这里"
   },
@@ -89,4 +89,3 @@
     "okinawa": "冲绳县 (沖縄県)"
   }
 }
-
