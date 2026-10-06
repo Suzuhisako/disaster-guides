@@ -1,10 +1,14 @@
 {
   "events": [
     {
-      "id": "earthquake", "title": "地震警報 (地震)", "icon": "🫨",
+      "id": "earthquake",
+      "title": "地震警報 (地震)",
+      "icon": "🫨",
       "alarm": {
-        "sound_id": "earthquake_j_alert", "title": "J-Alert 緊急地震速報",
+        "sound_id": "earthquake_j_alert",
+        "title": "J-Alert 緊急地震速報",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
+        "romaji": "Kinkyuu jishin sokuhou desu. Tsuyoi yure ni備etekudasai.",
         "meaning": "強烈地震即將來臨，請立即採取避難動作。"
       },
       "immediate_action": "蹲下、保護頭部，並握緊穩固物體。",
@@ -16,10 +20,14 @@
       ]
     },
     {
-      "id": "tsunami", "title": "海嘯警報 (津波警報)", "icon": "🌊",
+      "id": "tsunami",
+      "title": "海嘯警報 (津波警報)",
+      "icon": "🌊",
       "alarm": {
-        "sound_id": "tsunami_siren", "title": "沿海海嘯警報器",
+        "sound_id": "tsunami_siren",
+        "title": "沿海海嘯警報器",
         "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
+        "romaji": "Ū... (choumei 3-byou, kyoushi 2-byou) ... Tsunami keibou",
         "meaning": "連續警報聲表示應立即撤離至高處。"
       },
       "immediate_action": "立即撤離至高處或海嘯避難大樓。",
@@ -31,10 +39,14 @@
       ]
     },
     {
-      "id": "bousai_broadcast", "title": "社區防災廣播 (防災行政無線)", "icon": "📢",
+      "id": "bousai_broadcast",
+      "title": "社區防災廣播 (防災行政無線)",
+      "icon": "📢",
       "alarm": {
-        "sound_id": "town_broadcast", "title": "防災廣播喇叭",
+        "sound_id": "town_broadcast",
+        "title": "防災廣播喇叭",
         "jp_phrase": "「緊急放送。避難指示が発令されました。」",
+        "romaji": "Kinkyuu housou. Hinan shiji ga hatsurei sareshimashita.",
         "meaning": "緊急廣播：已發布避難指示（警戒等級4）。"
       },
       "immediate_action": "仔細聆聽當地廣播，並遵循市政當局的指示。",
@@ -44,7 +56,9 @@
       ]
     },
     {
-      "id": "heatwave", "title": "酷暑與中暑 Warnings (熱中症)", "icon": "☀️",
+      "id": "heatwave",
+      "title": "酷暑與中暑 Warnings (熱中症)",
+      "icon": "☀️",
       "alarm": null,
       "immediate_action": "前往有冷氣的室內並補充水分與電解質。",
       "steps": [
