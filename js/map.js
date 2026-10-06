@@ -2,7 +2,7 @@
    Evacuation Map Application Logic (Canvas Mode with Disaster Filtering)
    ========================================================================== */
 if (typeof window.EvacuationMap === 'undefined') {
-   const HAZARD_TRANSLATIONS = {
+  const HAZARD_TRANSLATIONS = {
     zh: {
       quake: '地震',     
       tsunami: '海啸',
@@ -12,7 +12,7 @@ if (typeof window.EvacuationMap === 'undefined') {
       surge: '高潮',
       inland_flood: '内水泛滥',       
       volcano: '火山噴发',
-      hazard_label: '适用灾害'
+      hazard_label: '对应灾害'
     },    
     en: {
       quake: 'Earthquake',     
@@ -23,96 +23,96 @@ if (typeof window.EvacuationMap === 'undefined') {
       surge: 'Storm Surge',        
       inland_flood: 'Inland Flood',
       volcano: 'Volcano',
-      hazard_label: 'Hazards'
+      hazard_label: 'Supported Hazards'
     },
     vi: {
-       quake: 'Động đất',
-       tsunami: 'Sóng thần',
-       flood: 'Lũ lụt',
-       landslide: 'Sạt lở đất',
-       fire: 'Hỏa hoạn',
-       surge: 'Triều cường / Sóng lớn',
-       inland_flood: 'Ngập lụt nội thành',
-       volcano: 'Núi lửa phun trào',
-       hazard_label: 'Hiểm họa'
-     },
-     ko: {
-       quake: '지진',
-       tsunami: '쓰나미(해일)', 
-       flood: '홍수',
-       landslide: '산사태', 
-       fire: '화재', 
-       surge: '폭풍해일',
-       inland_flood: '내수범람', 
-       volcano: '화산분화',
-       hazard_label: '대응 재해'
-     },
-     tl: {
-       quake: 'Lindol', 
-       tsunami: 'Tsunami', 
-       flood: 'Baha',
-       landslide: 'Pagguho ng Lupa',
-       fire: 'Sunog',
-       surge: 'Daluyong ng Dagat',
-       inland_flood: 'Baha sa Loob ng Lungsod', 
-       volcano: 'Pagsabog ng Bulkan',
-       hazard_label: 'Mga Panganib'
-     },
-     pt: {
-       quake: 'Terremoto',
-       tsunami: 'Tsunami',
-       flood: 'Inundação',
-       landslide: 'Deslizamento de terra',
-       fire: 'Incêndio', 
-       surge: 'Ressaca / Calamidade marítima',
-       inland_flood: 'Alagamento urbano',
-       volcano: 'Erupção vulcânica',
-       hazard_label: 'Desastres aplicáveis'
-     },
-     ja: {
-       quake: '地震',
-       tsunami: '津波',
-       flood: '洪水',
-       landslide: '土砂災害',
-       fire: '火災',
-       surge: '高潮',
-       inland_flood: '内水氾濫',
-       volcano: '火山噴火',
-       hazard_label: '対応災害'
-     },
-     'zh-TW': {
-       quake: '地震',
-       tsunami: '海嘯', 
-       flood: '洪水',
-       landslide: '土砂災害', 
-       fire: '火災',
-       surge: '暴潮',
-       inland_flood: '內水氾濫',
-       volcano: '火山爆發',
-       hazard_label: '適用災害'
-     },
-     es: {
-       quake: 'Terremoto',
-       tsunami: 'Tsunami',
-       flood: 'Inundación',
-       landslide: 'Deslizamiento',
-       fire: 'Incendio',
-       surge: 'Marea de tempestad',
-       inland_flood: 'Inundación urbana',
-       volcano: 'Erupción volcánica',
-       hazard_label: 'Peligros'
-     },
-     th: {
-       quake: 'แผ่นดินไหว',
-       tsunami: 'สึนามิ',
-       flood: 'น้ำท่วม',
-       landslide: 'ดินถล่ม',
-       fire: 'ไฟไหม้',
-       surge: 'คลื่นพายุหมุนฝั่ง',
-       inland_flood: 'น้ำท่วมขัง',
-       volcano: 'ภูเขาไฟระเบิด',
-       hazard_label: 'ภัยพิบัติที่รองรับ'
-     }    
+      quake: 'Động đất',
+      tsunami: 'Sóng thần',
+      flood: 'Lũ lụt',
+      landslide: 'Sạt lở đất',
+      fire: 'Hỏa hoạn',
+      surge: 'Triều cường / Sóng lớn',
+      inland_flood: 'Ngập lụt nội thành',
+      volcano: 'Núi lửa phun trào',
+      hazard_label: 'Thảm họa áp dụng'
+    },
+    ko: {
+      quake: '지진',
+      tsunami: '쓰나미(해일)', 
+      flood: '홍수',
+      landslide: '산사태', 
+      fire: '화재', 
+      surge: '폭풍해일',
+      inland_flood: '내수범람', 
+      volcano: '화산분화',
+      hazard_label: '대응 재해'
+    },
+    tl: {
+      quake: 'Lindol', 
+      tsunami: 'Tsunami', 
+      flood: 'Baha',
+      landslide: 'Pagguho ng Lupa',
+      fire: 'Sunog',
+      surge: 'Daluyong ng Dagat',
+      inland_flood: 'Baha sa Loob ng Lungsod', 
+      volcano: 'Pagsabog ng Bulkan',
+      hazard_label: 'Mga Panganib'
+    },
+    pt: {
+      quake: 'Terremoto',
+      tsunami: 'Tsunami',
+      flood: 'Inundação',
+      landslide: 'Deslizamento de terra',
+      fire: 'Incêndio', 
+      surge: 'Ressaca / Calamidade marítima',
+      inland_flood: 'Alagamento urbano',
+      volcano: 'Erupção vulcânica',
+      hazard_label: 'Desastres aplicáveis'
+    },
+    ja: {
+      quake: '地震',
+      tsunami: '津波',
+      flood: '洪水',
+      landslide: '土砂災害',
+      fire: '火災',
+      surge: '高潮',
+      inland_flood: '内水氾濫',
+      volcano: '火山噴火',
+      hazard_label: '対応災害'
+    },
+    'zh-TW': {
+      quake: '地震',
+      tsunami: '海嘯', 
+      flood: '洪水',
+      landslide: '土砂災害', 
+      fire: '火災',
+      surge: '暴潮',
+      inland_flood: '內水氾濫',
+      volcano: '火山噴火',
+      hazard_label: '適用災害'
+    },
+    es: {
+      quake: 'Terremoto',
+      tsunami: 'Tsunami',
+      flood: 'Inundación',
+      landslide: 'Deslizamiento',
+      fire: 'Incendio',
+      surge: 'Marea de tempestad',
+      inland_flood: 'Inundación urbana',
+      volcano: 'Erupción volcánica',
+      hazard_label: 'Peligros'
+    },
+    th: {
+      quake: 'แผ่นดินไหว',
+      tsunami: 'สึนามิ',
+      flood: 'น้ำท่วม',
+      landslide: 'ดินถล่ม',
+      fire: 'ไฟไหม้',
+      surge: 'คลื่นพายุหมุนฝั่ง',
+      inland_flood: 'น้ำท่วมขัง',
+      volcano: 'ภูเขาไฟระเบิด',
+      hazard_label: 'ภัยพิบัติที่รองรับ'
+    }    
   };
   class EvacuationMap {
     constructor() {
@@ -268,28 +268,31 @@ if (typeof window.EvacuationMap === 'undefined') {
              zh: {
                quake: '地震', tsunami: '海啸', flood: '洪水',
                landslide: '土砂灾害', fire: '火灾', surge: '高潮', inland_flood: '内水泛滥', 
-               volcano: '火山噴发'
+               volcano: '火山喷发', hazard_label: '对应灾害'
              },        
              en: {
                quake: 'Earthquake', tsunami: 'Tsunami', flood: 'Flood', landslide: 'Landslide', 
-               fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano'
+               fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano',
+               hazard_label: 'Supported Hazards'
              },
              vi: {
                quake: 'Động đất', tsunami: 'Sóng thần', flood: 'Lũ lụt',
                landslide: 'Sạt lở đất', fire: 'Hỏa hoạn', surge: 'Triều cường / Sóng lớn',
-               inland_flood: 'Ngập lụt nội thành', volcano: 'Núi lửa phun trào'
+               inland_flood: 'Ngập lụt nội thành', volcano: 'Núi lửa phun trào',
+               hazard_label: 'Thảm họa áp dụng'
              }, 
              ko: {
                quake: '지진', tsunami: '쓰나미(해일)', flood: '홍수',
                landslide: '산사태', fire: '화재', surge: '폭풍해일',
-               inland_flood: '내수범람', volcano: '화산분화'
+               inland_flood: '내수범람', volcano: '화산분화',
+               hazard_label: '대응 재해'
              },
              tl: {
                quake: 'Lindol', tsunami: 'Tsunami', flood: 'Baha',
                landslide: 'Pagguho ng Lupa', fire: 'Sunog', surge: 'Daluyong ng Dagat',
-               inland_flood: 'Baha sa Loob ng Lungsod', volcano: 'Pagsabog ng Bulkan',
+                inland_flood: 'Baha sa Loob ng Lungsod', volcano: 'Pagsabog ng Bulkan',
                hazard_label: 'Mga Panganib'
-              },
+             },
              pt: {
                quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundação',
                landslide: 'Deslizamento de terra', fire: 'Incêndio', surge: 'Ressaca / Calamidade marítima',
@@ -303,23 +306,23 @@ if (typeof window.EvacuationMap === 'undefined') {
                hazard_label: '対応災害'
              },
              'zh-TW': {
-                quake: '地震', tsunami: '海嘯', flood: '洪水',
-                landslide: '土砂災害', fire: '火災', surge: '暴潮', inland_flood: '內水氾濫',
-                volcano: '火山爆發', hazard_label: '適用災害'
-              },
-              es: {
-                quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundación',
-                landslide: 'Deslizamiento', fire: 'Incendio', surge: 'Marea de tempestad',
-                inland_flood: 'Inundación urbana', volcano: 'Erupción volcánica',
-                hazard_label: 'Peligros'
-              },
-              th: {
-                quake: 'แผ่นดินไหว', tsunami: 'สึนามิ', flood: 'น้ำท่วม',
-                landslide: 'ดินถล่ม', fire: 'ไฟไหม้', surge: 'คลื่นพายุหมุนฝั่ง',
-                inland_flood: 'น้ำท่วมขัง', volcano: 'ภูเขาไฟระเบิด',
-                hazard_label: 'ภัยพิบัติที่รองรับ'
-              }
-           };
+               quake: '地震', tsunami: '海嘯', flood: '洪水',
+               landslide: '土砂災害', fire: '火災', surge: '暴潮', inland_flood: '內水氾濫',
+               volcano: '火山噴火', hazard_label: '適用災害'
+             },
+             es: {
+               quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundación',
+               landslide: 'Deslizamiento', fire: 'Incendio', surge: 'Marea de tempestad',
+               inland_flood: 'Inundación urbana', volcano: 'Erupción volcánica',
+               hazard_label: 'Peligros'
+             },
+             th: {
+               quake: 'แผ่นดินไหว', tsunami: 'สึนามิ', flood: 'น้ำท่วม',
+               landslide: 'ดินถล่ม', fire: 'ไฟไหม้', surge: 'คลื่นพายุหมุนฝั่ง',
+               inland_flood: 'น้ำท่วมขัง', volcano: 'ภูเขาไฟระเบิด',
+               hazard_label: 'ภัยพิบัติที่รองรับ'
+             }             
+          };
            
            // Resolve active language with safe fallback
            const activeLang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'zh');
