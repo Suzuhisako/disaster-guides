@@ -26,6 +26,11 @@
       "description": "Level 4 Alert. Everyone in designated hazard zones must evacuate to a shelter immediately."
     }
   },
+  "emergency_contacts": {
+    "call_119": "119 (Ambulance & Fire)",
+    "call_110": "110 (Police)",
+    "severe_warning": "If someone is confused, unresponsive, or severely injured, call 119 (Ambulance/Fire) or 110 (Police) immediately."
+  },
   "map": {
     "filter_all": "Hazard: All",
     "filter_quake": "Earthquake",
