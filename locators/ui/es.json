@@ -21,6 +21,11 @@
       "description": "Nivel de alerta 4. Todas las personas en zonas de riesgo deben evacuar a un refugio inmediatamente."
     }
   },
+  "emergency_contacts": {
+    "call_119": "119 (Ambulancia y Bomberos)",
+    "call_110": "110 (Policía)",
+    "severe_warning": "Si la persona está confundida, no responde o está gravemente herida, llame de inmediato al 119 (Ambulancia/Bomberos) o al 110 (Policía)."
+  },
   "map": {
     "filter_all": "Riesgo: Todos", "filter_quake": "Terremoto", "filter_tsunami": "Tsunami",
     "filter_flood": "Inundación", "filter_landslide": "Deslizamiento", "filter_fire": "Incendio",
