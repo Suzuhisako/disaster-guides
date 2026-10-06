@@ -21,6 +21,11 @@
       "description": "警戒等級4。危險區域內的所有人員必須立即撤離至避難所。"
     }
   },
+  "emergency_contacts": {
+    "call_119": "119（救護車/消防）",
+    "call_110": "110（警察）",
+    "severe_warning": "如出現意識不清、反應遲鈍或嚴重受傷的情況，請立即撥打119（救護車/消防）或110（警察）。"
+  },
   "map": {
     "filter_all": "災害：全部", "filter_quake": "地震", "filter_tsunami": "海嘯",
     "filter_flood": "洪水", "filter_landslide": "土砂災害", "filter_fire": "火災",
