@@ -11,7 +11,7 @@
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
       "english": "Emergency Earthquake Early Warning",
       "zh": "紧急地震速报",
-      "description": "Phones and TV issue rapid repeating tones (\"Ponyon, Ponyon\") followed by: \"Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai\". Protect your head immediately."
+      "description": "Phones and TV issue rapid repeating tones (\"Ponyon, Ponyon\") followed by: \"Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni sonaete kudasai\". Protect your head immediately."
     },
     "tsunami_warning": {
       "japanese_phrase": "津波警報 (Tsunami Keihou)",
