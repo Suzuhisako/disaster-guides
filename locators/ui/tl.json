@@ -26,6 +26,11 @@
       "description": "Antas ng babala 4. Ang lahat ng tao sa dangerous zone ay dapat agad na lumikas patungo sa pinakamalapit na evacuation center."
     }
   },
+  "emergency_contacts": {
+    "call_119": "119 (Ambulansya at Bumbero)",
+    "call_110": "110 (Pulis)",
+    "severe_warning": "Kung ang tao ay nahihilo, hindi makatugon nang maayos, o malubhang nasugatan, tumawag agad sa 119 (Ambulansya/Bumbero) o 110 (Pulis)."
+  },
   "map": {
     "filter_all": "Sakuna: Lahat",
     "filter_quake": "Lindol",
