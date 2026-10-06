@@ -8,7 +8,9 @@
         "sound_id": "earthquake_j_alert",
         "title": "J-Alert 紧急地震速报",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
-        "meaning": "紧急地震速报：预计即将发生剧烈摇晃，请做好准备。"
+        "romaji": "Kinkyū jishin sokuhō desu. Tsuyoi yure ni備etekudasai.",
+        "meaning": "紧急地震速报：预计即将发生剧烈摇晃，请做好准备。",
+        "audio_url": "/assets/audio/earthquake_j_alert.mp3"
       },
       "immediate_action": "伏地、掩护、握紧。立即保护头部。",
       "steps": [
@@ -26,7 +28,9 @@
         "sound_id": "tsunami_siren",
         "title": "沿海海啸警报声",
         "jp_phrase": "「ウー...（長鳴3秒・休止2秒）...津波警報」",
-        "meaning": "海啸警报：持续长鸣警报声表示需立即撤离至高地。"
+        "romaji": "Ū... (chōmei 3-byō, kyūshi 2-byō) ... tsunami keibō",
+        "meaning": "海啸警报：持续长鸣警报声表示需立即撤离至高地。",
+        "audio_url": "/assets/audio/tsunami_siren.mp3"
       },
       "immediate_action": "立即撤离至高地或海啸避难大楼。",
       "steps": [
@@ -44,7 +48,9 @@
         "sound_id": "town_broadcast",
         "title": "防灾广播扬声器",
         "jp_phrase": "「緊急放送。避難指示が発令されました。」",
-        "meaning": "紧急广播：已发布避难指示（4级警戒）。"
+        "romaji": "Kinkyū hōsō. Hinan shiji ga hatsurei sareshimashita.",
+        "meaning": "紧急广播：已发布避难指示（4级警戒）。",
+        "audio_url": "/assets/audio/town_broadcast.mp3"
       },
       "immediate_action": "仔细听取社区广播，并遵循当地指令。",
       "steps": [
