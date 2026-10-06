@@ -376,6 +376,13 @@ body {
   background-color: #1e40af;
 }
 
+/* Keeps emoji icons bright and distinct on dark button backgrounds */
+.btn-emergency .btn-icon {
+  margin-right: 0.35rem;
+  font-size: 1rem;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3)); /* Adds subtle outline contrast */
+}
+
 /* Mobile Optimizations (< 480px) */
 @media (max-width: 480px) {
   .emergency-call-banner {
