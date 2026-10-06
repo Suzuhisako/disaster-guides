@@ -377,11 +377,17 @@ body {
 }
 
 /* Makes the dark phone emoji pure white on mobile screens */
-.btn-emergency .btn-icon {
-  margin-right: 0.35rem;
-  font-size: 1rem;
-  display: inline-block;
-  filter: brightness(0) invert(1); /* Converts any dark emoji graphic into pure white */
+.btn-emergency .icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff; /* Crisp white circular background */
+  border-radius: 50%;
+  margin-right: 0.4rem;
+  font-size: 0.75rem;
+  line-height: 1;
 }
 
 /* Mobile Optimizations (< 480px) */
