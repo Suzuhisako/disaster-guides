@@ -6,27 +6,23 @@
     "guides": "Guia de Emergência",
     "map": "Mapa de Abrigos"
   },
-  "guides": {
-    "immediate_action": "Ação Imediata",
-    "steps": "Passos de Ação"
-  },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
       "english": "Emergency Earthquake Early Warning",
-      "zh": "Alerta Prévio de Terremoto",
-      "description": "Após um sinal sonoro urgente no celular ou TV, é emitido o aviso em áudio: 'Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni keikai shite kudasai' (Alerta prévio de terremoto. Prepare-se para fortes tremores). Abaixe-se imediatamente e proteja a cabeça."
+      "zh": "紧急地震速报",
+      "description": "Após um sinal sonoro urgente no celular ou TV, é emitido o aviso em áudio: 'Kinkyū Jishin Sokuhō desu. Kinkyū Jishin Sokuhō desu. Tsuyoi yure ni sonaete kudasai.' (Alerta prévio de terremoto. Prepare-se para fortes tremores). Abaixe-se imediatamente e proteja a cabeça."
     },
     "tsunami_warning": {
       "japanese_phrase": "津波警報 (Tsunami Keihou)",
       "english": "Tsunami Warning",
-      "zh": "Alerta de Tsunami",
+      "zh": "海啸警报",
       "description": "Sirenes costeiras soarão (3 segundos de som, 2 segundos de pausa). Evacue imediatamente para um local alto ou edifício de evacuação de tsunami."
     },
     "evacuation_order": {
       "japanese_phrase": "避難指示 (Hinan Shiji)",
       "english": "Evacuation Instruction (Emergency)",
-      "zh": "Ordem de Evacuação (Emergência)",
+      "zh": "避难指示（紧急）",
       "description": "Nível de alerta 4. Todas as pessoas na área de risco devem evacuar imediatamente para o abrigo mais próximo."
     }
   },
