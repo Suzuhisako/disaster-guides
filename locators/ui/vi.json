@@ -24,7 +24,6 @@
       "english": "Evacuation Instruction (Emergency)",
       "zh": "避难指示（紧急）",
       "description": "Mức cảnh báo 4. Tất cả mọi người trong khu vực nguy hiểm hãy lập tức sơ tán đến nơi sơ tán gần nhất."
-      "cell_broadcast_note": "Khi xảy ra động đất hoặc sóng thần, điện thoại của bạn sẽ phát âm thanh cảnh báo lớn và hiển thị tin nhắn khẩn cấp."
     }
   },
   "emergency_contacts": {
