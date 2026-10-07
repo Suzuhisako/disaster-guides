@@ -2,6 +2,7 @@
   "events": [
     {
       "id": "earthquake", "title": "การแจ้งเตือนแผ่นดินไหว (地震)", "icon": "🫨",
+      "show_cell_broadcast_note": true,
       "alarm": {
         "sound_id": "earthquake_j_alert", "title": "สัญญาณเตือนภัยแผ่นดินไหว J-Alert",
         "jp_phrase": "「緊急地震速報です。強い揺れに備えてください。」",
@@ -45,6 +46,7 @@
     },
     {
       "id": "heatwave", "title": "อากาศร้อนจัดและโรคลมแดด (熱中症)", "icon": "☀️",
+      "show_emergency_dialer": true,
       "alarm": null,
       "immediate_action": "เข้าไปในห้องที่มีเครื่องปรับอากาศและดื่มน้ำพร้อมเกลือแร่",
       "steps": [
