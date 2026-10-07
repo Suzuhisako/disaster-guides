@@ -4,6 +4,7 @@
       "id": "earthquake",
       "title": "Alerta Temprana de Terremoto (緊急地震速報)",
       "icon": "🫨",
+      "show_cell_broadcast_note": true,
       "alarm": {
         "sound_id": "earthquake_j_alert",
         "title": "J-Alert / Tono de Alerta Temprana de Terremoto",
@@ -57,6 +58,7 @@
       "id": "heatwave",
       "title": "Alerta de Calor Extremo / Golpe de Calor (熱中症)",
       "icon": "☀️",
+      "show_emergency_dialer": true,
       "alarm": null,
       "immediate_action": "Vaya a un interior con aire acondicionado e hidrátese con agua y sal (electrolitos).",
       "steps": [
