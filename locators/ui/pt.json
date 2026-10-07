@@ -30,6 +30,7 @@
     "call_119": "119 (Ambulância e Bombeiros)",
     "call_110": "110 (Polícia)",
     "severe_warning": "Se a pessoa estiver confusa, sem resposta ou gravemente ferida, ligue imediatamente para 119 (Ambulância/Bombeiros) ou 110 (Polícia)."
+    "cell_broadcast_note": "Em caso de terremoto ou tsunami, seu celular emitirá um alarme alto e exibirá um alerta de emergência."
   },
   "map": {
     "filter_all": "Desastre: Todos",
