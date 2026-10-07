@@ -207,7 +207,7 @@
       // 2. Initialize EmergencyGuides on window.emergencyGuides
       if (typeof EmergencyGuides !== 'undefined') {
         window.emergencyGuides = new EmergencyGuides(
-          'contentArea', 
+          'guidesList', 
           `locators/content/guides_${initialLang}.json`
         );
         window.emergencyGuides.init().catch(err => {
