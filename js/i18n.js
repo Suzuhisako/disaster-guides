@@ -85,6 +85,8 @@ class I18nManager {
        } else if (window.guideRenderer && typeof window.guideRenderer.setLanguage === 'function') {
          await window.guideRenderer.setLanguage(guidePath);
        }
+
+       this.updateUI();
    
      } catch (error) {
        console.error(`Error switching language to [${targetLang}]:`, error);
