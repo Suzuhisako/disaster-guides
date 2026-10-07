@@ -52,31 +52,10 @@
   </nav>
 
   <!-- Main Content Area -->
-  <main class="main-container">
-    
+  <main class="main-container">  
     <!-- Tab 1: Emergency Guides & Sound Descriptions -->
     <div id="contentArea" class="tab-content">
-      <!-- Emergency Call Banner (Persistent at Top of Main) -->
-      <div class="emergency-call-banner">
-        <p class="banner-text" data-i18n="emergency_contacts.severe_warning"></p>
-        <div class="banner-buttons">  
-          <a href="tel:119" class="btn-emergency btn-119">
-            <span class="icon-badge">📞</span>
-            <span data-i18n="emergency_contacts.call_119">119</span>
-          </a>
-          
-          <a href="tel:110" class="btn-emergency btn-110">
-            <span class="icon-badge">📞</span>
-            <span data-i18n="emergency_contacts.call_110">110</span>
-          </a>
-        </div>
-      </div>
-      <div class="cell-broadcast-box">
-        <span class="broadcast-icon">📲</span>
-        <p class="broadcast-text" data-i18n="emergency_contacts.cell_broadcast_note"></p>
-      </div>
       <!-- Rendered dynamically by js/guides.js -->
-      <div id="guidesList"></div>
     </div>
   
     <!-- Tab 2: Evacuation Map Container -->
@@ -211,7 +190,7 @@
       // 2. Initialize EmergencyGuides on window.emergencyGuides
       if (typeof EmergencyGuides !== 'undefined') {
         window.emergencyGuides = new EmergencyGuides(
-          'guidesList', 
+          'contentArea', 
           `locators/content/guides_${initialLang}.json`
         );
         window.emergencyGuides.init().catch(err => {
