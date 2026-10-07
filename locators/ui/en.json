@@ -28,8 +28,7 @@
   },
   "emergency_contacts": {
     "call_119": "119 (Ambulance & Fire)",
-    "call_110": "110 (Police)",
-    "severe_warning": "If someone is confused, unresponsive, or severely injured, call 119 (Ambulance/Fire) or 110 (Police) immediately.",
+    "severe_warning": "If someone is confused, unresponsive, or severely injured, call 119 (Ambulance/Fire) immediately.",
     "cell_broadcast_note": "During earthquakes or tsunamis, your mobile phone will sound a loud alert chime and display an emergency warning message in Japanese."
   },
   "map": {
