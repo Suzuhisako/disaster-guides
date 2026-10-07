@@ -48,14 +48,14 @@ class I18nManager {
   /**
    * Switches active language and re-renders UI + shelters map + disaster guides
    */
-     async setLanguage(lang) {
+   async setLanguage(lang) {
      const targetLang = ['en', 'zh', 'zh-TW', 'ja', 'vi', 'ko', 'tl', 'pt', 'es', 'th'].includes(lang) ? lang : 'en';
    
      try {
        const cleanLang = (targetLang || 'ja').toLowerCase();
        const uiUrl = `./locators/ui/${cleanLang}.json`;
    
-       // Fetch UI translations (EmergencyGuides handles its own guide JSON fetch)
+       // 1. Fetch UI translations
        const uiRes = await fetch(uiUrl).catch(() => null);
    
        if (uiRes && uiRes.ok) {
@@ -64,20 +64,12 @@ class I18nManager {
          console.warn(`UI translation file missing for [${targetLang}] at ${uiUrl}`);
        }
    
-       // Persist language state globally
+       // 2. Persist language state globally
        this.currentLang = targetLang;
        window.currentLang = targetLang;
        localStorage.setItem('app_lang', targetLang);
    
-       // 1. Update static UI elements & dropdowns
-       this.updateUI();
-   
-       // 2. Refresh active map markers/popups
-       if (window.evacuationMap && typeof window.evacuationMap.renderShelters === 'function') {
-         window.evacuationMap.renderShelters();
-       }
-   
-       // 3. Delegation: Pass content path to EmergencyGuides instance
+       // 3. Delegation: Pass content path to EmergencyGuides instance and wait for card rendering
        const guidePath = `locators/content/guides_${targetLang}.json`;        
    
        if (window.emergencyGuides && typeof window.emergencyGuides.setLanguage === 'function') {
@@ -85,13 +77,19 @@ class I18nManager {
        } else if (window.guideRenderer && typeof window.guideRenderer.setLanguage === 'function') {
          await window.guideRenderer.setLanguage(guidePath);
        }
-
+   
+       // 4. Update all static & dynamic DOM elements with data-i18n attributes
        this.updateUI();
+   
+       // 5. Refresh active map markers/popups now that translations and language state are completely ready
+       if (window.evacuationMap && typeof window.evacuationMap.renderShelters === 'function') {
+         window.evacuationMap.renderShelters();
+       }
    
      } catch (error) {
        console.error(`Error switching language to [${targetLang}]:`, error);
      }
-   }
+   }  
 
   /**
    * Resolves nested translation keys (e.g., "alarms.earthquake_early.title")
