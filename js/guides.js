@@ -184,11 +184,7 @@ class EmergencyGuides {
           <a href="tel:119" class="btn-emergency btn-119">
             <span class="icon-badge">📞</span>
             <span data-i18n="emergency_contacts.call_119">${getI18nText('emergency_contacts.call_119') || '119'}</span>
-          </a>
-          <a href="tel:110" class="btn-emergency btn-110">
-            <span class="icon-badge">📞</span>
-            <span data-i18n="emergency_contacts.call_110">${getI18nText('emergency_contacts.call_110') || '110'}</span>
-          </a>
+          </a>          
         </div>
       </div>
     ` : '';
