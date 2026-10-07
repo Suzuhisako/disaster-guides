@@ -46,13 +46,12 @@ Built with multilingual support across 10 major languages, offline capabilities,
 
 ```
 disaster-guides/
-├── index.html                 # Main PWA HTML shell & entry point
+├── index.html                 # Main PWA HTML shell & entry point and Core application controller
 ├── manifest.json              # Web App Manifest for PWA installation
 ├── sw.js                      # Service worker for offline precaching
 ├── css/
 │   └── styles.css             # Main responsive stylesheet
 ├── js/
-│   ├── app.js                 # Core application controller
 │   ├── i18n.js                # Dynamic language loading & DOM localization engine
 │   ├── map.js                 # Leaflet map instance & marker controls
 │   └── guides.js              # Disaster guide switcher & content dynamic renderer
