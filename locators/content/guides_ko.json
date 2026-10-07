@@ -4,6 +4,7 @@
       "id": "earthquake",
       "title": "긴급 지진 속보 (緊急地震速報)",
       "icon": "🫨",
+      "show_cell_broadcast_note": true,
       "alarm": {
         "sound_id": "earthquake_j_alert",
         "title": "J-Alert / 긴급 지진 속보 차임 소리",
@@ -57,6 +58,7 @@
       "id": "heatwave",
       "title": "폭염·온열질환 경계 알림 (熱中症)",
       "icon": "☀️",
+      "show_emergency_dialer": true,
       "alarm": null,
       "immediate_action": "에어컨이 있는 실내로 이동하고 물과 염분(전해질)을 보충하세요.",
       "steps": [
