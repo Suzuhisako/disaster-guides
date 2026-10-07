@@ -46,6 +46,9 @@ class EmergencyGuides {
   /**
    * Renders the emergency guides into the container
    */
+  /**
+   * Renders the emergency guides into the container
+   */
   render() {
     if (!this.guidesData || this.guidesData.length === 0) {
       this.renderError();
@@ -54,6 +57,11 @@ class EmergencyGuides {
 
     const html = this.guidesData.map(guide => this.createGuideCard(guide)).join('');
     this.container.innerHTML = `<div class="guides-grid">${html}</div>`;
+
+    // 🔴 POPULATE DYNAMIC DATA-I18N TAGS IMMEDIATELY AFTER INJECTING HTML
+    if (window.i18n && typeof window.i18n.updateUI === 'function') {
+      window.i18n.updateUI();
+    }
   }
 
   /**
@@ -144,26 +152,42 @@ class EmergencyGuides {
     const labels = this.getLabels();
     const iconSpan = guide.icon ? `<span class="guide-icon">${guide.icon}</span> ` : '';
 
+    // Helper to safely fetch current translation string or empty fallback
+    const getI18nText = (keyPath) => {
+      if (!window.i18n || !window.i18n.translations) return '';
+      const parts = keyPath.split('.');
+      let obj = window.i18n.translations;
+      for (const part of parts) {
+        if (!obj || typeof obj !== 'object') return '';
+        obj = obj[part];
+      }
+      return obj || '';
+    };
+
     // 1. Contextual Cell Broadcast Note (For Earthquake)
     const cellBroadcastNote = guide.show_cell_broadcast_note ? `
       <div class="cell-broadcast-box">
         <span class="broadcast-icon">📲</span>
-        <p class="broadcast-text" data-i18n="emergency_contacts.cell_broadcast_note"></p>
+        <p class="broadcast-text" data-i18n="emergency_contacts.cell_broadcast_note">
+          ${getI18nText('emergency_contacts.cell_broadcast_note')}
+        </p>
       </div>
     ` : '';
-  
+
     // 2. Contextual Emergency Dialer Banner (For Heatstroke)
     const emergencyDialer = guide.show_emergency_dialer ? `
       <div class="emergency-call-banner">
-        <p class="banner-text" data-i18n="emergency_contacts.severe_warning"></p>
+        <p class="banner-text" data-i18n="emergency_contacts.severe_warning">
+          ${getI18nText('emergency_contacts.severe_warning')}
+        </p>
         <div class="banner-buttons">
           <a href="tel:119" class="btn-emergency btn-119">
             <span class="icon-badge">📞</span>
-            <span data-i18n="emergency_contacts.call_119">119</span>
+            <span data-i18n="emergency_contacts.call_119">${getI18nText('emergency_contacts.call_119') || '119'}</span>
           </a>
           <a href="tel:110" class="btn-emergency btn-110">
             <span class="icon-badge">📞</span>
-            <span data-i18n="emergency_contacts.call_110">110</span>
+            <span data-i18n="emergency_contacts.call_110">${getI18nText('emergency_contacts.call_110') || '110'}</span>
           </a>
         </div>
       </div>
@@ -209,7 +233,7 @@ class EmergencyGuides {
         <!-- Injected contextually right below the title -->
         ${cellBroadcastNote}
         ${emergencyDialer}
-        
+
         ${immediateAction}
         ${alarmSection}
         ${stepsList ? `
