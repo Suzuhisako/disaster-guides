@@ -2,118 +2,20 @@
    Evacuation Map Application Logic (Canvas Mode with Disaster Filtering)
    ========================================================================== */
 if (typeof window.EvacuationMap === 'undefined') {
+
   const HAZARD_TRANSLATIONS = {
-    zh: {
-      quake: '地震',     
-      tsunami: '海啸',
-      flood: '洪水',
-      landslide: '土砂灾害',  
-      fire: '火灾',
-      surge: '高潮',
-      inland_flood: '内水泛滥',       
-      volcano: '火山噴发',
-      hazard_label: '对应灾害'
-    },    
-    en: {
-      quake: 'Earthquake',     
-      tsunami: 'Tsunami',
-      flood: 'Flood',
-      landslide: 'Landslide', 
-      fire: 'Fire',
-      surge: 'Storm Surge',        
-      inland_flood: 'Inland Flood',
-      volcano: 'Volcano',
-      hazard_label: 'Supported Hazards'
-    },
-    vi: {
-      quake: 'Động đất',
-      tsunami: 'Sóng thần',
-      flood: 'Lũ lụt',
-      landslide: 'Sạt lở đất',
-      fire: 'Hỏa hoạn',
-      surge: 'Triều cường / Sóng lớn',
-      inland_flood: 'Ngập lụt nội thành',
-      volcano: 'Núi lửa phun trào',
-      hazard_label: 'Thảm họa áp dụng'
-    },
-    ko: {
-      quake: '지진',
-      tsunami: '쓰나미(해일)', 
-      flood: '홍수',
-      landslide: '산사태', 
-      fire: '화재', 
-      surge: '폭풍해일',
-      inland_flood: '내수범람', 
-      volcano: '화산분화',
-      hazard_label: '대응 재해'
-    },
-    tl: {
-      quake: 'Lindol', 
-      tsunami: 'Tsunami', 
-      flood: 'Baha',
-      landslide: 'Pagguho ng Lupa',
-      fire: 'Sunog',
-      surge: 'Daluyong ng Dagat',
-      inland_flood: 'Baha sa Loob ng Lungsod', 
-      volcano: 'Pagsabog ng Bulkan',
-      hazard_label: 'Mga Panganib'
-    },
-    pt: {
-      quake: 'Terremoto',
-      tsunami: 'Tsunami',
-      flood: 'Inundação',
-      landslide: 'Deslizamento de terra',
-      fire: 'Incêndio', 
-      surge: 'Ressaca / Calamidade marítima',
-      inland_flood: 'Alagamento urbano',
-      volcano: 'Erupção vulcânica',
-      hazard_label: 'Desastres aplicáveis'
-    },
-    ja: {
-      quake: '地震',
-      tsunami: '津波',
-      flood: '洪水',
-      landslide: '土砂災害',
-      fire: '火災',
-      surge: '高潮',
-      inland_flood: '内水氾濫',
-      volcano: '火山噴火',
-      hazard_label: '対応災害'
-    },
-    'zh-TW': {
-      quake: '地震',
-      tsunami: '海嘯', 
-      flood: '洪水',
-      landslide: '土砂災害', 
-      fire: '火災',
-      surge: '暴潮',
-      inland_flood: '內水氾濫',
-      volcano: '火山噴火',
-      hazard_label: '適用災害'
-    },
-    es: {
-      quake: 'Terremoto',
-      tsunami: 'Tsunami',
-      flood: 'Inundación',
-      landslide: 'Deslizamiento',
-      fire: 'Incendio',
-      surge: 'Marea de tempestad',
-      inland_flood: 'Inundación urbana',
-      volcano: 'Erupción volcánica',
-      hazard_label: 'Peligros'
-    },
-    th: {
-      quake: 'แผ่นดินไหว',
-      tsunami: 'สึนามิ',
-      flood: 'น้ำท่วม',
-      landslide: 'ดินถล่ม',
-      fire: 'ไฟไหม้',
-      surge: 'คลื่นพายุหมุนฝั่ง',
-      inland_flood: 'น้ำท่วมขัง',
-      volcano: 'ภูเขาไฟระเบิด',
-      hazard_label: 'ภัยพิบัติที่รองรับ'
-    }    
+    zh: { quake: '地震', tsunami: '海啸', flood: '洪水', landslide: '土砂灾害', fire: '火灾', surge: '高潮', inland_flood: '内水泛滥', volcano: '火山喷发' },
+    en: { quake: 'Earthquake', tsunami: 'Tsunami', flood: 'Flood', landslide: 'Landslide', fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano' },
+    vi: { quake: 'Động đất', tsunami: 'Sóng thần', flood: 'Lũ lụt', landslide: 'Sạt lở đất', fire: 'Hỏa hoạn', surge: 'Triều cường', inland_flood: 'Ngập lụt nội thành', volcano: 'Núi lửa phun trào' },
+    ko: { quake: '지진', tsunami: '쓰나미(해일)', flood: '홍수', landslide: '산사태', fire: '화재', surge: '폭풍해일', inland_flood: '내수범람', volcano: '화산분화' },
+    tl: { quake: 'Lindol', tsunami: 'Tsunami', flood: 'Baha', landslide: 'Pagguho ng Lupa', fire: 'Sunog', surge: 'Daluyong ng Dagat', inland_flood: 'Baha sa Lungsod', volcano: 'Pagsabog ng Bulkan' },
+    pt: { quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundação', landslide: 'Deslizamento', fire: 'Incêndio', surge: 'Ressaca', inland_flood: 'Alagamento urbano', volcano: 'Erupção vulcânica' },
+    ja: { quake: '地震', tsunami: '津波', flood: '洪水', landslide: '土砂災害', fire: '火災', surge: '高潮', inland_flood: '内水氾濫', volcano: '火山噴火' },
+    'zh-TW': { quake: '地震', tsunami: '海嘯', flood: '洪水', landslide: '土砂災害', fire: '火災', surge: '暴潮', inland_flood: '內水氾濫', volcano: '火山噴火' },
+    es: { quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundación', landslide: 'Deslizamiento', fire: 'Incendio', surge: 'Marea de tempestad', inland_flood: 'Inundación urbana', volcano: 'Erupción volcánica' },
+    th: { quake: 'แผ่นดินไหว', tsunami: 'สึนามิ', flood: 'น้ำท่วม', landslide: 'ดินถล่ม', fire: 'ไฟไหม้', surge: 'คลื่นพายุหมุนฝั่ง', inland_flood: 'น้ำท่วมขัง', volcano: 'ภูเขาไฟระเบิด' }
   };
+
   class EvacuationMap {
     constructor() {
       this.map = null;
@@ -160,7 +62,7 @@ if (typeof window.EvacuationMap === 'undefined') {
             this.userLocationLayer = null;
           }
 
-          this.loadShelterData(selectedPref);
+          this.loadShelterData(selectedPref, true);
         });
       }
     }
@@ -168,26 +70,26 @@ if (typeof window.EvacuationMap === 'undefined') {
     /**
      * Dynamically fetches regional JSON data (e.g. kanagawa.json)
      */
-     async loadShelterData(prefecture = 'tokyo') {
+    async loadShelterData(prefecture = 'tokyo', autoFit = true) {
       try {
         const response = await fetch(`./locators/content/prefectures/${prefecture}.json`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
-        this.setShelterData(data);
+        this.setShelterData(data, autoFit);
       } catch (error) {
         console.error(`Failed to load shelter data for ${prefecture}:`, error);
       }
     }
 
-    setShelterData(data) {
+    setShelterData(data, autoFit = true) {
       this.shelterData = data;
       if (this.map) {
         this.renderShelters();
 
-        // Auto-fit map boundaries to selected prefecture features
-        if (this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
+        // Auto-fit map boundaries only when explicitly requested (e.g., manual prefecture selection)
+        if (autoFit && this.shelterLayer && typeof this.shelterLayer.getBounds === 'function') {
           const bounds = this.shelterLayer.getBounds();
           if (bounds.isValid()) {
             this.map.fitBounds(bounds, { padding: [30, 30] });
@@ -212,21 +114,19 @@ if (typeof window.EvacuationMap === 'undefined') {
         this.map.removeLayer(this.shelterLayer);
       }
 
-      const currentLang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'en');
+      const activeLang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'en');
+      const activeLangMap = HAZARD_TRANSLATIONS[activeLang] || HAZARD_TRANSLATIONS['en'];
       const canvasRenderer = L.canvas({ padding: 0.5, tolerance: 10 });
 
       this.shelterLayer = L.geoJSON(data, {
         renderer: canvasRenderer,
 
-        // --- Filter features dynamically by disaster category ---
         filter: (feature) => {
           const props = feature.properties || {};
-
           if (this.selectedCategory !== 'all') {
             const disasters = props.disasters || [];
             return Array.isArray(disasters) && disasters.includes(this.selectedCategory);
           }
-
           return true;
         },
 
@@ -243,109 +143,56 @@ if (typeof window.EvacuationMap === 'undefined') {
         },
 
         onEachFeature: (feature, layer) => {
-           const props = feature.properties || {};
-         
-           // --- 1. Japanese Name Ground Truth ---
-           let shelterName = '';
-           if (props.name && typeof props.name === 'object') {
-             // Always prefer Japanese for name so it matches local signs and physical maps
-             shelterName = props.jp_name || props.name['ja'] || props.name['jp'] || props.name['zh'] || props.name['en'];
-           } else {
-             shelterName = props.jp_name || props.name || '避難所';
-           }
-           
-           // --- 2. Japanese Address Ground Truth ---
-           let shelterAddress = '';
-           if (props.address && typeof props.address === 'object') {
-             // Always prefer Japanese address for navigation/asking locals
-             shelterAddress = props.address['ja'] || props.address['jp'] || props.address['zh'] || props.address['en'] || '';
-           } else {
-             shelterAddress = props.address || '';
-           }
-           
-           // --- 3. Localized Disaster Category Badges ---
-           const HAZARD_MAP = {
-             zh: {
-               quake: '地震', tsunami: '海啸', flood: '洪水',
-               landslide: '土砂灾害', fire: '火灾', surge: '高潮', inland_flood: '内水泛滥', 
-               volcano: '火山喷发', hazard_label: '对应灾害'
-             },        
-             en: {
-               quake: 'Earthquake', tsunami: 'Tsunami', flood: 'Flood', landslide: 'Landslide', 
-               fire: 'Fire', surge: 'Storm Surge', inland_flood: 'Inland Flood', volcano: 'Volcano',
-               hazard_label: 'Supported Hazards'
-             },
-             vi: {
-               quake: 'Động đất', tsunami: 'Sóng thần', flood: 'Lũ lụt',
-               landslide: 'Sạt lở đất', fire: 'Hỏa hoạn', surge: 'Triều cường / Sóng lớn',
-               inland_flood: 'Ngập lụt nội thành', volcano: 'Núi lửa phun trào',
-               hazard_label: 'Thảm họa áp dụng'
-             }, 
-             ko: {
-               quake: '지진', tsunami: '쓰나미(해일)', flood: '홍수',
-               landslide: '산사태', fire: '화재', surge: '폭풍해일',
-               inland_flood: '내수범람', volcano: '화산분화',
-               hazard_label: '대응 재해'
-             },
-             tl: {
-               quake: 'Lindol', tsunami: 'Tsunami', flood: 'Baha',
-               landslide: 'Pagguho ng Lupa', fire: 'Sunog', surge: 'Daluyong ng Dagat',
-                inland_flood: 'Baha sa Loob ng Lungsod', volcano: 'Pagsabog ng Bulkan',
-               hazard_label: 'Mga Panganib'
-             },
-             pt: {
-               quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundação',
-               landslide: 'Deslizamento de terra', fire: 'Incêndio', surge: 'Ressaca / Calamidade marítima',
-               inland_flood: 'Alagamento urbano', volcano: 'Erupção vulcânica',
-               hazard_label: 'Desastres aplicáveis'
-             },
-             ja: {
-               quake: '地震', tsunami: '津波', flood: '洪水',
-               landslide: '土砂災害', fire: '火災', surge: '高潮',
-               inland_flood: '内水氾濫', volcano: '火山噴火',
-               hazard_label: '対応災害'
-             },
-             'zh-TW': {
-               quake: '地震', tsunami: '海嘯', flood: '洪水',
-               landslide: '土砂災害', fire: '火災', surge: '暴潮', inland_flood: '內水氾濫',
-               volcano: '火山噴火', hazard_label: '適用災害'
-             },
-             es: {
-               quake: 'Terremoto', tsunami: 'Tsunami', flood: 'Inundación',
-               landslide: 'Deslizamiento', fire: 'Incendio', surge: 'Marea de tempestad',
-               inland_flood: 'Inundación urbana', volcano: 'Erupción volcánica',
-               hazard_label: 'Peligros'
-             },
-             th: {
-               quake: 'แผ่นดินไหว', tsunami: 'สึนามิ', flood: 'น้ำท่วม',
-               landslide: 'ดินถล่ม', fire: 'ไฟไหม้', surge: 'คลื่นพายุหมุนฝั่ง',
-               inland_flood: 'น้ำท่วมขัง', volcano: 'ภูเขาไฟระเบิด',
-               hazard_label: 'ภัยพิบัติที่รองรับ'
-             }             
-          };
-           
-           // Resolve active language with safe fallback
-           const activeLang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'zh');
-           const activeLangMap = HAZARD_MAP[activeLang] || HAZARD_MAP['zh'];
-           const disasters = props.disasters || [];
-           
-           const disasterBadges = disasters.map(d => {
-             const cleanKey = String(d).toLowerCase().trim();
-             const localizedLabel = activeLangMap[cleanKey] || d; // Translate key or fallback to raw string
-             
-             return `<span style="display:inline-block; background:#ffebee; color:#c62828; font-size:0.7rem; padding:2px 6px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(localizedLabel)}</span>`;
-           }).join('');
-           
-           const popupContent = `
-             <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
-               <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
-               ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
-               ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
-             </div>
-           `;
-           
-           layer.bindPopup(popupContent);
-         }
+          const props = feature.properties || {};
+          const coords = feature.geometry ? feature.geometry.coordinates : null;
+          
+          // 1. Japanese Name Ground Truth (Crucial for showing locals in Japan)
+          let shelterName = '';
+          if (props.name && typeof props.name === 'object') {
+            shelterName = props.jp_name || props.name['ja'] || props.name['jp'] || props.name['zh'] || props.name['en'];
+          } else {
+            shelterName = props.jp_name || props.name || '避難所';
+          }
+          
+          // 2. Japanese Address Ground Truth
+          let shelterAddress = '';
+          if (props.address && typeof props.address === 'object') {
+            shelterAddress = props.address['ja'] || props.address['jp'] || props.address['zh'] || props.address['en'] || '';
+          } else {
+            shelterAddress = props.address || '';
+          }
+          
+          // 3. Localized Disaster Category Badges
+          const disasters = props.disasters || [];
+          const disasterBadges = disasters.map(d => {
+            const cleanKey = String(d).toLowerCase().trim();
+            const localizedLabel = activeLangMap[cleanKey] || d;
+            
+            return `<span style="display:inline-block; background:#ffebee; color:#c62828; font-size:0.7rem; padding:2px 6px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(localizedLabel)}</span>`;
+          }).join('');
+
+          // 4. Navigation Link
+          const navButton = (coords && coords.length >= 2) ? `
+            <div style="margin-top: 8px; border-top: 1px solid #f1f5f9; padding-top: 6px;">
+              <a href="https://www.google.com/maps/dir/?api=1&destination=${coords[1]},${coords[0]}" 
+                 target="_blank" rel="noopener noreferrer" 
+                 style="display: inline-block; background: #2563eb; color: #ffffff; text-decoration: none; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px;">
+                 🗺️ Google Maps
+              </a>
+            </div>
+          ` : '';
+          
+          const popupContent = `
+            <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
+              <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
+              ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
+              ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
+              ${navButton}
+            </div>
+          `;
+          
+          layer.bindPopup(popupContent);
+        }
       }).addTo(this.map);
     }
 
@@ -378,83 +225,68 @@ if (typeof window.EvacuationMap === 'undefined') {
      * Centers map on user device geolocation and updates shelter data
      */
     locateUser() {
-     if (!this.map || !navigator.geolocation) return;
-   
-     navigator.geolocation.getCurrentPosition(
-       async (position) => {
-         const { latitude, longitude } = position.coords;
-         const latlng = [latitude, longitude];
-   
-         // 1. Identify Prefecture
-         const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
-   
-         const selectEl = document.getElementById('prefectureSelect');
-         if (selectEl && selectEl.value !== detectedPref) {
-           selectEl.value = detectedPref;
-         }
-   
-         // 2. Fetch data first
-         await this.loadShelterData(detectedPref, false);
-   
-         // 3. Render / Update User Marker
-         if (this.userLocationLayer) {
-           this.map.removeLayer(this.userLocationLayer);
-         }
-   
-         this.userLocationLayer = L.circleMarker(latlng, {
-           radius: 9,
-           fillColor: '#007bff',
-           color: '#ffffff',
-           weight: 3,
-           opacity: 1,
-           fillOpacity: 0.9,
-           zIndexOffset: 2000,
-           className: 'pulse-location-marker'
-         }).addTo(this.map);
-   
-         // 4. Force map camera lock
-         // Stop any pending view animations or pan sequences
-         this.map.stop();
-         
-         // Force immediate view jump first, then smooth zoom
-         this.map.setView(latlng, 16, { animate: false });
-         this.map.invalidateSize();
-   
-         // Open popup after map camera has settled
-         // Open popup after map camera has settled
-         setTimeout(() => {
-           if (this.userLocationLayer) {
-             // 1. Determine current active language
-             const lang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'zh');
-         
-             // 2. Select localized popup text based on language
-             const popupText = {
-               'zh': '你在这里',              
-               'en': 'You are here',
-               'vi': 'Bạn đang ở đây',
-               'ko': '현재 위치',
-               'tl': 'Nandito ka',
-               'pt': 'Você está aqui',
-               'ja': '現在地',
-               'zh-TW': '您在這裡',
-               'es': 'Estás aquí',
-               'th': 'คุณอยู่ที่นี่'               
-             }[lang] || '你在这里'; // Default fallback
-         
-             // 3. Bind popup with localized string
-             this.userLocationLayer.bindPopup(popupText, {
-               autoPan: true,
-               autoPanPadding: [50, 50]
-             }).openPopup();
-           }
-         }, 300);
-       },
-       (error) => {
-         console.warn('Geolocation error:', error);
-       },
-       { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-     );
-   }
+      if (!this.map || !navigator.geolocation) return;
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          const latlng = [latitude, longitude];
+
+          // 1. Identify Prefecture
+          const detectedPref = this.getPrefectureFromCoords(latitude, longitude);
+
+          const selectEl = document.getElementById('prefectureSelect');
+          if (selectEl && selectEl.value !== detectedPref) {
+            selectEl.value = detectedPref;
+          }
+
+          // 2. Fetch data without auto-fitting bounds over the user view
+          await this.loadShelterData(detectedPref, false);
+
+          // 3. Render / Update User Marker
+          if (this.userLocationLayer) {
+            this.map.removeLayer(this.userLocationLayer);
+          }
+
+          this.userLocationLayer = L.circleMarker(latlng, {
+            radius: 9,
+            fillColor: '#007bff',
+            color: '#ffffff',
+            weight: 3,
+            opacity: 1,
+            fillOpacity: 0.9,
+            zIndexOffset: 2000,
+            className: 'pulse-location-marker'
+          }).addTo(this.map);
+
+          // 4. Force map camera lock directly on user pin
+          this.map.stop();
+          this.map.setView(latlng, 16, { animate: false });
+          this.map.invalidateSize();
+
+          // 5. Open popup with localized text
+          setTimeout(() => {
+            if (this.userLocationLayer) {
+              const lang = window.currentLang || (window.i18n ? window.i18n.currentLang : 'en');
+              const popupText = {
+                'zh': '你在这里', 'en': 'You are here', 'vi': 'Bạn đang ở đây',
+                'ko': '현재 위치', 'tl': 'Nandito ka', 'pt': 'Você está aqui',
+                'ja': '現在地', 'zh-TW': '您在這裡', 'es': 'Estás aquí', 'th': 'คุณอยู่ที่นี่'
+              }[lang] || 'You are here';
+
+              this.userLocationLayer.bindPopup(popupText, {
+                autoPan: true,
+                autoPanPadding: [50, 50]
+              }).openPopup();
+            }
+          }, 300);
+        },
+        (error) => {
+          console.warn('Geolocation error:', error);
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
 
     refreshMapSize() {
       if (this.map) {
