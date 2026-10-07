@@ -25,7 +25,7 @@
     "call_119": "119 (Ambulancia y Bomberos)",
     "call_110": "110 (Policía)",
     "severe_warning": "Si la persona está confundida, no responde o está gravemente herida, llame de inmediato al 119 (Ambulancia/Bomberos) o al 110 (Policía)."
-    "En caso de terremoto o maremoto, su teléfono emitirá una alarma sonora y mostrará un mensaje de alerta de emergencia."
+    "cell_broadcast_note": "En caso de terremoto o maremoto, su teléfono emitirá una alarma sonora y mostrará un mensaje de alerta de emergencia."
   },
   "map": {
     "filter_all": "Riesgo: Todos", "filter_quake": "Terremoto", "filter_tsunami": "Tsunami",
