@@ -412,6 +412,43 @@ body {
     flex: 1 1 100%;
   }
 }
+
+/* Cell Broadcast Warning Note */
+.cell-broadcast-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 4px solid #2563eb;
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.cell-broadcast-box .broadcast-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.cell-broadcast-box .broadcast-text {
+  color: #1e40af;
+  font-size: 0.84375rem;
+  font-weight: 500;
+  line-height: 1.45;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .cell-broadcast-box {
+    padding: 0.75rem 0.875rem;
+  }
+  .cell-broadcast-box .broadcast-text {
+    font-size: 0.8125rem;
+  }
+}
 /* ==========================================================================
    Disaster Guide Cards Layout
    ========================================================================== */
