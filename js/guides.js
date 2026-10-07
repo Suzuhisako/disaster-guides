@@ -144,6 +144,31 @@ class EmergencyGuides {
     const labels = this.getLabels();
     const iconSpan = guide.icon ? `<span class="guide-icon">${guide.icon}</span> ` : '';
 
+    // 1. Contextual Cell Broadcast Note (For Earthquake)
+    const cellBroadcastNote = guide.show_cell_broadcast_note ? `
+      <div class="cell-broadcast-box">
+        <span class="broadcast-icon">📲</span>
+        <p class="broadcast-text" data-i18n="emergency_contacts.cell_broadcast_note"></p>
+      </div>
+    ` : '';
+  
+    // 2. Contextual Emergency Dialer Banner (For Heatstroke)
+    const emergencyDialer = guide.show_emergency_dialer ? `
+      <div class="emergency-call-banner">
+        <p class="banner-text" data-i18n="emergency_contacts.severe_warning"></p>
+        <div class="banner-buttons">
+          <a href="tel:119" class="btn-emergency btn-119">
+            <span class="icon-badge">📞</span>
+            <span data-i18n="emergency_contacts.call_119">119</span>
+          </a>
+          <a href="tel:110" class="btn-emergency btn-110">
+            <span class="icon-badge">📞</span>
+            <span data-i18n="emergency_contacts.call_110">110</span>
+          </a>
+        </div>
+      </div>
+    ` : '';
+
     // Support sound_description, meaning, or direct fallback
     const alarmDesc = guide.alarm
       ? (guide.alarm.sound_description || guide.alarm.meaning || '')
@@ -180,6 +205,11 @@ class EmergencyGuides {
     return `
       <article class="guide-card" id="guide-${this.escapeHtml(guide.id)}">
         <h3 class="guide-title">${iconSpan}${this.escapeHtml(guide.title)}</h3>
+
+        <!-- Injected contextually right below the title -->
+        ${cellBroadcastNote}
+        ${emergencyDialer}
+        
         ${immediateAction}
         ${alarmSection}
         ${stepsList ? `
