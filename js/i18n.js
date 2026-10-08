@@ -28,7 +28,10 @@ class I18nManager {
     this.setupEventListeners();
 
     await this.setLanguage(initialLang);
-  }
+     
+    // Signal that i18n is initialized and ready
+    document.body.classList.add('i18n-ready');
+ }
 
   /**
    * Binds click events to language toggle buttons
