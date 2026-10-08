@@ -261,7 +261,7 @@ if (typeof window.EvacuationMap === 'undefined') {
 
           // 4. Force map camera lock directly on user pin
           this.map.stop();
-          this.map.setView(latlng, 6, { animate: false });
+          this.map.setView(latlng, 9, { animate: false });
           this.map.invalidateSize();
 
           // 5. Open popup with localized text
