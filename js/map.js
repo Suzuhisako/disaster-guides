@@ -170,26 +170,14 @@ if (typeof window.EvacuationMap === 'undefined') {
             
             return `<span style="display:inline-block; background:#ffebee; color:#c62828; font-size:0.7rem; padding:2px 6px; border-radius:3px; margin-right:3px; margin-top:3px; font-weight:600;">${this.escapeHtml(localizedLabel)}</span>`;
           }).join('');
-
-          // 4. Navigation Link
-          const navButton = (coords && coords.length >= 2) ? `
-            <div style="margin-top: 8px; border-top: 1px solid #f1f5f9; padding-top: 6px;">
-              <a href="https://www.google.com/maps/dir/?api=1&destination=${coords[1]},${coords[0]}" 
-                 target="_blank" rel="noopener noreferrer" 
-                 style="display: inline-block; background: #2563eb; color: #ffffff; text-decoration: none; font-size: 0.75rem; font-weight: 600; padding: 4px 8px; border-radius: 4px;">
-                 🗺️ Google Maps
-              </a>
-            </div>
-          ` : '';
-          
+                  
           const popupContent = `
-            <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
-              <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
-              ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
-              ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
-              ${navButton}
-            </div>
-          `;
+           <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; min-width: 180px;">
+             <h4 style="margin: 0 0 6px 0; color: #1e293b; font-size: 0.95rem; font-weight: bold;">📍 ${this.escapeHtml(shelterName)}</h4>
+             ${shelterAddress ? `<p style="margin: 0 0 4px 0; font-size: 0.8rem; color: #64748b; line-height: 1.3;">${this.escapeHtml(shelterAddress)}</p>` : ''}
+             ${disasterBadges ? `<div style="margin-top: 4px;">${disasterBadges}</div>` : ''}
+           </div>
+         `;
           
           layer.bindPopup(popupContent);
         }
