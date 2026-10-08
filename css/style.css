@@ -46,6 +46,15 @@ body {
   padding-bottom: 2rem;
 }
 
+/* Prevent layout flash during initial i18n load */
+body:not(.i18n-ready) .tab-content {
+  opacity: 0;
+  transition: opacity 0.15s ease-in;
+}
+body.i18n-ready .tab-content {
+  opacity: 1;
+}
+
 /* ==========================================================================
    Header Navigation Bar
    ========================================================================== */
