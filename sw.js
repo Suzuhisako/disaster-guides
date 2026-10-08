@@ -1,4 +1,4 @@
-const CACHE_NAME = 'disaster-guide-v12';
+const CACHE_NAME = 'disaster-guide-v13';
 
 // Ensure these paths match your actual repository file structure exactly
 const PRECACHE_ASSETS = [
@@ -32,7 +32,7 @@ const PRECACHE_ASSETS = [
   './locators/content/guides_ko.json',
   './locators/content/guides_tl.json',
   './locators/content/guides_pt.json',
-  './locators/content/guides_zh-TW.json',
+  './locators/content/guides_zh-tw.json',
   './locators/content/guides_es.json',
   './locators/content/guides_th.json',
   
