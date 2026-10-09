@@ -42,6 +42,21 @@ Built with multilingual support across 10 major languages, offline capabilities,
 
 * **📱 Responsive Mobile-First Design:** Optimized header layout (`flex-column` scrolling overflow) to prevent title clipping across long character sets (e.g., Thai, Tagalog, Vietnamese).
 
+## 🔗 URL Query Parameters & Smart Onboarding
+
+The application supports URL parameters for customized onboarding, localized poster/QR code distribution, and regional entry points.
+
+| Parameter | Values | Description | Example |
+| :--- | :--- | :--- | :--- |
+| `lang` | `en`, `ja`, `zh`, `zh-TW`, `vi`, `ko`, `tl`, `pt`, `es`, `th` | Overrides auto-detected language | `?lang=vi` |
+| `pref` | `tokyo`, `kanagawa`, `chiba`, `saitama`, etc. | Sets initial shelter map prefecture | `?pref=kanagawa` |
+
+### Combined Usage
+Query parameters can be chained together for targeted QR links:
+`https://yourdomain.com/?pref=kanagawa&lang=vi`
+
+> **Note:** Parameters take highest priority on first load, after which the user's manual choices are saved to `localStorage`.
+
 ## 📂 Project Structure
 
 ```
