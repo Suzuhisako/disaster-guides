@@ -1,6 +1,6 @@
 {
   "app": { "title": "Microguía de Emergencias" },
-  "nav": { "guides": "Guías de Emergencia", "map": "Mapa de Evacuación" },
+  "nav": { "guides": "Guías de Emergencia", "map": "Mapa de refugios de emergencia" },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
