@@ -4,7 +4,7 @@
   },
   "nav": {
     "guides": "Emergency Guides",
-    "map": "Evacuation Map"
+    "map": "Emergency Shelter Map"
   },
   "alarms": {
     "earthquake_early": {
