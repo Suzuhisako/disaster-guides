@@ -12,15 +12,34 @@ class I18nManager {
     this.shelterData = null;
   }
 
-  /**
-   * Initializes language based on saved preference or browser settings
+/**
+   * Initializes language based on URL query parameters, saved preference, or browser settings
    */
   async init() {
+    const supportedLangs = ['en', 'zh', 'zh-TW', 'ja', 'vi', 'ko', 'tl', 'pt', 'es', 'th'];
+
+    // 1. Extract ?lang= parameter from URL query string
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+
+    // Normalize URL language string if present
+    let formattedUrlLang = null;
+    if (urlLang) {
+      const lower = urlLang.toLowerCase();
+      if (lower === 'zh-tw' || lower === 'zh_tw') {
+        formattedUrlLang = 'zh-TW';
+      } else {
+        formattedUrlLang = lower.slice(0, 2);
+      }
+    }
+
     const savedLang = localStorage.getItem('app_lang');
     const browserLang = navigator.language ? navigator.language.slice(0, 2) : 'en';
-    
-    let initialLang = savedLang || browserLang;
-    if (!['en', 'zh', 'zh-TW', 'ja', 'vi', 'ko', 'tl', 'pt', 'es', 'th'].includes(initialLang)) {
+
+    // 2. Precedence: URL parameter > Saved preference > Browser language > Fallback 'en'
+    let initialLang = formattedUrlLang || savedLang || browserLang;
+
+    if (!supportedLangs.includes(initialLang)) {
       initialLang = 'en';
     }
 
@@ -28,24 +47,9 @@ class I18nManager {
     this.setupEventListeners();
 
     await this.setLanguage(initialLang);
-     
+
     // Signal that i18n is initialized and ready
     document.body.classList.add('i18n-ready');
- }
-
-  /**
-   * Binds click events to language toggle buttons
-   */
-  setupEventListeners() {
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.lang-btn, [data-lang]');
-      if (btn) {
-        const targetLang = btn.getAttribute('data-lang');
-        if (targetLang && targetLang !== this.currentLang) {
-          this.setLanguage(targetLang);
-        }
-      }
-    });
   }
 
   /**
