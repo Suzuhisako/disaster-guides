@@ -1,6 +1,6 @@
 {
   "app": { "title": "คู่มือรับมือภัยพิบัติฉบับย่อ" },
-  "nav": { "guides": "คู่มือฉุกเฉิน", "map": "แผนที่จุดอพยพ" },
+  "nav": { "guides": "คู่มือฉุกเฉิน", "map": "แผนที่ศูนย์พักพิงฉุกเฉิน" },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
