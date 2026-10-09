@@ -1,6 +1,6 @@
 {
   "app": { "title": "防災微指南" },
-  "nav": { "guides": "緊急指南", "map": "避難地圖" },
+  "nav": { "guides": "緊急指南", "map": "緊急避難所地圖" },
   "alarms": {
     "earthquake_early": {
       "japanese_phrase": "緊急地震速報 (Kinkyu Jishin Sokuhou)",
