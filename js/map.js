@@ -26,7 +26,7 @@ if (typeof window.EvacuationMap === 'undefined') {
     }
 
     /**
-     * Initializes the Leaflet map with preferCanvas enabled
+     * Initializes the Leaflet map with preferCanvas enabled and handles URL prefecture parameters
      */
     initMap(containerId = 'mapArea') {
       const mapElement = document.getElementById(containerId);
@@ -48,11 +48,17 @@ if (typeof window.EvacuationMap === 'undefined') {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(this.map);
 
-      // Load initial Tokyo data
-      this.loadShelterData('tokyo');
+      // 1. Determine initial prefecture: URL parameter > localStorage > default ('tokyo')
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPref = urlParams.get('pref')?.toLowerCase().trim();
+      const savedPref = localStorage.getItem('app_pref');
+      const initialPref = urlPref || savedPref || 'tokyo';
 
+      // 2. Sync <select id="prefectureSelect"> DOM element if it exists
       const selectEl = document.getElementById('prefectureSelect');
       if (selectEl) {
+        selectEl.value = initialPref;
+
         selectEl.addEventListener('change', (e) => {
           const selectedPref = e.target.value;
           
@@ -62,9 +68,15 @@ if (typeof window.EvacuationMap === 'undefined') {
             this.userLocationLayer = null;
           }
 
+          // Persist user selection
+          localStorage.setItem('app_pref', selectedPref);
+
           this.loadShelterData(selectedPref, true);
         });
       }
+
+      // 3. Load initial target prefecture data
+      this.loadShelterData(initialPref);
     }
 
     /**
