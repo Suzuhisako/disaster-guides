@@ -53,6 +53,21 @@ class I18nManager {
   }
 
   /**
+   * click event listeners to language switcher buttons
+   */
+  setupEventListeners() {
+    const langBtns = document.querySelectorAll('.lang-btn, [data-lang]');
+    langBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const selectedLang = e.currentTarget.getAttribute('data-lang');
+        if (selectedLang) {
+          this.setLanguage(selectedLang);
+        }
+      });
+    });
+  }
+
+  /**
    * Switches active language and re-renders UI + shelters map + disaster guides
    */
    async setLanguage(lang) {
